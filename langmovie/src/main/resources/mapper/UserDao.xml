@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.langlang.langmovie.dao.UserDao">
+    <select id="getUserById" resultType="cn.langlang.langmovie.entity.TestUser">
+        select username,password
+        from test_user
+        WHERE user_id = #{userId}
+    </select>
+</mapper>
