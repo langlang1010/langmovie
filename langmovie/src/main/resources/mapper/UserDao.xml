@@ -4,9 +4,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.langlang.langmovie.dao.UserDao">
-    <select id="getUserById" resultType="cn.langlang.langmovie.entity.TestUser">
-        select username,password
-        from test_user
-        WHERE user_id = #{userId}
+    <select id="getUserById" resultType="cn.langlang.langmovie.entity.User">
+        select username,password,uk_phone,gmt_create,gmt_modified,role,money
+        from user
+        WHERE pk_userid = #{userId}
+    </select>
+    <insert id="insertUser" parameterType="cn.langlang.langmovie.entity.User"
+            useGeneratedKeys="true" keyProperty="pkUserid">
+        insert into user(username,password,uk_phone,
+                          role,money,gmt_create,gmt_modified)
+        values(
+          #{username},#{password},#{ukPhone},
+          #{role},#{money},#{gmtCreate},#{gmtModified}
+        )
+    </insert>
+    <update id="updateUser" parameterType="cn.langlang.langmovie.entity.User">
+        update user
+        set username=#{username},password=#{password},uk_phone=#{ukPhone},
+            role=#{role},money=#{money},gmt_modified=#{gmtModified}
+        where pk_userid = #{pkUserid}
+    </update>
+    <delete id="deleteUser" parameterType="cn.langlang.langmovie.entity.User">
+        delete from user
+        where pk_userid = #{pkUserid}
+    </delete>
+    <select id="listUser" resultType="cn.langlang.langmovie.entity.User">
+        select pk_userid,username,password,uk_phone,gmt_create,gmt_modified,role,money
+        from user
+        order by pk_userid
+        limit #{page1},#{num}
     </select>
 </mapper>

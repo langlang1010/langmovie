@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.langlang.langmovie.dao.UserInfoDao">
+    <insert id="insertUserInfo" parameterType="cn.langlang.langmovie.entity.UserInfo">
+      insert into user_info(
+        pk_userid,openid,nickname,gender,city,province,
+        country,avatar_url,gmt_create,gmt_modified
+      ) values(
+        #{pkUserid},#{openid},#{nickname},#{gender},#{city},#{province},
+        #{country},#{avatarUrl},#{gmtCreate},#{gmtModified}
+      )
+    </insert>
+    <update id="updateUserInfo" parameterType="cn.langlang.langmovie.entity.UserInfo">
+        update user_info
+        set openid=#{openid}, nickname=#{nickname}, gender=#{gender}, city=#{city},
+         province=#{province}, country=#{country}, avatar_url=#{avatarUrl}, gmt_create=#{gmtCreate},
+         gmt_modified=#{gmtModified}
+        where pk_userid=#{pkUserid}
+    </update>
+    <select id="getUserInfo" parameterType="cn.langlang.langmovie.entity.UserInfo"
+        resultType="cn.langlang.langmovie.entity.UserInfo">
+        select pk_userid,openid,nickname,gender,city,province,
+                country,avatar_url,gmt_create,gmt_modified
+        from user_info
+        where pk_userid=#{pkUserid}
+    </select>
+    <select id="listUserInfo" resultType="cn.langlang.langmovie.entity.UserInfo">
+        select pk_userid,openid,nickname,gender,city,province,
+                country,avatar_url,gmt_create,gmt_modified
+        from user_info
+        order by pk_userid
+        limit #{page1},#{num}
+    </select>
+    <delete id="deleteUserInfo" parameterType="cn.langlang.langmovie.entity.UserInfo">
+        delete from user_info
+        where pk_userid=#{pkUserid}
+    </delete>
+</mapper>

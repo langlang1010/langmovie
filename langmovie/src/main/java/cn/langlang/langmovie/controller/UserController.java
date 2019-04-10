@@ -1,6 +1,6 @@
 package cn.langlang.langmovie.controller;
 
-import cn.langlang.langmovie.entity.TestUser;
+import cn.langlang.langmovie.entity.User;
 import cn.langlang.langmovie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ public class UserController {
     @GetMapping("/user")
     private Map<String,Object> findUserById(Integer userId){
         Map<String,Object> modelMap=new HashMap<>();
-        TestUser user = userService.getUserById(userId);
+        User user = userService.getUserById(userId);
         modelMap.put("user",user);
         return modelMap;
     }

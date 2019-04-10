@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.langlang.langmovie.dao.MovieDao">
+    <insert id="insertMovie" parameterType="cn.langlang.langmovie.entity.Movie"
+            useGeneratedKeys="true" keyProperty="pkMovieid">
+      insert into movie(movie_name,movie_release,
+              introduction,movie_type,gmt_create,gmt_modified)
+      values(#{movieName},#{movieRelease},#{introduction},
+            #{movieType},#{gmtCreate},#{gmtModified})
+    </insert>
+    <select id="getMovieById" parameterType="cn.langlang.langmovie.entity.Movie"
+                resultType="cn.langlang.langmovie.entity.Movie">
+        select pk_movieid,movie_name,movie_release,
+              introduction,movie_type,gmt_create,gmt_modified
+        from movie
+        where pk_movieid=#{pkMovieid}
+    </select>
+
+    <update id="updateMovie" parameterType="cn.langlang.langmovie.entity.Movie">
+        update movie
+        set
+        <trim suffixOverrides="," >
+            <if test="movieName!=null">
+              movie_name=#{movieName},
+            </if>
+            <if test="gmtCreate!=null">
+                gmt_create=#{gmtCreate},
+            </if>
+            <if test="gmtModified!=null">
+                gmt_modified=#{gmtModified},
+            </if>
+            <if test="movieRelease!=null">
+                movie_release=#{movieRelease},
+            </if>
+            <if test="introduction!=null">
+                introduction=#{introduction},
+            </if>
+            <if test="movieType!=null">
+                movie_type=#{movieType}
+            </if>
+        </trim>
+        where pk_movieid=#{pkMovieid}
+    </update>
+    <delete id="deleteMovie" parameterType="cn.langlang.langmovie.entity.Movie">
+        delete from movie
+        where pk_movieid=#{pkMovieid}
+    </delete>
+    <select id="listMovie" resultType="cn.langlang.langmovie.entity.Movie">
+         select pk_movieid,movie_name,movie_release,
+              introduction,movie_type,gmt_create,gmt_modified
+        from movie
+        order by pk_movieid
+        limit #{page1},#{num}
+    </select>
+</mapper>

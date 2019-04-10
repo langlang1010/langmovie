@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50635
 File Encoding         : 65001
 
-Date: 2019-04-10 17:19:23
+Date: 2019-04-10 20:57:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -92,11 +92,12 @@ CREATE TABLE `movie` (
   `gmt_create` datetime NOT NULL,
   `gmt_modified` datetime NOT NULL,
   PRIMARY KEY (`pk_movieid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of movie
 -- ----------------------------
+INSERT INTO `movie` VALUES ('1', '三个和尚', null, null, null, '2019-04-10 20:56:47', '2019-04-10 20:56:47');
 
 -- ----------------------------
 -- Table structure for `movie_actor`
@@ -108,7 +109,7 @@ CREATE TABLE `movie_actor` (
   `actor_url` varchar(150) NOT NULL,
   `gmt_create` datetime NOT NULL,
   `gmt_modified` datetime NOT NULL,
-  KEY `pk_actorid` (`pk_actorid`),
+  PRIMARY KEY (`pk_actorid`),
   CONSTRAINT `movie_actor_ibfk_1` FOREIGN KEY (`pk_actorid`) REFERENCES `movie` (`pk_movieid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -195,11 +196,23 @@ CREATE TABLE `user` (
   `money` float unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`pk_userid`),
   UNIQUE KEY `uk_phone` (`uk_phone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('1', null, null, null, '2019-04-10 17:31:54', '2019-04-10 19:18:11', null, '98.5');
+INSERT INTO `user` VALUES ('3', null, null, '3', '2019-04-10 18:37:23', '2019-04-10 18:37:23', null, '0');
+INSERT INTO `user` VALUES ('5', null, null, null, '2019-04-10 18:39:29', '2019-04-10 18:39:29', null, '0');
+INSERT INTO `user` VALUES ('6', null, null, null, '2019-04-10 18:40:00', '2019-04-10 18:40:00', null, '0');
+INSERT INTO `user` VALUES ('7', null, null, null, '2019-04-10 18:44:44', '2019-04-10 18:44:44', null, '0');
+INSERT INTO `user` VALUES ('8', null, null, null, '2019-04-10 18:45:26', '2019-04-10 18:45:26', null, '0');
+INSERT INTO `user` VALUES ('9', null, null, null, '2019-04-10 18:47:38', '2019-04-10 18:47:38', null, '0');
+INSERT INTO `user` VALUES ('10', null, null, null, '2019-04-10 18:49:33', '2019-04-10 18:49:33', null, '0');
+INSERT INTO `user` VALUES ('11', null, null, null, '2019-04-10 18:52:15', '2019-04-10 18:52:15', null, '0');
+INSERT INTO `user` VALUES ('12', null, null, null, '2019-04-10 18:54:25', '2019-04-10 18:54:25', null, '0');
+INSERT INTO `user` VALUES ('13', null, null, null, '2019-04-10 18:57:34', '2019-04-10 18:57:34', null, '0');
+INSERT INTO `user` VALUES ('14', null, null, null, '2019-04-10 18:58:59', '2019-04-10 18:58:59', null, '0');
 
 -- ----------------------------
 -- Table structure for `user_info`
@@ -223,3 +236,8 @@ CREATE TABLE `user_info` (
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
+INSERT INTO `user_info` VALUES ('3', null, null, null, null, null, null, null, '2019-04-10 20:27:43', '2019-04-10 20:27:43');
+INSERT INTO `user_info` VALUES ('5', null, null, null, null, null, null, null, '2019-04-10 20:28:13', '2019-04-10 20:28:13');
+INSERT INTO `user_info` VALUES ('6', null, null, null, null, null, null, null, '2019-04-10 20:28:29', '2019-04-10 20:28:33');
+INSERT INTO `user_info` VALUES ('7', null, null, null, null, null, null, null, '2019-04-10 20:28:43', '2019-04-10 20:28:38');
+INSERT INTO `user_info` VALUES ('8', null, null, null, null, null, null, null, '2019-04-10 20:28:54', '2019-04-10 20:28:58');
