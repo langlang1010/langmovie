@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.langlang.langmovie.dao.ScreenDao">
+    <insert id="insertScreen" parameterType="cn.langlang.langmovie.entity.Screen"
+            useGeneratedKeys="true" keyProperty="pkScreenid">
+      insert into screen(
+        fk_room,fk_movie,price,begin_time,end_time,
+        gmt_create,gmt_modified
+      ) values(
+        #{fkRoom},#{fkMovie},#{price},#{beginTime},#{endTime},
+        #{gmtCreate},#{gmtModified}
+      )
+    </insert>
+    <update id="updateScreen" parameterType="cn.langlang.langmovie.entity.Screen">
+        update screen
+        set
+        <trim suffixOverrides=",">
+            <if test="fkRoom!=null">
+                fk_room=#{fkRoom},
+            </if>
+            <if test="fkMovie!=null">
+                fk_movie=#{fkMovie},
+            </if>
+            <if test="price!=null">
+                price=#{price},
+            </if>
+            <if test="beginTime!=null">
+                begin_time=#{beginTime},
+            </if>
+            <if test="endTime!=null">
+                end_time=#{endTime},
+            </if>
+            <if test="gmtModified!=null">
+                gmt_modified=#{gmtModified},
+            </if>
+            <if test="gmtCreate!=null">
+                gmt_create=#{gmtCreate}
+            </if>
+        </trim>
+        where pk_screenid=#{pkScreenid}
+    </update>
+    <select id="getScreenById" parameterType="cn.langlang.langmovie.entity.Screen"
+        resultType="cn.langlang.langmovie.entity.Screen">
+        select pk_screenid,fk_room,fk_movie,price,begin_time,end_time,
+               gmt_create,gmt_modified
+        from screen
+        where pk_screenid=#{pkScreenid}
+    </select>
+    <select id="listScreen" resultType="cn.langlang.langmovie.entity.Screen">
+        select pk_screenid,fk_room,fk_movie,price,begin_time,end_time,
+               gmt_create,gmt_modified
+        from screen
+        order by pk_screenid
+        limit #{page1},#{num}
+    </select>
+    <delete id="deleteScreen" parameterType="cn.langlang.langmovie.entity.Screen">
+        delete from screen
+        where pk_screenid=#{pkScreenid}
+    </delete>
+</mapper>

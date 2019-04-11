@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.langlang.langmovie.dao.MovieActorDao">
+    <insert id="insertActor" parameterType="cn.langlang.langmovie.entity.MovieActor"
+            useGeneratedKeys="true" keyProperty="pkActorid">
+      insert into movie_actor(
+        fk_movieid,actor_url,
+        gmt_create,gmt_modified
+      ) values(
+        #{fkMovieid},#{actorUrl},
+        #{gmtCreate},#{gmtModified}
+      )
+    </insert>
+    <update id="updateMovieActor" parameterType="cn.langlang.langmovie.entity.MovieActor">
+        update movie_actor
+        set
+        <trim suffixOverrides=",">
+            <if test="fkMovieid!=null">
+                fk_movieid=#{fkMovieid},
+            </if>
+            <if test="actorUrl!=null">
+                actor_url=#{actorUrl},
+            </if>
+            <if test="gmtModified!=null">
+                gmt_modified=#{gmtModified},
+            </if>
+            <if test="gmtCreate!=null">
+                gmt_create=#{gmtCreate}
+            </if>
+        </trim>
+        where pk_actorid=#{pkActorid}
+    </update>
+    <select id="getMovieActorById" parameterType="cn.langlang.langmovie.entity.MovieActor"
+        resultType="cn.langlang.langmovie.entity.MovieActor">
+        select pk_actorid,fk_movieid,actor_url,gmt_create,gmt_modified
+        from movie_actor
+        where pk_actorid=#{pkActorid}
+    </select>
+    <select id="listMovieActorByMovie" parameterType="cn.langlang.langmovie.entity.MovieActor"
+            resultType="cn.langlang.langmovie.entity.MovieActor">
+        select pk_actorid,fk_movieid,actor_url,gmt_create,gmt_modified
+        from movie_actor
+        where fk_movieid=#{fkMovieid}
+    </select>
+    <select id="listMovieAction" resultType="cn.langlang.langmovie.entity.MovieActor">
+        select pk_actorid,fk_movieid,actor_url,gmt_create,gmt_modified
+        from movie_actor
+        order by pk_actorid
+        limit #{page1},#{num}
+    </select>
+    <delete id="deleteActorById" parameterType="cn.langlang.langmovie.entity.MovieActor">
+        delete from movie_actor
+       where pk_actorid=#{pkActorid}
+    </delete>
+    <delete id="deleteActorByMovie" parameterType="cn.langlang.langmovie.entity.MovieActor">
+        delete from movie_actor
+        where fk_movieid=#{fkMovieid}
+    </delete>
+</mapper>

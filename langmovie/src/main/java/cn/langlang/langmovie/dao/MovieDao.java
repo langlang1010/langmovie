@@ -34,5 +34,11 @@ public interface MovieDao {
      */
     int deleteMovie(Movie movie);
 
+    /**
+     *
+     * @param page1
+     * @param num
+     * @return
+     */
     List<Movie> listMovie(@Param("page1")int page1, @Param("num") int num);
 }

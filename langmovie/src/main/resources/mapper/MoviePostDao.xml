@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.langlang.langmovie.dao.MoviePostDao">
+    <insert id="insertPost" parameterType="cn.langlang.langmovie.entity.MoviePost"
+            useGeneratedKeys="true" keyProperty="pkPostid">
+      insert into movie_post(
+        fk_movieid,post_url,
+        gmt_create,gmt_modified
+      ) values(
+        #{fkMovieid},#{postUrl},
+        #{gmtCreate},#{gmtModified}
+      )
+    </insert>
+    <update id="updatePost" parameterType="cn.langlang.langmovie.entity.MoviePost">
+        update movie_post
+        set
+        <trim suffixOverrides=",">
+            <if test="fkMovieid!=null">
+                fk_movieid=#{fkMovieid},
+            </if>
+            <if test="postUrl!=null">
+                post_url=#{postUrl},
+            </if>
+            <if test="gmtModified!=null">
+                gmt_modified=#{gmtModified},
+            </if>
+            <if test="gmtCreate!=null">
+                gmt_create=#{gmtCreate}
+            </if>
+        </trim>
+        where pk_postid=#{pkPostid}
+    </update>
+    <select id="getPostById" parameterType="cn.langlang.langmovie.entity.MoviePost"
+        resultType="cn.langlang.langmovie.entity.MoviePost">
+        select pk_postid,fk_movieid,post_url,gmt_create,gmt_modified
+        from movie_post
+        where pk_postid=#{pkPostid}
+    </select>
+    <select id="getPostByMovie" parameterType="cn.langlang.langmovie.entity.MoviePost"
+            resultType="cn.langlang.langmovie.entity.MoviePost">
+        select pk_postid,fk_movieid,post_url,gmt_create,gmt_modified
+        from movie_post
+        where fk_movieid=#{fkMovieid}
+    </select>
+    <select id="listMoviePost" resultType="cn.langlang.langmovie.entity.MoviePost">
+        select pk_postid,fk_movieid,post_url,gmt_create,gmt_modified
+        from movie_post
+        order by pk_postid
+        limit #{page1},#{num}
+    </select>
+    <delete id="deletePostById" parameterType="cn.langlang.langmovie.entity.MoviePost">
+        delete from movie_post
+        where pk_postid=#{pkPostid}
+    </delete>
+    <delete id="deletePostByMovie" parameterType="cn.langlang.langmovie.entity.MoviePost">
+        delete from movie_post
+        where fk_movieid=#{fkMovieid}
+    </delete>
+</mapper>
