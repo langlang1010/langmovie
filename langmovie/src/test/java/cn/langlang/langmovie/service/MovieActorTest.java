@@ -19,14 +19,16 @@ public class MovieActorTest {
 
     @Test
     public void add() {
-        for (int i = 0; i < 6; i++) {
+//        for (int i = 0; i < 6; i++) {
             MovieActor movieActor = new MovieActor();
             movieActor.setGmtCreate(new Date());
             movieActor.setGmtModified(new Date());
             movieActor.setActorUrl("sgg");
+            movieActor.setRoleName("dgdgg");
+            movieActor.setActorName("dgdgg");
             movieActor.setFkMovieid(1L);
             System.out.println(movieActorService.insertActor(movieActor));
-        }
+//        }
     }
     @Test
     public void getById() {
@@ -46,7 +48,9 @@ public class MovieActorTest {
     @Test
     public void update() {
         MovieActor movieActor = new MovieActor();
-        movieActor.setPkActorid(1L);
+        movieActor.setPkActorid(11L);
+        movieActor.setRoleName("fddggg");
+        movieActor.setActorName("gsssssssss");
         movieActor.setGmtCreate(new Date());
         System.out.println(movieActorService.updateMovieAction(movieActor));
     }

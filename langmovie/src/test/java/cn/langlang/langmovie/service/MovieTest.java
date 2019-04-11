@@ -21,6 +21,8 @@ public class MovieTest {
         movie.setGmtCreate(new Date());
         movie.setGmtModified(new Date());
         movie.setMovieName("三个和尚");
+        movie.setGrade(7.9F);
+        movie.setPost("ddss");
         System.out.println("insert:"+movieService.insertMovie(movie));
         System.out.println("movie_id:"+movie.getPkMovieid());
     }
@@ -38,6 +40,8 @@ public class MovieTest {
         Movie movie = new Movie();
         movie.setPkMovieid((long) 1);
         movie.setGmtModified(new Date());
+        movie.setGrade(7.9F);
+        movie.setPost("ddss");
         System.out.println("update:"+movieService.updateMovie(movie));
     }
 

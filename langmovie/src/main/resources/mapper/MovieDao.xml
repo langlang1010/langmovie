@@ -6,14 +6,14 @@
 <mapper namespace="cn.langlang.langmovie.dao.MovieDao">
     <insert id="insertMovie" parameterType="cn.langlang.langmovie.entity.Movie"
             useGeneratedKeys="true" keyProperty="pkMovieid">
-      insert into movie(movie_name,movie_release,
+      insert into movie(movie_name,movie_release,grade,post,
               introduction,movie_type,gmt_create,gmt_modified)
-      values(#{movieName},#{movieRelease},#{introduction},
+      values(#{movieName},#{movieRelease},#{grade},#{post},#{introduction},
             #{movieType},#{gmtCreate},#{gmtModified})
     </insert>
     <select id="getMovieById" parameterType="cn.langlang.langmovie.entity.Movie"
                 resultType="cn.langlang.langmovie.entity.Movie">
-        select pk_movieid,movie_name,movie_release,
+        select pk_movieid,movie_name,movie_release,grade,post,
               introduction,movie_type,gmt_create,gmt_modified
         from movie
         where pk_movieid=#{pkMovieid}
@@ -38,6 +38,12 @@
             <if test="introduction!=null">
                 introduction=#{introduction},
             </if>
+            <if test="grade!=null">
+                grade=#{grade},
+            </if>
+            <if test="post!=null">
+                post=#{post},
+            </if>
             <if test="movieType!=null">
                 movie_type=#{movieType}
             </if>
@@ -49,7 +55,7 @@
         where pk_movieid=#{pkMovieid}
     </delete>
     <select id="listMovie" resultType="cn.langlang.langmovie.entity.Movie">
-         select pk_movieid,movie_name,movie_release,
+         select pk_movieid,movie_name,movie_release,grade,post,
               introduction,movie_type,gmt_create,gmt_modified
         from movie
         order by pk_movieid

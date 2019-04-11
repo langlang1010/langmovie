@@ -6,8 +6,27 @@ public class MovieActor {
     private Long pkActorid;
     private Long fkMovieid;
     private String actorUrl;
+    private String actorName;
+    private String roleName;
     private Date gmtCreate;
     private Date gmtModified;
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getActorName() {
+
+        return actorName;
+    }
+
+    public void setActorName(String actorName) {
+        this.actorName = actorName;
+    }
 
     public Long getPkActorid() {
         return pkActorid;

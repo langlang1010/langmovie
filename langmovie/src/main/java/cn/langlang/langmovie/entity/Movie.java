@@ -8,8 +8,26 @@ public class Movie {
     private Date movieRelease;
     private String introduction;
     private String movieType;
+    private Float grade;
+    private String post;
     private Date gmtCreate;
     private Date gmtModified;
+
+    public Float getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Float grade) {
+        this.grade = grade;
+    }
+
+    public String getPost() {
+        return post;
+    }
+
+    public void setPost(String post) {
+        this.post = post;
+    }
 
     public Long getPkMovieid() {
         return pkMovieid;
