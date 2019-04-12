@@ -26,6 +26,7 @@ public class MovieActorTest {
             movieActor.setActorUrl("sgg");
             movieActor.setRoleName("dgdgg");
             movieActor.setActorName("dgdgg");
+
             movieActor.setFkMovieid(1L);
             System.out.println(movieActorService.insertActor(movieActor));
 //        }

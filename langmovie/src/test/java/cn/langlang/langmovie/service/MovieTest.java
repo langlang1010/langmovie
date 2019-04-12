@@ -17,14 +17,14 @@ public class MovieTest {
     private MovieService movieService;
     @Test
     public void add() {
-        Movie movie = new Movie();
+        for (int i = 0; i < 10; i++){
+            Movie movie = new Movie();
         movie.setGmtCreate(new Date());
         movie.setGmtModified(new Date());
         movie.setMovieName("三个和尚");
-        movie.setGrade(7.9F);
-        movie.setPost("ddss");
-        System.out.println("insert:"+movieService.insertMovie(movie));
-        System.out.println("movie_id:"+movie.getPkMovieid());
+        System.out.println("insert:" + movieService.insertMovie(movie));
+        System.out.println("movie_id:" + movie.getPkMovieid());
+    }
     }
 
     @Test

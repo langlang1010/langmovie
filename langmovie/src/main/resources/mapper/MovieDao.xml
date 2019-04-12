@@ -7,14 +7,14 @@
     <insert id="insertMovie" parameterType="cn.langlang.langmovie.entity.Movie"
             useGeneratedKeys="true" keyProperty="pkMovieid">
       insert into movie(movie_name,movie_release,grade,post,
-              introduction,movie_type,gmt_create,gmt_modified)
+              introduction,movie_type,gmt_create,gmt_modified,prefix,other_info)
       values(#{movieName},#{movieRelease},#{grade},#{post},#{introduction},
-            #{movieType},#{gmtCreate},#{gmtModified})
+            #{movieType},#{gmtCreate},#{gmtModified},#{prefix},#{otherInfo})
     </insert>
     <select id="getMovieById" parameterType="cn.langlang.langmovie.entity.Movie"
                 resultType="cn.langlang.langmovie.entity.Movie">
         select pk_movieid,movie_name,movie_release,grade,post,
-              introduction,movie_type,gmt_create,gmt_modified
+              introduction,movie_type,gmt_create,gmt_modified,prefix,other_info
         from movie
         where pk_movieid=#{pkMovieid}
     </select>
@@ -44,8 +44,14 @@
             <if test="post!=null">
                 post=#{post},
             </if>
+            <if test="prefix!=null">
+                prefix=#{prefix},
+            </if>
             <if test="movieType!=null">
-                movie_type=#{movieType}
+                movie_type=#{movieType},
+            </if>
+            <if test="otherInfo!=null">
+                other_info=#{otherInfo}
             </if>
         </trim>
         where pk_movieid=#{pkMovieid}
@@ -56,7 +62,7 @@
     </delete>
     <select id="listMovie" resultType="cn.langlang.langmovie.entity.Movie">
          select pk_movieid,movie_name,movie_release,grade,post,
-              introduction,movie_type,gmt_create,gmt_modified
+              introduction,movie_type,gmt_create,gmt_modified,prefix
         from movie
         order by pk_movieid
         limit #{page1},#{num}

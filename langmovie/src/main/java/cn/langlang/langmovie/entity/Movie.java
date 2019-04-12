@@ -8,10 +8,28 @@ public class Movie {
     private Date movieRelease;
     private String introduction;
     private String movieType;
+    private String otherInfo;
     private Float grade;
     private String post;
+    private String prefix;
     private Date gmtCreate;
     private Date gmtModified;
+
+    public String getOtherInfo() {
+        return otherInfo;
+    }
+
+    public void setOtherInfo(String otherInfo) {
+        this.otherInfo = otherInfo;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
 
     public Float getGrade() {
         return grade;
