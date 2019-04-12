@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery WeUI</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+    <script src="../lib/jquery-2.1.4.js"></script>
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="css/demos.css">
+    <script>
+        $(document).ready(function () {
+            $("#me").click(function () {
+                $("#img_me").attr("src", "./image/me2.png");
+                $("#img_cinema").attr("src", "./image/cinema1.png");
+                $("#img_movie").attr("src", "./image/movie_ico1.png");
+            });
+        });
+        $(document).ready(function () {
+            $("#cinema").click(function () {
+                $("#img_me").attr("src", "./image/me1.png");
+                $("#img_cinema").attr("src", "./image/cinema2.png");
+                $("#img_movie").attr("src", "./image/movie_ico1.png");
+            });
+        });
+        $(document).ready(function () {
+            $("#movie").click(function () {
+                $("#img_me").attr("src", "./image/me1.png");
+                $("#img_cinema").attr("src", "./image/cinema1.png");
+                $("#img_movie").attr("src", "./image/movie_ico2.png");
+            });
+            $("#showRightNow").click(function () {
+                $("#showTextColor").css("color", "RED")
+                $("#showRightNow").css("border-bottom", "5px solid red")
+                $("#showNow").css("border-bottom", "")
+                $("#showNowText").css("color", "black")
+            });
+            $("#showNow").click(function () {
+                $("#showTextColor").css("color", "black")
+                $("#showNow").css("border-bottom", "5px solid red")
+                $("#showRightNow").css("border-bottom", "")
+                $("#showNowText").css("color", "red")
+            });
+        })
+
+    </script>
+    <style>
+        .placeholder {
+            margin: 5px;
+            padding: 0 10px;
+            height: 2.3em;
+            line-height: 2.3em;
+            text-align: center;
+            color: #000000;
+        }
+
+    </style>
+</head>
+
+<body ontouchstart>
+
+<div class="weui-tab">
+    <div class="weui-tab__bd">
+        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+            <div style="height: 50px;background: RED">
+                <p style="text-align: center;padding-bottom: 10px;padding-top: 10px;color: white">浪浪电影</p>
+            </div>
+            <div class="weui-flex">
+                <div class="weui-flex__item">
+                    <div class="placeholder">
+                        长沙<img src="./image/location.png">
+                    </div>
+                </div>
+                <div id="showNow" class="weui-flex__item" style="border-bottom:5px solid red;">
+                    <div id="showNowText" class="placeholder" style="color: red">正在热映</div>
+                </div>
+                <div id="showRightNow" class="weui-flex__item">
+                    <div class="placeholder"><p id="showTextColor">即将上映
+                        <p></p></div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder">
+                        <img src="image/search.png">
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui-panel weui-panel_access">
+                <div class="weui-panel__bd">
+                    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd" style="height: 100%">
+                            <img class="weui-media-box__thumb"
+                                 src="https://withyan.cn/images/1.jpg"
+                                 alt="">
+                        </div>
+                        <div class="weui-media-box__bd">
+                            <h4 class="weui-media-box__title">反贪风暴4</h4>
+                            <p class="weui-media-box__desc" style="color: black">观众评 <span style="color: #ff6600">9.1</span></p>
+                            <p class="weui-media-box__desc" style="color: black">主演：古天乐，郑嘉颖</p>
+                        </div>
+                        <div style="float:right;padding-right: 10px;">
+                            <button style="color:white;background: red;padding-bottom: 5px;padding-top: 5px;padding-right: 8px;padding-left: 8px">购票</button>
+                        </div>
+                    </a>
+                    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd" style="height: 100%">
+                            <img class="weui-media-box__thumb"
+                                 src="https://withyan.cn/images/1.jpg"
+                                 alt="">
+                        </div>
+                        <div class="weui-media-box__bd">
+                            <h4 class="weui-media-box__title">反贪风暴4</h4>
+                            <p class="weui-media-box__desc" style="color: black">观众评 <span style="color: #ff6600">9.1</span></p>
+                            <p class="weui-media-box__desc" style="color: black">主演：古天乐，郑嘉颖</p>
+                        </div>
+                        <div style="float:right;padding-right: 10px;">
+                            <button style="color:white;background: red;padding-bottom: 5px;padding-top: 5px;padding-right: 8px;padding-left: 8px">购票</button>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div id="tab2" class="weui-tab__bd-item">
+            <h1>页面二</h1>
+        </div>
+        <div id="tab3" class="weui-tab__bd-item">
+            <h1>页面三</h1>
+        </div>
+
+    </div>
+
+    <div class="weui-tabbar">
+        <a href="#tab1" class="weui-tabbar__item weui-bar__item--on" id="movie">
+            <div class="weui-tabbar__icon">
+                <img id="img_movie" src="./image/movie_ico2.png" alt="">
+            </div>
+            <p class="weui-tabbar__label">电影</p>
+        </a>
+        <a href="#tab2" class="weui-tabbar__item" id="cinema">
+            <div class="weui-tabbar__icon">
+                <img id="img_cinema" src="./image/cinema1.png" alt="">
+            </div>
+            <p class="weui-tabbar__label">影院</p>
+        </a>
+        <a href="#tab3" class="weui-tabbar__item" id="me">
+            <div class="weui-tabbar__icon">
+                <img id="img_me" src="./image/me1.png" alt="">
+            </div>
+            <p class="weui-tabbar__label">我</p>
+        </a>
+
+    </div>
+</div>
+
+<script src="../lib/fastclick.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../js/jquery-weui.js"></script>
+
+<script>
+    $("#a").select({
+        title: "选择职业",
+        items: ["法官", "医生", "猎人", "学生", "记者", "其他"]
+    });
+</script>
+</body>
+</html>
