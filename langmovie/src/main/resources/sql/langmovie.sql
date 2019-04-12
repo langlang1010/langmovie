@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50635
 File Encoding         : 65001
 
-Date: 2019-04-12 12:02:43
+Date: 2019-04-12 21:52:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -130,7 +130,7 @@ CREATE TABLE `movie` (
   `prefix` text,
   `other_info` char(100) DEFAULT NULL,
   PRIMARY KEY (`pk_movieid`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of movie
@@ -176,18 +176,56 @@ CREATE TABLE `movie_actor` (
   PRIMARY KEY (`pk_actorid`),
   KEY `movie_actor_ibfk_1` (`fk_movieid`),
   CONSTRAINT `movie_actor_ibfk_1` FOREIGN KEY (`fk_movieid`) REFERENCES `movie` (`pk_movieid`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of movie_actor
 -- ----------------------------
-INSERT INTO `movie_actor` VALUES ('10', '1', 'sgg', '2019-04-11 15:21:51', '2019-04-11 15:21:51', null, null);
-INSERT INTO `movie_actor` VALUES ('11', '1', 'sgg', '2019-04-11 21:27:48', '2019-04-11 15:21:52', 'gsssssssss', 'fddggg');
-INSERT INTO `movie_actor` VALUES ('12', '1', 'sgg', '2019-04-11 15:21:52', '2019-04-11 15:21:52', null, null);
-INSERT INTO `movie_actor` VALUES ('13', '1', 'sgg', '2019-04-11 15:21:52', '2019-04-11 15:21:52', null, null);
-INSERT INTO `movie_actor` VALUES ('14', '1', 'sgg', '2019-04-11 15:21:52', '2019-04-11 15:21:52', null, null);
-INSERT INTO `movie_actor` VALUES ('15', '1', 'sgg', '2019-04-11 15:21:52', '2019-04-11 15:21:52', null, null);
-INSERT INTO `movie_actor` VALUES ('16', '1', 'sgg', '2019-04-11 21:24:20', '2019-04-11 21:24:20', 'dgdgg', 'dgdgg');
+INSERT INTO `movie_actor` VALUES ('17', '1', 'https://withyan.cn/images/role/1/1.jpg', '2019-04-12 20:02:06', '2019-04-12 20:02:06', '古天乐', '陆志廉');
+INSERT INTO `movie_actor` VALUES ('18', '1', 'https://withyan.cn/images/role/1/2.jpg', '2019-04-12 20:02:07', '2019-04-12 20:02:07', '郑嘉颖', '程德明');
+INSERT INTO `movie_actor` VALUES ('19', '1', 'https://withyan.cn/images/role/1/3.jpg', '2019-04-12 20:09:49', '2019-04-12 20:09:49', '林峯', '曹元元');
+INSERT INTO `movie_actor` VALUES ('20', '1', 'https://withyan.cn/images/role/1/4.jpg', '2019-04-12 20:09:50', '2019-04-12 20:09:50', '林家栋', '黄文彬');
+INSERT INTO `movie_actor` VALUES ('21', '1', 'https://withyan.cn/images/role/1/5.jpg', '2019-04-12 20:09:50', '2019-04-12 20:09:50', '周秀娜', '廖雨萍');
+INSERT INTO `movie_actor` VALUES ('22', '1', 'https://withyan.cn/images/role/1/6.jpg', '2019-04-12 20:09:50', '2019-04-12 20:09:50', '张智霖', '刘保强');
+INSERT INTO `movie_actor` VALUES ('23', '1', 'https://withyan.cn/images/role/1/7.jpg', '2019-04-12 20:09:50', '2019-04-12 20:09:50', '张继聪', '王蓝禄');
+INSERT INTO `movie_actor` VALUES ('24', '1', 'https://withyan.cn/images/role/1/8.jpg', '2019-04-12 20:09:50', '2019-04-12 20:09:50', '谭耀文', '沈国强');
+INSERT INTO `movie_actor` VALUES ('25', '1', 'https://withyan.cn/images/role/1/9.jpg', '2019-04-12 20:09:50', '2019-04-12 20:09:50', '廖启智', '姚君豪');
+INSERT INTO `movie_actor` VALUES ('26', '1', 'https://withyan.cn/images/role/1/10.jpg', '2019-04-12 20:09:50', '2019-04-12 20:09:50', '夏嫣', '谭美莉');
+INSERT INTO `movie_actor` VALUES ('27', '2', 'https://withyan.cn/images/role/2/1.jpg', '2019-04-12 20:50:08', '2019-04-12 20:50:08', '郭涛', '郭实');
+INSERT INTO `movie_actor` VALUES ('28', '2', 'https://withyan.cn/images/role/2/2.jpg', '2019-04-12 20:50:09', '2019-04-12 20:50:09', '张子枫', '萌萌');
+INSERT INTO `movie_actor` VALUES ('29', '2', 'https://withyan.cn/images/role/2/3.jpg', '2019-04-12 20:50:09', '2019-04-12 20:50:09', '姜潮', '飞凡');
+INSERT INTO `movie_actor` VALUES ('30', '2', 'https://withyan.cn/images/role/2/4.jpg', '2019-04-12 20:50:09', '2019-04-12 20:50:09', '盖玥希', '梁丹');
+INSERT INTO `movie_actor` VALUES ('31', '2', 'https://withyan.cn/images/role/2/5.jpg', '2019-04-12 20:50:09', '2019-04-12 20:50:09', '梅婷', '宁雪');
+INSERT INTO `movie_actor` VALUES ('32', '2', 'https://withyan.cn/images/role/2/6.jpg', '2019-04-12 20:50:09', '2019-04-12 20:50:09', '范伟', '老查');
+INSERT INTO `movie_actor` VALUES ('33', '2', 'https://withyan.cn/images/role/2/7.jpg', '2019-04-12 20:50:10', '2019-04-12 20:50:10', '王迅', '马丁博士');
+INSERT INTO `movie_actor` VALUES ('34', '3', 'https://withyan.cn/images/role/3/1.jpg', '2019-04-12 21:03:18', '2019-04-12 21:03:18', '郑恺', '范凡');
+INSERT INTO `movie_actor` VALUES ('35', '3', 'https://withyan.cn/images/role/3/2.jpg', '2019-04-12 21:03:18', '2019-04-12 21:03:18', '徐冬冬', '婉儿');
+INSERT INTO `movie_actor` VALUES ('36', '3', 'https://withyan.cn/images/role/3/3.jpg', '2019-04-12 21:03:18', '2019-04-12 21:03:18', '张雨绮', '文静');
+INSERT INTO `movie_actor` VALUES ('37', '3', 'https://withyan.cn/images/role/3/4.jpg', '2019-04-12 21:03:18', '2019-04-12 21:03:18', '方力申', '羞羞');
+INSERT INTO `movie_actor` VALUES ('38', '3', 'https://withyan.cn/images/role/3/5.jpg', '2019-04-12 21:03:18', '2019-04-12 21:03:18', '林子聪', '巧克力');
+INSERT INTO `movie_actor` VALUES ('39', '3', 'https://withyan.cn/images/role/3/6.jpg', '2019-04-12 21:03:18', '2019-04-12 21:03:18', '陈国珅', '牛晶');
+INSERT INTO `movie_actor` VALUES ('40', '3', 'https://withyan.cn/images/role/3/7.jpg', '2019-04-12 21:03:18', '2019-04-12 21:03:18', '田蕾希', 'Angela lady');
+INSERT INTO `movie_actor` VALUES ('41', '3', 'https://withyan.cn/images/role/3/8.jpg', '2019-04-12 21:03:18', '2019-04-12 21:03:18', '金刚', '大春');
+INSERT INTO `movie_actor` VALUES ('42', '3', 'https://withyan.cn/images/role/3/9.jpg', '2019-04-12 21:03:18', '2019-04-12 21:03:18', '胡然', '娜娜');
+INSERT INTO `movie_actor` VALUES ('43', '4', 'https://withyan.cn/images/role/4/1.jpg', '2019-04-12 21:09:23', '2019-04-12 21:09:23', '阿尤斯曼·库拉纳', 'Akash');
+INSERT INTO `movie_actor` VALUES ('44', '4', 'https://withyan.cn/images/role/4/2.jpg', '2019-04-12 21:09:24', '2019-04-12 21:09:24', '塔布', 'Simi');
+INSERT INTO `movie_actor` VALUES ('45', '4', 'https://withyan.cn/images/role/4/3.jpg', '2019-04-12 21:09:24', '2019-04-12 21:09:24', '拉迪卡·艾普特', 'Sofie');
+INSERT INTO `movie_actor` VALUES ('46', '4', 'https://withyan.cn/images/role/4/4.jpg', '2019-04-12 21:09:24', '2019-04-12 21:09:24', '安尔·德霍万', 'Mrs. Rasika Ja');
+INSERT INTO `movie_actor` VALUES ('47', '4', 'https://withyan.cn/images/role/4/5.jpg', '2019-04-12 21:09:24', '2019-04-12 21:09:24', '马纳夫·维吉', 'Inspector Mahendra');
+INSERT INTO `movie_actor` VALUES ('48', '4', 'https://withyan.cn/images/role/4/6.jpg', '2019-04-12 21:09:24', '2019-04-12 21:09:24', '阿什维尼·卡尔塞卡', 'Mrs. Rasika Mahendra');
+INSERT INTO `movie_actor` VALUES ('49', '4', 'https://withyan.cn/images/role/4/7.jpg', '2019-04-12 21:09:24', '2019-04-12 21:09:24', '田蕾希', 'Angela lady');
+INSERT INTO `movie_actor` VALUES ('50', '4', 'https://withyan.cn/images/role/4/8.jpg', '2019-04-12 21:09:24', '2019-04-12 21:09:24', '查亚·卡达姆', 'Mavashi');
+INSERT INTO `movie_actor` VALUES ('51', '5', 'https://withyan.cn/images/role/5/1.jpg', '2019-04-12 21:24:35', '2019-04-12 21:24:35', '阿部宽', '加贺恭一郎');
+INSERT INTO `movie_actor` VALUES ('52', '5', 'https://withyan.cn/images/role/5/2.jpg', '2019-04-12 21:24:36', '2019-04-12 21:24:36', '松岛菜菜子', '浅居博美');
+INSERT INTO `movie_actor` VALUES ('53', '5', 'https://withyan.cn/images/role/5/3.jpg', '2019-04-12 21:24:36', '2019-04-12 21:24:36', '沟端淳平', '松宫修平');
+INSERT INTO `movie_actor` VALUES ('54', '5', 'https://withyan.cn/images/role/5/4.jpg', '2019-04-12 21:24:36', '2019-04-12 21:24:36', '饭丰万理江', '浅居博美');
+INSERT INTO `movie_actor` VALUES ('55', '5', 'https://withyan.cn/images/role/5/5.jpg', '2019-04-12 21:24:36', '2019-04-12 21:24:36', '上杉祥三', '石垣');
+INSERT INTO `movie_actor` VALUES ('56', '6', 'https://withyan.cn/images/role/6/1.jpg', '2019-04-12 21:38:30', '2019-04-12 21:38:30', '俞飞鸿', '袁元');
+INSERT INTO `movie_actor` VALUES ('57', '6', 'https://withyan.cn/images/role/6/2.jpg', '2019-04-12 21:38:31', '2019-04-12 21:38:31', '大泽隆夫', '森岛富哉');
+INSERT INTO `movie_actor` VALUES ('58', '6', 'https://withyan.cn/images/role/6/3.jpg', '2019-04-12 21:38:31', '2019-04-12 21:38:31', 'keiko', '木下彩音');
+INSERT INTO `movie_actor` VALUES ('59', '6', 'https://withyan.cn/images/role/6/4.jpg', '2019-04-12 21:38:31', '2019-04-12 21:38:31', '前田公辉', '小森岛富哉');
+INSERT INTO `movie_actor` VALUES ('60', '6', 'https://withyan.cn/images/role/6/5.jpg', '2019-04-12 21:38:31', '2019-04-12 21:38:31', '小袁元', '卢洋洋');
+INSERT INTO `movie_actor` VALUES ('61', '6', 'https://withyan.cn/images/role/6/6.jpg', '2019-04-12 21:38:31', '2019-04-12 21:38:31', '美千代', '星由里子');
 
 -- ----------------------------
 -- Table structure for `movie_post`
