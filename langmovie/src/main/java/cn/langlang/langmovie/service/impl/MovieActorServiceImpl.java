@@ -49,4 +49,9 @@ public class MovieActorServiceImpl implements MovieActorService {
     public int deleteActorByMovie(MovieActor movieActor) {
         return movieActorDao.deleteActorByMovie(movieActor);
     }
+
+    @Override
+    public List<String> listActorNameByMovie(Long movieid) {
+        return movieActorDao.listActorNameByMovie(movieid);
+    }
 }

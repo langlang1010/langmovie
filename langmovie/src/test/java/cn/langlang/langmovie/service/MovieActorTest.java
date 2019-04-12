@@ -1,7 +1,6 @@
 package cn.langlang.langmovie.service;
 
 import cn.langlang.langmovie.entity.MovieActor;
-import cn.langlang.langmovie.entity.MoviePost;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +18,53 @@ public class MovieActorTest {
 
     @Test
     public void add() {
-//        for (int i = 0; i < 6; i++) {
-            MovieActor movieActor = new MovieActor();
-            movieActor.setGmtCreate(new Date());
-            movieActor.setGmtModified(new Date());
-            movieActor.setActorUrl("sgg");
-            movieActor.setRoleName("dgdgg");
-            movieActor.setActorName("dgdgg");
+        int movie_num=6;
+        long movie=6L;
+        MovieActor movieActor = new MovieActor();
+        movieActor.setFkMovieid(movie);
 
-            movieActor.setFkMovieid(1L);
-            System.out.println(movieActorService.insertActor(movieActor));
-//        }
+        movieActor.setGmtCreate(new Date());
+        movieActor.setGmtModified(new Date());
+        movieActor.setActorUrl("https://withyan.cn/images/role/"+movie_num+"/1.jpg");
+        movieActor.setRoleName("袁元");
+        movieActor.setActorName("俞飞鸿");
+        movieActorService.insertActor(movieActor);
+
+        movieActor.setGmtCreate(new Date());
+        movieActor.setGmtModified(new Date());
+        movieActor.setActorUrl("https://withyan.cn/images/role/"+movie_num+"/2.jpg");
+        movieActor.setRoleName("森岛富哉");
+        movieActor.setActorName("大泽隆夫");
+        movieActorService.insertActor(movieActor);
+
+        movieActor.setGmtCreate(new Date());
+        movieActor.setGmtModified(new Date());
+        movieActor.setActorUrl("https://withyan.cn/images/role/"+movie_num+"/3.jpg");
+        movieActor.setRoleName("木下彩音");
+        movieActor.setActorName("keiko");
+        movieActorService.insertActor(movieActor);
+
+        movieActor.setGmtCreate(new Date());
+        movieActor.setGmtModified(new Date());
+        movieActor.setActorUrl("https://withyan.cn/images/role/"+movie_num+"/4.jpg");
+        movieActor.setRoleName("小森岛富哉");
+        movieActor.setActorName("前田公辉");
+        movieActorService.insertActor(movieActor);
+
+        movieActor.setGmtCreate(new Date());
+        movieActor.setGmtModified(new Date());
+        movieActor.setActorUrl("https://withyan.cn/images/role/"+movie_num+"/5.jpg");
+        movieActor.setRoleName("卢洋洋");
+        movieActor.setActorName("小袁元");
+        movieActorService.insertActor(movieActor);
+
+        movieActor.setGmtCreate(new Date());
+        movieActor.setGmtModified(new Date());
+        movieActor.setActorUrl("https://withyan.cn/images/role/"+movie_num+"/6.jpg");
+        movieActor.setRoleName("星由里子");
+        movieActor.setActorName("美千代");
+        movieActorService.insertActor(movieActor);
+
     }
     @Test
     public void getById() {
@@ -68,5 +103,15 @@ public class MovieActorTest {
         MovieActor movieActor = new MovieActor();
         movieActor.setFkMovieid(1L);
         System.out.println(movieActorService.deleteActorByMovie(movieActor));
+    }
+
+    @Test
+    public void listName() {
+        MovieActor movieActor = new MovieActor();
+        movieActor.setFkMovieid(1L);
+        List<String> list = movieActorService.listActorNameByMovie(1L);
+        for(String s:list) {
+            System.out.println(s);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.dao;
 
+import cn.langlang.langmovie.bean.MovieShortInfo;
 import cn.langlang.langmovie.entity.Movie;
 import org.apache.ibatis.annotations.Param;
 
@@ -41,4 +42,19 @@ public interface MovieDao {
      * @return
      */
     List<Movie> listMovie(@Param("page1")int page1, @Param("num") int num);
+
+    /**
+     *
+     * @param movieid
+     * @return
+     */
+    MovieShortInfo getMovieShortInfoById(@Param("movieid")Long movieid);
+
+    /**
+     *
+     * @param page1
+     * @param num
+     * @return
+     */
+    List<MovieShortInfo> listShortInfo(@Param("page1")int page1,@Param("num") int num);
 }

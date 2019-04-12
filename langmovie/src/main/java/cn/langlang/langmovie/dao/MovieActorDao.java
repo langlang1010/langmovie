@@ -28,6 +28,12 @@ public interface MovieActorDao {
     List<MovieActor> listMovieActorByMovie(MovieActor movieActor);
 
     /**
+     * 根据电影id查询主要演员姓名
+     * @return
+     */
+    List<String> listActorNameByMovie(@Param("movieid")Long movieid);
+
+    /**
      *
      * @param page1
      * @param num

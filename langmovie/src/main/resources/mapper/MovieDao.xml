@@ -67,4 +67,19 @@
         order by pk_movieid
         limit #{page1},#{num}
     </select>
+
+    <select id="getMovieShortInfoById" parameterType="java.lang.Long"
+            resultType="cn.langlang.langmovie.bean.MovieShortInfo">
+        select pk_movieid,movie_name,grade,post
+        from movie
+        where pk_movieid=#{movieid}
+    </select>
+    <select id="listShortInfo"
+            resultType="cn.langlang.langmovie.bean.MovieShortInfo">
+        select pk_movieid,movie_name,grade,post
+        from movie
+        order by pk_movieid
+        limit #{page1},#{num}
+    </select>
+
 </mapper>

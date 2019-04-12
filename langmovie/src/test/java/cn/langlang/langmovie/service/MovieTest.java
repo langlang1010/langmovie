@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.service;
 
+import cn.langlang.langmovie.bean.MovieShortInfo;
 import cn.langlang.langmovie.entity.Movie;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,6 +58,26 @@ public class MovieTest {
         List<Movie> list=movieService.listMovie(1,3);
         for(Movie movie:list) {
             System.out.println(movie.getPkMovieid());
+        }
+    }
+
+    @Test
+    public void testShort() {
+        MovieShortInfo shortInfo = movieService.getMovieShortInfoById(1L);
+        System.out.println("Movieid:"+shortInfo.getPkMovieid());
+        System.out.println("movie_name:"+shortInfo.getMovieName());
+        System.out.println("movie_post:"+shortInfo.getPost());
+        List<String> list = shortInfo.getRoles_name();
+        for(String s:list) {
+            System.out.println("rolename:"+s);
+        }
+    }
+
+    @Test
+    public void listShortInfo() {
+        List<MovieShortInfo> list = movieService.listShortInfo(1,5);
+        for (MovieShortInfo movieShortInfo:list) {
+            System.out.println(movieShortInfo.getPkMovieid());
         }
     }
 }
