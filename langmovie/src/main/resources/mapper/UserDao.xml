@@ -20,8 +20,30 @@
     </insert>
     <update id="updateUser" parameterType="cn.langlang.langmovie.entity.User">
         update user
-        set username=#{username},password=#{password},uk_phone=#{ukPhone},
-            role=#{role},money=#{money},gmt_modified=#{gmtModified}
+        set
+        <trim suffixOverrides="," >
+          <if test="username!=null">
+              username=#{username},
+          </if>
+          <if test="password!=null">
+              password=#{password},
+          </if>
+            <if test="ukPhone!=null">
+                uk_phone=#{ukPhone},
+            </if>
+            <if test="role!=null">
+                role=#{role},
+            </if>
+            <if test="money!=null">
+                money=#{money},
+            </if>
+            <if test="gmtModified!=null">
+                gmt_modified=#{gmtModified},
+            </if>
+            <if test="gmtCreate!=null">
+                gmt_create=#{gmtCreate}
+            </if>
+        </trim>
         where pk_userid = #{pkUserid}
     </update>
     <delete id="deleteUser" parameterType="cn.langlang.langmovie.entity.User">

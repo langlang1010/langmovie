@@ -6,15 +6,15 @@
 <mapper namespace="cn.langlang.langmovie.dao.MovieDao">
     <insert id="insertMovie" parameterType="cn.langlang.langmovie.entity.Movie"
             useGeneratedKeys="true" keyProperty="pkMovieid">
-      insert into movie(movie_name,movie_release,
-              introduction,movie_type,gmt_create,gmt_modified)
-      values(#{movieName},#{movieRelease},#{introduction},
-            #{movieType},#{gmtCreate},#{gmtModified})
+      insert into movie(movie_name,movie_release,grade,post,
+              introduction,movie_type,gmt_create,gmt_modified,prefix,other_info)
+      values(#{movieName},#{movieRelease},#{grade},#{post},#{introduction},
+            #{movieType},#{gmtCreate},#{gmtModified},#{prefix},#{otherInfo})
     </insert>
     <select id="getMovieById" parameterType="cn.langlang.langmovie.entity.Movie"
                 resultType="cn.langlang.langmovie.entity.Movie">
-        select pk_movieid,movie_name,movie_release,
-              introduction,movie_type,gmt_create,gmt_modified
+        select pk_movieid,movie_name,movie_release,grade,post,
+              introduction,movie_type,gmt_create,gmt_modified,prefix,other_info
         from movie
         where pk_movieid=#{pkMovieid}
     </select>
@@ -38,8 +38,20 @@
             <if test="introduction!=null">
                 introduction=#{introduction},
             </if>
+            <if test="grade!=null">
+                grade=#{grade},
+            </if>
+            <if test="post!=null">
+                post=#{post},
+            </if>
+            <if test="prefix!=null">
+                prefix=#{prefix},
+            </if>
             <if test="movieType!=null">
-                movie_type=#{movieType}
+                movie_type=#{movieType},
+            </if>
+            <if test="otherInfo!=null">
+                other_info=#{otherInfo}
             </if>
         </trim>
         where pk_movieid=#{pkMovieid}
@@ -49,8 +61,8 @@
         where pk_movieid=#{pkMovieid}
     </delete>
     <select id="listMovie" resultType="cn.langlang.langmovie.entity.Movie">
-         select pk_movieid,movie_name,movie_release,
-              introduction,movie_type,gmt_create,gmt_modified
+         select pk_movieid,movie_name,movie_release,grade,post,
+              introduction,movie_type,gmt_create,gmt_modified,prefix
         from movie
         order by pk_movieid
         limit #{page1},#{num}

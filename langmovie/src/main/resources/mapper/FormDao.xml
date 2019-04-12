@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.langlang.langmovie.dao.FormDao">
+    <insert id="insertForm" parameterType="cn.langlang.langmovie.entity.Form"
+            useGeneratedKeys="true" keyProperty="pkFormid">
+      insert into form(
+        fk_screen,fk_user,seat_x,seat_y,code,
+        gmt_create,gmt_modified
+      ) values(
+        #{fkScreen},#{fkUser},#{seatX},#{seatY},#{code},
+        #{gmtCreate},#{gmtModified}
+      )
+    </insert>
+    <update id="updateForm" parameterType="cn.langlang.langmovie.entity.Form">
+        update form
+        set
+        <trim suffixOverrides=",">
+            <if test="fkScreen!=null">
+                fk_screen=#{fkScreen},
+            </if>
+            <if test="fkUser!=null">
+                fk_user=#{fkUser},
+            </if>
+            <if test="seatX!=null">
+                seat_x=#{seatX},
+            </if>
+            <if test="seatY!=null">
+                seat_y=#{seatY},
+            </if>
+            <if test="code!=null">
+                code=#{code},
+            </if>
+            <if test="gmtModified!=null">
+                gmt_modified=#{gmtModified},
+            </if>
+            <if test="gmtCreate!=null">
+                gmt_create=#{gmtCreate}
+            </if>
+        </trim>
+        where pk_formid=#{pkFormid}
+    </update>
+    <select id="getFormById" parameterType="cn.langlang.langmovie.entity.Form"
+        resultType="cn.langlang.langmovie.entity.Form">
+        select pk_formid,fk_screen,fk_user,seat_x,seat_y,code,
+               gmt_create,gmt_modified
+        from form
+        where pk_formid=#{pkFormid}
+    </select>
+    <select id="listForm" resultType="cn.langlang.langmovie.entity.Form">
+        select pk_formid,fk_screen,fk_user,seat_x,seat_y,code,
+               gmt_create,gmt_modified
+        from form
+        order by pk_formid
+        limit #{page1},#{num}
+    </select>
+    <delete id="deleteForm" parameterType="cn.langlang.langmovie.entity.Form">
+        delete from form
+        where pk_formid=#{pkFormid}
+    </delete>
+</mapper>

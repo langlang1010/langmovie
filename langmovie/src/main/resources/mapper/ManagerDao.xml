@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.langlang.langmovie.dao.ManagerDao">
+    <insert id="insertManager" parameterType="cn.langlang.langmovie.entity.Manager">
+      insert into manager(
+        fk_user,fk_cinema,gmt_create,gmt_modified
+      ) values(
+        #{fkUser},#{fkCinema},#{gmtCreate},#{gmtModified}
+      )
+    </insert>
+    <update id="updateCinema" parameterType="cn.langlang.langmovie.entity.Cinema">
+        update cinema
+        set
+        <trim suffixOverrides=",">
+            <if test="cinemaName!=null">
+                cinema_name=#{cinemaName},
+            </if>
+            <if test="city!=null">
+                city=#{city},
+            </if>
+            <if test="province!=null">
+                province=#{province},
+            </if>
+            <if test="country!=null">
+                country=#{country},
+            </if>
+
+        </trim>
+        where pk_cinemaid=#{pkCinemaid}
+    </update>
+    <select id="listManagerByUserid"
+        resultType="cn.langlang.langmovie.entity.Manager">
+        select fk_user,fk_cinema,gmt_create,gmt_modified
+        from manager
+        where fk_user=#{userid}
+        order by fk_cinema
+        limit #{page1},#{num}
+    </select>
+    <select id="listManagerByCinemaid"
+            resultType="cn.langlang.langmovie.entity.Manager">
+        select fk_user,fk_cinema,gmt_create,gmt_modified
+        from manager
+        where fk_cinema=#{cinemaid}
+        order by fk_user
+        limit #{page1},#{num}
+    </select>
+
+    <delete id="deleteManagerByCinemaAndUser" parameterType="cn.langlang.langmovie.entity.Manager">
+        delete from manager
+        where fk_cinema=#{fkCinema}
+        and fk_user=#{fkUser}
+    </delete>
+</mapper>

@@ -27,7 +27,7 @@ public class UserInfoTest {
     @Test
     public void update() {
         UserInfo userInfo = new UserInfo();
-        userInfo.setPkUserid((long) 1);
+        userInfo.setPkUserid(3L);
         userInfo.setGmtCreate(new Date());
         userInfo.setGmtModified(new Date());
         System.out.println(userInfoService.updateUserInfo(userInfo));

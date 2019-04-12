@@ -36,7 +36,7 @@ public class UserTest {
     public void edit() {
         User user = new User();
         user.setPkUserid((long) 1);
-        user.setMoney(98.5F);
+        user.setMoney(95.5F);
         user.setGmtModified(new Date());
         System.out.println("update == "+userService.updateUser(user));
     }
