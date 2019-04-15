@@ -18,13 +18,15 @@ public class MoviePostTest {
     private MoviePostService moviePostService;
     @Test
     public void add() {
-        for (int i = 0; i < 6; i++) {
-            MoviePost moviePost = new MoviePost();
-            moviePost.setGmtCreate(new Date());
-            moviePost.setGmtModified(new Date());
-            moviePost.setPostUrl("dd");
-            moviePost.setFkMovieid(1L);
-            System.out.println(moviePostService.insertPost(moviePost));
+        for (int t = 1; t <= 25; t++) {
+            for (int i = 0; i < 12; i++) {
+                MoviePost moviePost = new MoviePost();
+                moviePost.setGmtCreate(new Date());
+                moviePost.setGmtModified(new Date());
+                moviePost.setPostUrl("https://withyan.cn/images/post/" + t + "/" + (i + 1) + ".jpg");
+                moviePost.setFkMovieid((long)t);
+                System.out.println(moviePostService.insertPost(moviePost));
+            }
         }
     }
 

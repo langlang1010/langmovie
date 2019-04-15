@@ -5,7 +5,6 @@ import cn.langlang.langmovie.entity.MovieActor;
 import cn.langlang.langmovie.service.MovieActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -48,5 +47,10 @@ public class MovieActorServiceImpl implements MovieActorService {
     @Override
     public int deleteActorByMovie(MovieActor movieActor) {
         return movieActorDao.deleteActorByMovie(movieActor);
+    }
+
+    @Override
+    public List<String> listActorNameByMovie(Long movieid) {
+        return movieActorDao.listActorNameByMovie(movieid);
     }
 }

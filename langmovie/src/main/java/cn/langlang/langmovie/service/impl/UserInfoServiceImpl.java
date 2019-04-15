@@ -30,6 +30,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
+    public UserInfo getUserInfoByOpenid(UserInfo userInfo) {
+        return userInfoDao.getUserInfoByOpenid(userInfo);
+    }
+
+    @Override
     public List<UserInfo> listUserInfo(int page1, int num) {
         return userInfoDao.listUserInfo(page1-1,num);
     }

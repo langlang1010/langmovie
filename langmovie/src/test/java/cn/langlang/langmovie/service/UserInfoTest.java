@@ -42,6 +42,15 @@ public class UserInfoTest {
     }
 
     @Test
+    public void getUserInfoByOpenid() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setOpenid("aa");
+        UserInfo userInfo1 = userInfoService.getUserInfoByOpenid(userInfo);
+        System.out.println(userInfo1.getGmtCreate());
+    }
+
+
+    @Test
     public void listUserInfo() {
         List<UserInfo> list = userInfoService.listUserInfo(1,3);
         for(UserInfo userInfo:list) {

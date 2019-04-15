@@ -54,4 +54,11 @@ public interface MovieActorService {
      * @return
      */
     int deleteActorByMovie(MovieActor movieActor);
+
+    /**
+     *
+     * @param movieid
+     * @return
+     */
+    List<String> listActorNameByMovie(Long movieid);
 }

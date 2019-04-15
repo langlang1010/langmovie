@@ -28,6 +28,12 @@ public interface UserInfoService {
 
     /**
      *
+     * @param userInfo
+     * @return
+     */
+    UserInfo getUserInfoByOpenid(UserInfo userInfo);
+    /**
+     *
      * @param page1
      * @param num
      * @return

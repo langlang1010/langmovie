@@ -57,6 +57,13 @@
         order by pk_actorid
         limit #{page1},#{num}
     </select>
+    <select id="listActorNameByMovie" resultType="java.lang.String">
+        select actor_name
+        from movie_actor
+        where fk_movieid=#{movieid}
+        order by pk_actorid
+        limit 0,3
+    </select>
     <delete id="deleteActorById" parameterType="cn.langlang.langmovie.entity.MovieActor">
         delete from movie_actor
        where pk_actorid=#{pkActorid}
