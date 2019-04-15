@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <title>jQuery WeUI</title>
     <meta charset="utf-8">
@@ -51,8 +51,10 @@
 
     </script>
     <script type="text/javascript">
+        var vm;
+        var now_page=1;
         window.onload = function () {
-            var vm = new Vue({
+            vm = new Vue({
                 el: '#movieshow',
                 data: {
                     movies: ""
@@ -73,10 +75,17 @@
                         });
                     },
                     loadmore: function () {
-                        alert("ddsssss")
-                        var url = "http://yan.nat300.top/movie/add/2";
+                        now_page++;
+                        var url = "http://yan.nat300.top/movie/add/"+now_page;
                         //发送get请求
                         this.$http.get(url).then(function (res) {
+                            // 判断是否为空
+                            if(res.body.data.length<1) {
+                                // alert("none");
+                                $("#loadmore_div").hide();
+                            }
+
+                            // 数组拼接
                             var c = vm.movies.concat(res.body.data);
                             vm.movies = c;
                         }, function () {
@@ -153,8 +162,10 @@
                     </template>
 
                 </div>
-
-
+                <div id="loadmore_div" class="weui-loadmore">
+                    <i class="weui-loading"></i>
+                    <span class="weui-loadmore__tips">正在加载</span>
+                </div>
             </div>
 
         </div>
@@ -201,6 +212,17 @@
 </script>
 <script src="../js/jquery-weui.js"></script>
 
-
+<script>
+    var loading = false;  //状态标记
+    $("#tab1").infinite().on("infinite", function() {
+        if(loading) return;
+        loading = true;
+        setTimeout(function() {
+            // alert("dfsss")
+            vm.loadmore();
+            loading = false;
+        }, 1500);   //模拟延迟
+    });
+</script>
 </body>
 </html>
