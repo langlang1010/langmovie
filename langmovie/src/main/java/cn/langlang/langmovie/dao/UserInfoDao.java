@@ -31,6 +31,12 @@ public interface UserInfoDao {
 
     /**
      *
+     * @param userInfo
+     * @return
+     */
+    UserInfo getUserInfoByOpenid(UserInfo userInfo);
+    /**
+     *
      * @return
      */
     List<UserInfo> listUserInfo(@Param("page1") int page1, @Param("num") int num);

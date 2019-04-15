@@ -1,5 +1,13 @@
 server:
   port: 80
+spring:
+  redis:
+    password: 123456
+    port: 6379
+    host: 39.106.198.74
+
+# redis在添加这个记录后redis-timeout秒后，会自动删除
+redis-timeout: 1800
 
 jdbc:
   driver: com.mysql.cj.jdbc.Driver
@@ -12,3 +20,13 @@ mybatis_config_file:   mybatis-config.xml
 mybatis_mapper_path:  /mapper/**.xml
 entity_package: cn.langlang.langmovie.entity
 
+# 每页显示电影数量
+page_count: 5
+
+wechat:
+  appid: wx4e89c9871d300df4
+  appsecret: 4d323a00bbf46937707b43baaa71c4bd
+  login_url: http://yan.nat300.top/wechat/login                ##登录地址
+  success_login_url:  http://yan.nat300.top/movie/index              ##前端数据
+
+init_money: 200

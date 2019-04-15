@@ -1,6 +1,7 @@
 package cn.langlang.langmovie.service;
 
 import cn.langlang.langmovie.entity.User;
+import cn.langlang.langmovie.entity.UserInfo;
 
 import java.util.List;
 
@@ -42,4 +43,10 @@ public interface UserService {
      * @return
      */
     List<User> listUser(int page1,int num);
+
+    /**
+     *
+     * @return userid
+     */
+    long insertNewUser(UserInfo userInfo);
 }

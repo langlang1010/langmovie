@@ -61,7 +61,7 @@
         select actor_name
         from movie_actor
         where fk_movieid=#{movieid}
-        order by gmt_create DESC
+        order by pk_actorid
         limit 0,3
     </select>
     <delete id="deleteActorById" parameterType="cn.langlang.langmovie.entity.MovieActor">

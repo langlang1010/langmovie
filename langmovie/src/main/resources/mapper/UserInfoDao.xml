@@ -54,6 +54,13 @@
         from user_info
         where pk_userid=#{pkUserid}
     </select>
+    <select id="getUserInfoByOpenid" parameterType="cn.langlang.langmovie.entity.UserInfo"
+            resultType="cn.langlang.langmovie.entity.UserInfo">
+        select pk_userid,openid,nickname,gender,city,province,
+                country,avatar_url,gmt_create,gmt_modified
+        from user_info
+        where openid=#{openid}
+    </select>
     <select id="listUserInfo" resultType="cn.langlang.langmovie.entity.UserInfo">
         select pk_userid,openid,nickname,gender,city,province,
                 country,avatar_url,gmt_create,gmt_modified
