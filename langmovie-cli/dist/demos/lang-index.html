@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/jquery-weui.css">
     <link rel="stylesheet" href="css/demos.css">
     <script>
+        var global_temp = 1;
         $(document).ready(function () {
             $("#me").click(function () {
                 $("#img_me").attr("src", "./image/me2.png");
@@ -47,17 +48,20 @@
                 $("#showRightNow").css("border-bottom", "")
                 $("#showNowText").css("color", "red")
             });
+
         })
 
     </script>
     <script type="text/javascript">
         var vm;
-        var now_page=1;
+        var now_page = 1;
         window.onload = function () {
             vm = new Vue({
                 el: '#movieshow',
                 data: {
-                    movies: ""
+                    movies: "",
+                    cities: "",
+                    province: []
                 },
                 mounted: function () {
                     this.get();
@@ -76,11 +80,11 @@
                     },
                     loadmore: function () {
                         now_page++;
-                        var url = "http://yan.nat300.top/movie/add/"+now_page;
+                        var url = "http://yan.nat300.top/movie/add/" + now_page;
                         //发送get请求
                         this.$http.get(url).then(function (res) {
                             // 判断是否为空
-                            if(res.body.data.length<1) {
+                            if (res.body.data.length < 1) {
                                 // alert("none");
                                 $("#loadmore_div").hide();
                             }
@@ -91,10 +95,50 @@
                         }, function () {
                             console.log('请求失败处理');
                         });
+                    },
+                    location: function () {
+                        var url = "http://yan.nat300.top/cinema/listcity";
+                        //发送get请求
+                        this.$http.get(url).then(function (res) {
+                            // 判断是否为空
+                            if (res.body.data.length < 1) {
+
+                            }
+                            vm.cities = res.body.data;
+                            for (var i = 0; i < vm.cities.length; i++) {
+                                vm.province[i] = vm.cities[i].province;
+                            }
+                            // alert("  vm.province  "+  vm.cities[1].cities);
+                            var var1, var2;
+                            $("#job").select({
+                                title: "选择省份",
+                                items: vm.province,
+                                onChange: function(d) {
+                                    console.log(d.values);
+                                    // alert(global_temp);
+                                    $("#mobile").select({
+                                        title: "选择城市",
+                                        items: vm.cities[vm.whitch(vm.province,d.values)].cities
+                                    });
+                                }
+
+                            });
+
+
+                        })
+                    },
+                    whitch:function (data, key) {
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i] == key) {
+                                return i;
+                            }
+                        }
+                        return 0;
                     }
                 }
-            });
+            })
         }
+        // $("#choose_city").popup();
     </script>
     <style>
         .placeholder {
@@ -105,12 +149,41 @@
             text-align: center;
             color: #000000;
         }
-
     </style>
 </head>
 
 <body ontouchstart>
+<div id="full" class='weui-popup__container'>
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <header class='demos-header'>
+            <h2 class="demos-second-title">请选择您所在的城市</h2>
+        </header>
+        <article class="weui-article">
+            <section>
+                <h2 class="title"></h2>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><label for="name" class="weui-label">省份</label></div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" id="job" type="text" value="">
+                        </div>
+                    </div>
 
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><label for="name" class="weui-label">城市</label></div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" id="mobile" type="text" value="">
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+        </article>
+        <a href="javascript:;" class="weui-btn weui-btn_primary close-popup">确定</a>
+    </div>
+</div>
 <div class="weui-tab">
     <div class="weui-tab__bd" style="padding-bottom:50px ">
         <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
@@ -118,9 +191,11 @@
                 <p style="text-align: center;padding-bottom: 10px;padding-top: 10px;color: white">浪浪电影</p>
             </div>
             <div class="weui-flex">
-                <div class="weui-flex__item">
+                <div id="choose_city" class="open-popup"  data-target="#full" class="weui-flex__item">
                     <div class="placeholder">
-                        长沙<img src="./image/location.png">
+                        <span id="city-name">长沙
+                          <img src="./image/location.png">
+                        </span>
                     </div>
                 </div>
                 <div id="showNow" class="weui-flex__item" style="border-bottom:5px solid red;">
@@ -214,15 +289,24 @@
 
 <script>
     var loading = false;  //状态标记
-    $("#tab1").infinite().on("infinite", function() {
-        if(loading) return;
+    $("#tab1").infinite().on("infinite", function () {
+        if (loading) return;
         loading = true;
-        setTimeout(function() {
-            // alert("dfsss")
+        setTimeout(function () {
             vm.loadmore();
             loading = false;
         }, 1500);   //模拟延迟
     });
+    setTimeout(function () {
+        vm.location();
+    }, 200);
+
+    var var1,var2;
+
+</script>
+
+<script>
+
 </script>
 </body>
 </html>
