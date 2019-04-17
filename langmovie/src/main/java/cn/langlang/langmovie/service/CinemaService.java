@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.service;
 
+import cn.langlang.langmovie.bean.City;
 import cn.langlang.langmovie.entity.Cinema;
 import cn.langlang.langmovie.entity.Room;
 
@@ -44,5 +45,9 @@ public interface CinemaService {
      */
     List<Cinema> listCinema(int page1,int num);
 
-
+    /**
+     *
+     * @return
+     */
+    List<City> listAllCity();
 }

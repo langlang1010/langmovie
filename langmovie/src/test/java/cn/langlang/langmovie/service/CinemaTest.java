@@ -1,6 +1,9 @@
 package cn.langlang.langmovie.service;
 
+import cn.langlang.langmovie.bean.City;
+import cn.langlang.langmovie.bean.ProvinceCity;
 import cn.langlang.langmovie.entity.Cinema;
+import cn.langlang.langmovie.util.ProvinceCityUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +58,14 @@ public class CinemaTest {
             System.out.println(cinema.getPkCinemaid());
         }
     }
+
+    @Test
+    public void listCity() {
+        List<City> list = cinemaService.listAllCity();
+//        for(City city:list) {
+//            System.out.println(city.getProvince());
+//        }
+        ProvinceCityUtil.listProvinceCity(list);
+    }
+
 }

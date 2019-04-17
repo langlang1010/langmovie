@@ -15,11 +15,13 @@ import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@CrossOrigin
 @RequestMapping("/wechat")
 public class WechatLoginController {
     @Autowired
@@ -53,7 +55,6 @@ public class WechatLoginController {
         String oauth2buildAuthorizationUrl = wxMpService.oauth2buildAuthorizationUrl(
                 loginUrl, WxConsts.OAuth2Scope.SNSAPI_USERINFO,  null);
 
-        System.out.println(oauth2buildAuthorizationUrl);
         return "redirect:" + oauth2buildAuthorizationUrl;
     }
 
@@ -66,7 +67,6 @@ public class WechatLoginController {
     @GetMapping("/login")
     public String login(@RequestParam("code") String code,
                         @RequestParam("state") String returnUrl) {
-        System.out.println("code=="+code);
         // 2.根据code换取AccessToken
         WxMpOAuth2AccessToken wxMpOAuth2AccessToken = null;
         try {

@@ -60,6 +60,12 @@
         order by pk_cinemaid
         limit #{page1},#{num}
     </select>
+
+    <select id="listAlllCity" resultType="cn.langlang.langmovie.bean.City">
+        select distinct  province, city
+        from cinema
+        order by pk_cinemaid
+    </select>
     <delete id="deleteCinema" parameterType="cn.langlang.langmovie.entity.Cinema">
         delete from cinema
         where pk_cinemaid=#{pkCinemaid}

@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.service.impl;
 
+import cn.langlang.langmovie.bean.City;
 import cn.langlang.langmovie.dao.CinemaDao;
 import cn.langlang.langmovie.entity.Cinema;
 import cn.langlang.langmovie.service.CinemaService;
@@ -41,5 +42,10 @@ public class CinemaServiceImpl implements CinemaService {
     @Override
     public List<Cinema> listCinema(int page1, int num) {
         return cinemaDao.listCinema(page1-1,num);
+    }
+
+    @Override
+    public List<City> listAllCity() {
+        return cinemaDao.listAlllCity();
     }
 }

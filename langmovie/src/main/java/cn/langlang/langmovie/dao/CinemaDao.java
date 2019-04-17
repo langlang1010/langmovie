@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.dao;
 
+import cn.langlang.langmovie.bean.City;
 import cn.langlang.langmovie.entity.Cinema;
 import org.apache.ibatis.annotations.Param;
 
@@ -41,4 +42,10 @@ public interface CinemaDao {
      * @return
      */
     List<Cinema> listCinema(@Param("page1") int page1, @Param("num") int num);
+
+    /**
+     * 展示所有城市的省名和市名
+     * @return
+     */
+    List<City> listAlllCity();
 }
