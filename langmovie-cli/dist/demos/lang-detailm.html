@@ -14,6 +14,73 @@
     <link rel="stylesheet" href="../lib/weui.min.css">
     <link rel="stylesheet" href="../css/jquery-weui.css">
     <link rel="stylesheet" href="css/demos.css">
+    <script type="text/javascript">
+        var movieid=3;
+        var vm;
+        window.onload = function () {
+            vm = new Vue({
+                el: '#movieshow',
+                data: {
+                    movie: "",
+                    actors:"",
+                    pictures:"",
+
+                },
+                mounted: function () {
+                    this.get();
+                    this.getactorimage();
+                    this.getpictureimage();
+                },
+                methods: {
+                    get: function () {
+                        var url = "http://yan.nat300.top/movie/detail/"+movieid;
+                        //发送get请求
+                        this.$http.get(url).then(function (res) {
+                            // console.log(res.body);
+                            //      alert(res.body.msg);
+                            vm.movie = res.body.data;
+                            vm.movie.movieRelease = vm.movie.movieRelease.substring(0, 10);
+
+
+
+                            // alert(vm.movies.movieName);
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                    },
+                    getactorimage: function(){
+                        var url ="http://yan.nat300.top/movie/role/"+movieid;
+                        this.$http.get(url).then(function (res) {
+
+                            vm.actors = res.body.data;
+                            vm.movie.movieRelease = vm.movie.movieRelease.substring(0, 10);
+
+
+
+                            // alert(vm.movies.movieName);
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+
+                    },
+                    getpictureimage: function(){
+                        var url ="http://yan.nat300.top/movie/post/"+movieid;
+                        this.$http.get(url).then(function (res) {
+
+                            vm.pictures = res.body.data;
+
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+
+                    },
+
+
+                }
+            })
+        }
+
+    </script>
 
     <style>
         .placeholder {
@@ -24,47 +91,37 @@
             text-align: center;
             color: #000000;
         }
-
         div.panel {
             height: 120px;
             display: none;
         }
-
-
     </style>
     <style>
         #actor {
             width: 100%;
-            height: 170px;
+            height: 200px;
             white-space: nowrap;
             overflow-x: auto;
             overflow-y: hidden;
             position: relative;
-
         }
-
         #actor img:hover {
             /*鼠标悬浮时，生成阴影轮廓*/
             box-shadow: 0px 0px 0px 1px red;
         }
         #juzhao {
             width: 100%;
-            height: 170px;
+            height: 180px;
             white-space: nowrap;
             overflow-x: auto;
             overflow-y: hidden;
             position: relative;
-
         }
-
-
-
         #actor img {
             border-radius: 5px;
             margin-top: 10px;
             height: 100px;
             float: left;
-
         }
         #juzhao img {
             border-radius: 5px;
@@ -72,9 +129,7 @@
             height: 100px;
             float: left;
             padding: 5px;
-
         }
-
         #aa {
             /*设置内部嵌套的div宽度（大于外部div宽度）*/
             width: 2000px;
@@ -83,16 +138,13 @@
             /*设置内部嵌套的div宽度（大于外部div宽度）*/
             width: 2000px;
         }
-
         .bb {
             float: left;
-            padding: 5px;
+            padding: 8px;
         }
-
         .bb p {
             font-size: xx-small;
         }
-
         .user_role_name {
             text-align: center;
             padding-top: 110px;
@@ -102,8 +154,8 @@
 </head>
 
 <body ontouchstart>
-<div class="weui-tab">
-    <div class="weui-tab__bd" style="padding-bottom:50px ">
+<div id="movieshow"  class="weui-tab">
+    <div  class="weui-tab__bd" style="padding-bottom:50px ">
         <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
             <div style="height: 50px;background: RED">
                 <p style="text-align: center;padding-bottom: 10px;padding-top: 10px;color: white">浪浪电影</p>
@@ -114,14 +166,16 @@
                     <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
                         <div style="height: 200px;margin-left: 8%" class="weui-media-box__hd">
                             <img style="height:100%; width: auto" class="weui-media-box__thumb"
-                                 src="https://withyan.cn/images/1.jpg">
+                                 :src="movie.post">
                         </div>
                         <div class="weui-media-box__bd" style="margin-top: 0px;margin-left: 22%">
-                            <h4 class="weui-media-box__title">反贪风暴</h4>
+                            <h4 class="weui-media-box__title">{{movie.movieName}} </h4><h6   v-if="movie.grade != null"style="color:darkred">
+                            评分：{{movie.grade}}分</h6>
+                            <h6 v-else style="color:darkred">评分：暂无</h6>
                             <span style="margin-top: 0px ;padding-top: 0px;font-size: small">
-                                   剧情，动作，犯罪</br>
-                                中国香港，中国大陆/98分钟</br>
-                                2019-04-04大陆上映
+                                   {{movie.movieType}}</br>
+                                {{ movie.otherInfo}}</br>
+                                {{movie.movieRelease}}
                                </span>
 
 
@@ -133,88 +187,37 @@
 
             </div>
             <div>
-                <button style="background-color: red;color:white;width: 100% ;height: 25px">特惠购票</button>
+                <button style="background-color: red;color:white;width: 100% ;height: 30px">特惠购票</button>
             </div>
             <div id="wrap">
-                <p style="font-size: smaller;padding: 5px">
-                    廉政公署收到报案人廖玉萍（周秀娜）的实名举报，举报正在坐牢的富二代曹园园涉嫌贿赂监狱里的监督沈激情。廉政公署收到报案人廖玉萍（周秀娜）的实名举报，举报正在坐牢的富二代曹园园涉嫌贿赂监狱里的监督沈激情。</p>
+                <p style="font-size: smaller;padding: 8px">
+                    {{movie.introduction}}
             </div>
-            <p class="flip">阅读更多</p>
-            <div class="panel">
-                <p style="font-size: smaller">廉政公署收到报案人廖玉萍（周秀娜）的实名举报，举报正在坐牢的富二代曹园园涉嫌贿赂监狱里的监督沈激情。廉政公</p>
-            </div>
-            <div id="actor">
 
+            <div  id="actor">
                 <div id="aa">
-                    <h4>演职人员</h4>
+                    <h4 style="padding-left: 8px">演职人员</h4>
+                    <template v-for="actor in actors">
+
                     <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                        <img :src="actor.actorUrl" alt=""/>
+                        <p class="user_role_name">{{actor.actorName}}
+                            <br>饰演： {{actor.roleName}} </p>
                     </div>
-                    <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
-                    </div>
-                    <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
-                    </div>
-                    <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
-                    </div>
-                    <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
-                    </div>
-                    <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
-                    </div>
-                    <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
-                    </div>
-                    <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
-                    </div>
-                    <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
-                    </div>
-                    <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
-                    </div>
-                    <div class="bb">
-                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
-                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
-                    </div>
+                    </template>
+
 
                 </div>
-
             </div>
             <div   id="juzhao">
+                <h4 style="padding-left: 8px">电影剧照</h4>
+                <template v-for="picture in pictures">
                 <div id="cc">
-                    <h4>电影剧照</h4>
-                    <img src="https://withyan.cn/images/post/1/1.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/2.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/3.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/4.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/5.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/6.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/7.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/8.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/9.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/10.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/11.jpg" alt=""/>
-                    <img src="https://withyan.cn/images/post/1/12.jpg" alt=""/>
 
-
-
+                    <img :src="picture.postUrl" alt=""/>
 
                 </div>
+                </template>
             </div>
         </div>
 
@@ -230,20 +233,13 @@
 <script>
     $(function () {
         FastClick.attach(document.body);
+    });
+</script>
 
-    });
-</script>
-<script src="/jquery/jquery-1.11.1.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".flip").click(function () {
-            $(".panel").slideToggle("slow");
-        });
-    });
-</script>
-<script type="text/javascript" src="/ajaxjs/jquery-1.6.2.min.js"></script>
+
 
 <script src="../js/jquery-weui.js"></script>
 
 </body>
 </html>
+

@@ -1,10 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>jQuery WeUI</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+    <script src="../lib/jquery-2.1.4.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="css/demos.css">
+    <script type="text/javascript">
+        function lang() {
+        }
+        var vm;
+        window.onload = function () {
+            vm = new Vue({
+                el: '#movieshow',
+                data: {
+                    movie: "",
+
+                },
+                mounted: function () {
+                    this.get();
+                },
+                methods: {
+                    get: function () {
+                        var url = "http://yan.nat300.top/movie/detail/1";
+                        //发送get请求
+                        this.$http.get(url).then(function (res) {
+                            // console.log(res.body);
+                            //      alert(res.body.msg);
+                            vm.movie = res.body.data;
+                            //vm.movie.movieRelease = vm.movie.movieRelease.substring(0, 10);
+                           // var length = vm.movie.introduction.length;
+                           // vm.info=vm.movie.introduction.substring(151,length);
+                           // vm.movie.introduction=vm.movie.introduction.substring(0,150);
+
+
+
+                            // alert(vm.movies.movieName);
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                    },
+
+
+                }
+            })
+        }
+
+    </script>
+
+    <style>
+        .placeholder {
+            margin: 5px;
+            padding: 0 10px;
+            height: 2.3em;
+            line-height: 2.3em;
+            text-align: center;
+            color: #000000;
+        }
+        div.panel {
+            height: 120px;
+            display: none;
+        }
+    </style>
+    <style>
+        #actor {
+            width: 100%;
+            height: 170px;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            position: relative;
+        }
+        #actor img:hover {
+            /*鼠标悬浮时，生成阴影轮廓*/
+            box-shadow: 0px 0px 0px 1px red;
+        }
+        #juzhao {
+            width: 100%;
+            height: 170px;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            position: relative;
+        }
+        #actor img {
+            border-radius: 5px;
+            margin-top: 10px;
+            height: 100px;
+            float: left;
+        }
+        #juzhao img {
+            border-radius: 5px;
+            margin-top: 10px;
+            height: 100px;
+            float: left;
+            padding: 5px;
+        }
+        #aa {
+            /*设置内部嵌套的div宽度（大于外部div宽度）*/
+            width: 2000px;
+        }
+        #cc {
+            /*设置内部嵌套的div宽度（大于外部div宽度）*/
+            width: 2000px;
+        }
+        .bb {
+            float: left;
+            padding: 5px;
+        }
+        .bb p {
+            font-size: xx-small;
+        }
+        .user_role_name {
+            text-align: center;
+            padding-top: 110px;
+            font-size: smaller;
+        }
+    </style>
 </head>
-<body>
-$END$
+
+<body ontouchstart>
+<div id="movieshow"  class="weui-tab">
+    <div  class="weui-tab__bd" style="padding-bottom:50px ">
+        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+            <div style="height: 50px;background: RED">
+                <p style="text-align: center;padding-bottom: 10px;padding-top: 10px;color: white">浪浪电影</p>
+            </div>
+            <div class="weui-panel weui-panel_access" style=" background-color: lightgray;margin-top: 0px">
+
+                <div class="weui-panel__bd">
+                    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                        <div style="height: 200px;margin-left: 8%" class="weui-media-box__hd">
+                            <img style="height:100%; width: auto" class="weui-media-box__thumb"
+                                 :src="movie.post">
+                        </div>
+                        <div class="weui-media-box__bd" style="margin-top: 0px;margin-left: 22%">
+                            <h4 class="weui-media-box__title">{{movie.movieName}} </h4><h6 style="color:darkred">
+                            评分：{{movie.grade}}分</h6>
+                            <span style="margin-top: 0px ;padding-top: 0px;font-size: small">
+                                   {{movie.movieType}}</br>
+                                {{ movie.otherInfo}}</br>
+                                {{movie.movieRelease}}
+                               </span>
+
+
+                        </div>
+                    </a>
+
+                </div>
+
+
+            </div>
+            <div>
+                <button style="background-color: red;color:white;width: 100% ;height: 25px">特惠购票</button>
+            </div>
+            <div id="wrap">
+                <p style="font-size: smaller;padding: 8px">
+                {{movie.introduction}}
+            </div>
+
+            <div id="actor">
+
+                <div id="aa">
+                    <h4>演职人员</h4>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+                    <div class="bb">
+                        <img src="https://withyan.cn/images/role/1/1.jpg" alt=""/>
+                        <p class="user_role_name">古天乐<br> 陆志廉 </p>
+                    </div>
+
+                </div>
+
+            </div>
+            <div   id="juzhao">
+                <div id="cc">
+                    <h4>电影剧照</h4>
+                    <img src="https://withyan.cn/images/post/1/1.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/2.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/3.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/4.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/5.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/6.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/7.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/8.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/9.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/10.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/11.jpg" alt=""/>
+                    <img src="https://withyan.cn/images/post/1/12.jpg" alt=""/>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+</div>
+
+</div>
+<script src="../lib/fastclick.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+
+
+
+<script src="../js/jquery-weui.js"></script>
+
 </body>
 </html>
