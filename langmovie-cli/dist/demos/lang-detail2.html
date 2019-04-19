@@ -15,8 +15,7 @@
     <link rel="stylesheet" href="../css/jquery-weui.css">
     <link rel="stylesheet" href="css/demos.css">
     <script type="text/javascript">
-        function lang() {
-        }
+
         var vm;
         window.onload = function () {
             vm = new Vue({
@@ -33,17 +32,9 @@
                         var url = "http://yan.nat300.top/movie/detail/1";
                         //发送get请求
                         this.$http.get(url).then(function (res) {
-                            // console.log(res.body);
-                            //      alert(res.body.msg);
+
                             vm.movie = res.body.data;
-                            //vm.movie.movieRelease = vm.movie.movieRelease.substring(0, 10);
-                           // var length = vm.movie.introduction.length;
-                           // vm.info=vm.movie.introduction.substring(151,length);
-                           // vm.movie.introduction=vm.movie.introduction.substring(0,150);
 
-
-
-                            // alert(vm.movies.movieName);
                         }, function () {
                             console.log('请求失败处理');
                         });
