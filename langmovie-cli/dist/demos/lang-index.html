@@ -29,6 +29,8 @@
                 $("#img_me").attr("src", "./image/me1.png");
                 $("#img_cinema").attr("src", "./image/cinema2.png");
                 $("#img_movie").attr("src", "./image/movie_ico1.png");
+                var temp =   $("#city-name").text()
+                $("#cityone").text(temp)
             });
         });
         $(document).ready(function () {
@@ -49,13 +51,19 @@
                 $("#showRightNow").css("border-bottom", "")
                 $("#showNowText").css("color", "red")
             });
+            $("#showDetailMovie").click(function () {
+              alert("dfjdkgj")
+            });
 
         })
-
+        function showDetail(which) {
+            alert("fggg");
+        }
     </script>
     <script type="text/javascript">
         var vm;
         var vm2;
+        var vm3;
         var now_page = 1;
         window.onload = function () {
             vm = new Vue({
@@ -68,6 +76,7 @@
                 mounted: function () {
                     this.get();
                     this.detail();
+                    this.localposition();
                 },
                 methods: {
                     get: function () {
@@ -82,10 +91,11 @@
                         });
                     },
                     detail: function () {
-                        var url = "http://yan.nat300.top/wechat/user/25/1def5ae62e4a4f5aaa8635dbf6f864cf";
+                        var url = "http://yan.nat300.top/wechat/user/25/langlang";
                         //发送get请求
                         this.$http.get(url).then(function (res) {
                             vm2.user = res.body.data;
+                            console.log(vm2.user)
                             if (vm2.user.gender == "1") {
                                 vm2.user.gender = "男"
                             } else if (vm.user.gender == "2") {
@@ -98,6 +108,17 @@
                             console.log('请求失败处理');
                         });
                     },
+                    localposition: function () {
+                        var url = "http://yan.nat300.top/cinema/all/长沙";
+                        //发送get请求
+                        this.$http.get(url).then(function (res) {
+                            vm3.local = res.body.data;
+                            console.log(vm3.local);
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                    },
+
                     loadmore: function () {
                         now_page++;
                         var url = "http://yan.nat300.top/movie/add/" + now_page;
@@ -125,6 +146,12 @@
                     user: ""
                 }
             });
+            vm3=new Vue({
+                el:'#cin',
+                data:{
+                    local:""
+                }
+            })
 
         }
     </script>
@@ -177,11 +204,12 @@
             <div id="movieshow" class="weui-panel weui-panel_access">
                 <div class="weui-panel__bd">
                     <template v-for="movie in movies">
-                        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                        <a :href="'./lang-detailm.html?movieid='+movie.pkMovieid" class="weui-media-box weui-media-box_appmsg">
                             <div class="weui-media-box__hd" style="height: 100%">
                                 <img :src="movie.post" class="weui-media-box__thumb" alt="">
                             </div>
                             <div class="weui-media-box__bd">
+                                <h4 class="weui-media-box__title" style="display: none">{{movie.pkMovieid}}</h4>
                                 <h4 class="weui-media-box__title">{{movie.movieName}}</h4>
                                 <p class="weui-media-box__desc" style="color: black">观众评分
                                     <span v-if="movie.grade != null" style="color: #ff6600">{{movie.grade}}</span>
@@ -207,7 +235,27 @@
 
         </div>
         <div id="tab2" class="weui-tab__bd-item">
-            <h1>页面二</h1>
+            <div  class="weui-panel weui-panel_access">
+                <div style="height: 50px;background: RED;text-align: center;">
+                    <p style="padding-bottom: 10px;padding-top: 10px;color: white;text-align: center">影院</p>
+                </div>
+                <div style="height: 40px;text-align: center;background-color: #FFFFF8;">
+                    <h5 id="cityone" style="padding-top:10px" ></h5>
+                </div>
+                <div id="cin" class="weui-panel__bd">
+
+                    <template v-for="cin in local">
+                        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                            <div style="padding-left: 10px"class="weui-media-box__bd">
+                                <h4 class="weui-media-box__title">{{cin.cinemaName}}</h4>
+                                <p style="padding-top: 20px" class="weui-media-box__desc" >{{cin.location}}</p>
+                            </div>
+
+                        </a>
+                    </template>
+
+                </div>
+            </div>
 
         </div>
         <div id="tab3" class="weui-tab__bd-item">
@@ -285,13 +333,7 @@
                                         </div>
                                         <div class="weui-cell__ft">{{user.phone}}</div>
                                     </div>
-                                    <!--<div class="weui-cell">-->
-                                    <!--<div class="weui-cell__hd"><img src="image/phone.png"></div>-->
-                                    <!--<div class="weui-cell__bd">-->
-                                    <!--<p>电话</p>-->
-                                    <!--</div>-->
-                                    <!--<div class="weui-cell__ft">{{user.phone}}</div>-->
-                                    <!--</div>-->
+
                                 </div>
                             </div>
                         </div>
