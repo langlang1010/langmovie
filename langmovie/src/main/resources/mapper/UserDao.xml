@@ -56,4 +56,42 @@
         order by pk_userid
         limit #{page1},#{num}
     </select>
+    <select id="getUserLogin"  resultType="cn.langlang.langmovie.entity.User">
+        select pk_userid,username,password,uk_phone,gmt_create,gmt_modified,role,money
+        from user
+        where username=#{username} and password=#{password}
+    </select>
+    <select id="getUserVOByUserid"  resultType="cn.langlang.langmovie.bean.UserVO">
+        select user.pk_userid as userid,
+                openid as openid,
+                user.uk_phone as phone,
+                money as money,
+                nickname as nickname,
+                avatar_url as headimage,
+                gender as gender,
+                city as city,
+                province as province
+        from user,user_info
+        where user.pk_userid = #{userid}
+        and user.pk_userid = user_info.pk_userid
+
+    </select>
+    
+    <select id="listUserDetail" resultType="cn.langlang.langmovie.bean.UserDetailVO">
+        select user.pk_userid as userid,
+                user.uk_phone as phone,
+                user.money as money,
+                user_info.nickname as nickname,
+                user_info.gender as gender,
+                user_info.city as city,
+                user_info.province as province,
+                user_info.country as country,
+                user_info.avatar_url as avatarUrl,
+                user.gmt_create as gmtCreate,
+                user.gmt_modified as gmtModified
+        from user,user_info
+        where user.pk_userid = user_info.pk_userid
+        order by user.pk_userid
+        limit #{page1},#{num}
+    </select>
 </mapper>

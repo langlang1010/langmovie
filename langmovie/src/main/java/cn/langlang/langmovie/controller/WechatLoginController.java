@@ -1,9 +1,11 @@
 package cn.langlang.langmovie.controller;
 
+import cn.langlang.langmovie.bean.UserVO;
 import cn.langlang.langmovie.entity.UserInfo;
 import cn.langlang.langmovie.service.RedisService;
 import cn.langlang.langmovie.service.UserInfoService;
 import cn.langlang.langmovie.service.UserService;
+import cn.langlang.langmovie.util.RestControllerHelper;
 import cn.langlang.langmovie.util.WechatUserUtil;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -15,10 +17,9 @@ import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @CrossOrigin
@@ -93,8 +94,9 @@ public class WechatLoginController {
          */
         UserInfo userInfoByOpenid = userInfoService.getUserInfoByOpenid(userInfo);
         if(userInfoByOpenid != null) {
-            Long pkUserid = userInfo.getPkUserid();
-            redisService.insertUserToken(wxMpOAuth2AccessToken.getAccessToken(),pkUserid);
+            long pkUserid = userInfoByOpenid.getPkUserid();
+            String token = UUID.randomUUID().toString().replace("-", "");
+            redisService.insertUserToken(pkUserid,token);
             return "redirect:" + successLoginUrl;
         }
 
@@ -116,8 +118,40 @@ public class WechatLoginController {
          */
         UserInfo userInfo1 = WechatUserUtil.createUserInfoFromWechatUser(wxMpUser);
         long userid = userService.insertNewUser(userInfo1);
-        redisService.insertUserToken(wxMpOAuth2AccessToken.getAccessToken(),userid);
+        redisService.insertUserToken(userid,wxMpOAuth2AccessToken.getAccessToken());
         return "redirect:" + successLoginUrl;
+    }
+    private RestControllerHelper helper = new RestControllerHelper();
+
+
+    @GetMapping("/user/{userid}/{token}")
+    @ResponseBody
+    private Map<String,Object> getUserInfo(@PathVariable(name = "userid") Long userid,
+                                           @PathVariable(name = "token") String token) {
+        if(userid==null) {
+            helper.setData("用户id不能为空");
+            helper.setMsg("NULL_USERID");
+            return helper.toJsonMap();
+        }
+        if(token==null || token.equals("")) {
+            helper.setData("token不能为空");
+            helper.setMsg("NULL_TOKEN");
+            return helper.toJsonMap();
+        }
+        // 1. id和token是否匹配
+        boolean b = redisService.checkLoginState(userid, token);
+        if(b == false) {
+            helper.setData("用户id和token不匹配");
+            helper.setMsg("ERROR_LOGIN");
+            return helper.toJsonMap();
+        }
+        // 2. 获得用户信息VO
+        UserVO userVO = userService.getUserVO(userid);
+
+        // 3. 返回UserVO
+        helper.setData(userVO);
+        helper.setMsg("SUCCESS");
+        return helper.toJsonMap();
     }
 
 }

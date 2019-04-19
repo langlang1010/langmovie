@@ -50,4 +50,11 @@ public interface CinemaService {
      * @return
      */
     List<City> listAllCity();
+
+    /**
+     *
+     * @param city
+     * @return
+     */
+    List<Cinema> listCinemaByCity(String city);
 }

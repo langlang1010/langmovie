@@ -57,4 +57,11 @@ public interface MovieDao {
      * @return
      */
     List<MovieShortInfo> listShortInfo(@Param("page1")int page1,@Param("num") int num);
+
+    /**
+     * 根据电影名查找电影
+     * @param name
+     * @return
+     */
+    List<MovieShortInfo> listMovieByName(@Param("name") String name);
 }

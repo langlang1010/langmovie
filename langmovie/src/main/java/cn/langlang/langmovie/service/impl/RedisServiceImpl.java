@@ -17,16 +17,16 @@ public class RedisServiceImpl implements RedisService {
     private int redisTimeout;
 
     @Override
-    public void insertUserToken(String userToken, long userid) {
+    public boolean checkLoginState(long userid,String userToken) {
         ValueOperations<String, String> stringStringValueOperations = stringRedisTemplate.opsForValue();
-        stringStringValueOperations.set(userToken,userid+"",redisTimeout,TimeUnit.SECONDS);
+        String s = stringStringValueOperations.get(userid+"");
+        String s2 = userToken + "";
+        return s2.equals(s);
     }
 
     @Override
-    public boolean checkLoginState(String userToken, long userid) {
+    public void insertUserToken(long userid, String userToken) {
         ValueOperations<String, String> stringStringValueOperations = stringRedisTemplate.opsForValue();
-        String s = stringStringValueOperations.get(userToken);
-        String s2 = userid + "";
-        return s2.equals(s);
+        stringStringValueOperations.set(userid+"",userToken,redisTimeout,TimeUnit.SECONDS);
     }
 }

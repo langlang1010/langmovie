@@ -66,6 +66,15 @@
         from cinema
         order by pk_cinemaid
     </select>
+    <select id="listCinemaByCity" parameterType="java.lang.String"
+        resultType="cn.langlang.langmovie.entity.Cinema">
+        select pk_cinemaid,cinema_name,city,province,country,location,
+               money,gmt_create,gmt_modified
+        from cinema
+        where city = #{mcity}
+    </select>
+
+
     <delete id="deleteCinema" parameterType="cn.langlang.langmovie.entity.Cinema">
         delete from cinema
         where pk_cinemaid=#{pkCinemaid}

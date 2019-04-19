@@ -18,10 +18,14 @@ public class UserInfoTest {
     @Test
     public void add() {
         UserInfo userInfo = new UserInfo();
-        userInfo.setPkUserid((long) 5);
-        userInfo.setGmtCreate(new Date());
-        userInfo.setGmtModified(new Date());
-        System.out.println(userInfoService.insertUserInfo(userInfo));
+        for(long i=26; i<=46; i++) {
+            userInfo.setPkUserid( i);
+            userInfo.setOpenid(i+"OPEN");
+            userInfo.setGmtCreate(new Date());
+            userInfo.setGmtModified(new Date());
+            userInfoService.insertUserInfo(userInfo);
+        }
+        System.out.println();
     }
 
     @Test
@@ -44,9 +48,9 @@ public class UserInfoTest {
     @Test
     public void getUserInfoByOpenid() {
         UserInfo userInfo = new UserInfo();
-        userInfo.setOpenid("aa");
+        userInfo.setOpenid("obXGhxLPQeDPD18cwudRYvZwUneo");
         UserInfo userInfo1 = userInfoService.getUserInfoByOpenid(userInfo);
-        System.out.println(userInfo1.getGmtCreate());
+        System.out.println(userInfo1.getPkUserid());
     }
 
 

@@ -1,5 +1,7 @@
 package cn.langlang.langmovie.service.impl;
 
+import cn.langlang.langmovie.bean.UserDetailVO;
+import cn.langlang.langmovie.bean.UserVO;
 import cn.langlang.langmovie.dao.UserDao;
 import cn.langlang.langmovie.dao.UserInfoDao;
 import cn.langlang.langmovie.entity.User;
@@ -65,6 +67,23 @@ public class UserServiceImpl implements UserService {
         }
         long userid = user.getPkUserid();
         userInfo.setPkUserid(userid);
+        userInfoDao.insertUserInfo(userInfo);
         return userid;
     }
+
+    @Override
+    public User getUserLogin(String username, String password) {
+        return userDao.getUserLogin(username,password);
+    }
+
+    @Override
+    public UserVO getUserVO(Long userid) {
+        return userDao.getUserVOByUserid(userid);
+    }
+
+    @Override
+    public List<UserDetailVO> listUserDetail(int page1, int num) {
+        return userDao.listUserDetail(page1-1,num);
+    }
+
 }

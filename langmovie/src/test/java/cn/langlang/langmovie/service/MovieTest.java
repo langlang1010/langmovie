@@ -80,4 +80,12 @@ public class MovieTest {
             System.out.println(movieShortInfo.getPkMovieid());
         }
     }
+
+    @Test
+    public void getByName() {
+        List<MovieShortInfo> movies = movieService.listMovieByName("一");
+        for(MovieShortInfo movie:movies) {
+            System.out.println(movie.getMovieName());
+        }
+    }
 }
