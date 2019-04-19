@@ -65,4 +65,16 @@ public class MovieServiceImpl implements MovieService {
         }
         return list;
     }
+
+    @Override
+    public List<MovieShortInfo> listMovieByName(String name) {
+        String param = name + "%";
+        List<MovieShortInfo> movies = movieDao.listMovieByName(param);
+        for (int i = 0; i < movies.size(); i++) {
+            List<String> names = movieActorDao.listActorNameByMovie(movies.get(i).getPkMovieid());
+            movies.get(i).setRoles_name(names);
+        }
+        return movies;
+    }
+
 }

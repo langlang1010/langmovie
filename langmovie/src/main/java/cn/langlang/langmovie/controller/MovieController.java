@@ -108,5 +108,13 @@ public class MovieController {
         helper.setMsg("success");
         return helper.toJsonMap();
     }
-
+    @ApiOperation(value = "根据电影名模糊查询电影")
+    @ApiParam(name = "name",value = "电影名")
+    @GetMapping("/search/{name}")
+    private Map<String,Object> listMoviesByName(@PathVariable(name = "name") String name) {
+        List<MovieShortInfo> movies = movieService.listMovieByName(name);
+        helper.setData(movies);
+        helper.setMsg("SUCCESS");
+        return helper.toJsonMap();
+    }
 }

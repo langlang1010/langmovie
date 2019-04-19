@@ -48,4 +48,11 @@ public interface CinemaDao {
      * @return
      */
     List<City> listAlllCity();
+
+    /**
+     * 根据城市显示所有影院
+     * @param mcity
+     * @return
+     */
+    List<Cinema> listCinemaByCity(@Param("mcity") String mcity);
 }

@@ -68,4 +68,14 @@ public class CinemaTest {
         ProvinceCityUtil.listProvinceCity(list);
     }
 
+    @Test
+    public void listCityByCity() {
+        String city = "长沙";
+        List<Cinema> list = cinemaService.listCinemaByCity(city);
+        for(Cinema cinema:list) {
+            System.out.println(cinema.getPkCinemaid());
+        }
+
+    }
+
 }

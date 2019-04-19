@@ -14,12 +14,12 @@ public class RedisServiceTest {
 
     @Test
     public void set() {
-        redisService.insertUserToken("token",1333232L);
+        redisService.insertUserToken(1333232L,"token");
 //        redisService.checkLoginState("token",1333232L);
     }
 
     @Test
     public void check() {
-        System.out.println(redisService.checkLoginState("token",1333232L));
+        System.out.println(redisService.checkLoginState(1333232L,"token"));
     }
 }

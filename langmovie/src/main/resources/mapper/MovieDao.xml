@@ -81,5 +81,10 @@
         order by pk_movieid
         limit #{page1},#{num}
     </select>
-
+    <select id="listMovieByName"
+            resultType="cn.langlang.langmovie.bean.MovieShortInfo">
+        select pk_movieid,movie_name,grade,post
+        from movie
+        where movie_name like #{name}
+    </select>
 </mapper>

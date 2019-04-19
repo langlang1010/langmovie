@@ -48,4 +48,9 @@ public class CinemaServiceImpl implements CinemaService {
     public List<City> listAllCity() {
         return cinemaDao.listAlllCity();
     }
+
+    @Override
+    public List<Cinema> listCinemaByCity(String city) {
+        return cinemaDao.listCinemaByCity(city);
+    }
 }

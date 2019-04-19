@@ -55,4 +55,11 @@ public interface MovieService {
      * @return
      */
     List<MovieShortInfo> listShortInfo(int page1,int num);
+
+    /**
+     *
+     * @param name
+     * @return
+     */
+    List<MovieShortInfo> listMovieByName(String name);
 }

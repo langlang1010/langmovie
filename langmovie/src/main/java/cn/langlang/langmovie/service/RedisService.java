@@ -7,7 +7,7 @@ public interface RedisService {
      * @param userToken
      * @return
      */
-    void insertUserToken(String userToken,long userid);
+    void insertUserToken(long userid,String userToken);
 
     /**
      *
@@ -15,5 +15,5 @@ public interface RedisService {
      * @param userid
      * @return
      */
-    boolean checkLoginState(String userToken,long userid);
+    boolean checkLoginState(long userid,String userToken);
 }

@@ -1,5 +1,7 @@
 package cn.langlang.langmovie.service;
 
+import cn.langlang.langmovie.bean.UserDetailVO;
+import cn.langlang.langmovie.bean.UserVO;
 import cn.langlang.langmovie.entity.User;
 import cn.langlang.langmovie.entity.UserInfo;
 
@@ -49,4 +51,27 @@ public interface UserService {
      * @return userid
      */
     long insertNewUser(UserInfo userInfo);
+
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    User getUserLogin(String username,String password);
+
+    /**
+     *
+     * @param userid
+     * @return
+     */
+    UserVO getUserVO(Long userid);
+
+    /**
+     *
+     * @param page1
+     * @param num
+     * @return
+     */
+    List<UserDetailVO> listUserDetail(int page1,int num);
 }
