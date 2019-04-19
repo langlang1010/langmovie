@@ -9,6 +9,7 @@
     <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 ">
     <script src="../lib/jquery-2.1.4.js"></script>
+
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
     <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
     <link rel="stylesheet" href="../lib/weui.min.css">
@@ -54,6 +55,7 @@
     </script>
     <script type="text/javascript">
         var vm;
+        var vm2;
         var now_page = 1;
         window.onload = function () {
             vm = new Vue({
@@ -61,9 +63,11 @@
                 data: {
                     movies: "",
                     cities: "长沙",
+                    user: ""
                 },
                 mounted: function () {
                     this.get();
+                    this.detail();
                 },
                 methods: {
                     get: function () {
@@ -73,6 +77,23 @@
                             // console.log(res.body);
                             //      alert(res.body.msg);
                             vm.movies = res.body.data;
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                    },
+                    detail: function () {
+                        var url = "http://yan.nat300.top/wechat/user/25/1def5ae62e4a4f5aaa8635dbf6f864cf";
+                        //发送get请求
+                        this.$http.get(url).then(function (res) {
+                            vm2.user = res.body.data;
+                            if (vm2.user.gender == "1") {
+                                vm2.user.gender = "男"
+                            } else if (vm.user.gender == "2") {
+                                vm2.user.gender = "女"
+                            } else {
+                                vm2.user.gender = "未知"
+                            }
+
                         }, function () {
                             console.log('请求失败处理');
                         });
@@ -98,6 +119,13 @@
 
                 }
             })
+            vm2 = new Vue({
+                el: '#my',
+                data: {
+                    user: ""
+                }
+            });
+
         }
     </script>
     <style>
@@ -109,17 +137,21 @@
             text-align: center;
             color: #000000;
         }
+
+        .weui-cell__ft {
+            color: #ce3c39;
+        }
     </style>
 </head>
 
 <body ontouchstart>
 
-<div class="weui-tab">
-            <div class="weui-tab__bd" style="padding-bottom:50px ">
-                <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-                    <div style="height: 50px;background: RED">
-                        <p style="text-align: center;padding-bottom: 10px;padding-top: 10px;color: white">浪浪电影</p>
-                    </div>
+<div  class="weui-tab">
+    <div class="weui-tab__bd" style="padding-bottom:50px ">
+        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+            <div style="height: 50px;background: RED">
+                <p style="text-align: center;padding-bottom: 10px;padding-top: 10px;color: white">浪浪电影</p>
+            </div>
             <div class="weui-flex">
                 <div id="city_choose" class="weui-flex__item">
                     <div class="placeholder">
@@ -142,8 +174,8 @@
                 </div>
             </div>
 
-            <div class="weui-panel weui-panel_access">
-                <div id="movieshow" class="weui-panel__bd">
+            <div id="movieshow" class="weui-panel weui-panel_access">
+                <div class="weui-panel__bd">
                     <template v-for="movie in movies">
                         <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
                             <div class="weui-media-box__hd" style="height: 100%">
@@ -179,7 +211,102 @@
 
         </div>
         <div id="tab3" class="weui-tab__bd-item">
-            <h1>页面三</h1>
+            <div id="my" class="weui-tab">
+                <div class="weui-tab__bd" style="padding-bottom:50px ">
+                    <div style="height: 200px;background: RED;text-align: center;">
+                        <p style="padding-bottom: 10px;padding-top: 10px;color: white">{{user.nickname}}</p>
+                        <img :src="user.headimage " style="text-align:center;border-radius:50%;" alt=""/>
+                    </div>
+                    <div style="height: 200px;width:auto;background: whitesmoke;padding-top: 20px">
+                        <p style="text-align: center">我的订单 </p>
+                        <div>
+                            <img style="position:absolute;left:25%;top:55%" src="image/mymovie1.png"></br>
+                            <p style="position:absolute;left:25%;top:65%">电影订单</p>
+                            <div class="open-popup" data-target="#half2">
+                                <img style="position:absolute;right:25%;top:55%" src="image/my.png"></br>
+                                <p style="position:absolute;right:25%;top:66%">个人信息</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class='demos-content-padded'>
+                        <!--<a href="javascript:;" class="weui-btn weui-btn_primary open-popup" data-target="#half">显示底部的Popup</a>-->
+                    </div>
+                    <div id="half2" class='weui-popup__container popup-bottom'>
+                        <div class="weui-popup__overlay"></div>
+                        <div class="weui-popup__modal">
+                            <div class="toolbar">
+                                <div class="toolbar-inner">
+                                    <a href="javascript:;" class="picker-button close-popup">关闭</a>
+                                    <h1 class="title">我的信息</h1>
+                                </div>
+                            </div>
+                            <div class="modal-content" style="padding-bottom: 50px">
+                                <div class="weui-cells">
+                                    <div class="weui-cell">
+                                        <div class="weui-cell__hd"><img src="image/nick.png"></div>
+                                        <div class="weui-cell__bd">
+                                            <p>昵称</p>
+                                        </div>
+                                        <div class="weui-cell__ft">{{user.nickname}}</div>
+                                    </div>
+                                    <div class="weui-cell">
+                                        <div class="weui-cell__hd"><img src="image/gender.png"></div>
+                                        <div class="weui-cell__bd">
+                                            <p>性别</p>
+                                        </div>
+                                        <div class="weui-cell__ft">{{user.gender}}</div>
+                                    </div>
+                                    <div class="weui-cell">
+                                        <div class="weui-cell__hd"><img src="image/pro.png"></div>
+                                        <div class="weui-cell__bd">
+                                            <p>省份</p>
+                                        </div>
+                                        <div class="weui-cell__ft">{{user.province}}</div>
+                                    </div>
+                                    <div class="weui-cell">
+                                        <div class="weui-cell__hd"><img src="image/city.png"></div>
+                                        <div class="weui-cell__bd">
+                                            <p>城市</p>
+                                        </div>
+                                        <div class="weui-cell__ft">{{user.city}}</div>
+                                    </div>
+                                    <div class="weui-cell">
+                                        <div class="weui-cell__hd"><img src="image/yue.png"></div>
+                                        <div class="weui-cell__bd">
+                                            <p>余额</p>
+                                        </div>
+                                        <div class="weui-cell__ft">{{user.money}}</div>
+                                    </div>
+                                    <div class="weui-cell">
+                                        <div class="weui-cell__hd"><img src="image/phone.png"></div>
+                                        <div class="weui-cell__bd">
+                                            <p>电话</p>
+                                        </div>
+                                        <div class="weui-cell__ft">{{user.phone}}</div>
+                                    </div>
+                                    <!--<div class="weui-cell">-->
+                                    <!--<div class="weui-cell__hd"><img src="image/phone.png"></div>-->
+                                    <!--<div class="weui-cell__bd">-->
+                                    <!--<p>电话</p>-->
+                                    <!--</div>-->
+                                    <!--<div class="weui-cell__ft">{{user.phone}}</div>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div style="padding-top: 50px" class="weui-footer">
+                        <p class="weui-footer__links">
+                            <a href="javascript:void(0);" class="weui-footer__link">浪浪影院</a>
+                        </p>
+                        <p class="weui-footer__text">Copyright © 2019-2030 withyan.cn</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
 
@@ -208,15 +335,15 @@
     </div>
 
 </div>
-
 <script src="../lib/fastclick.js"></script>
+<script src="../js/jquery-weui.js"></script>
+<script src="../js/city-picker.js"></script>
+
 <script>
     $(function () {
         FastClick.attach(document.body);
     });
 </script>
-<script src="../js/jquery-weui.js"></script>
-<script src="../js/city-picker.js"></script>
 
 <script>
     var loading = false;  //状态标记
@@ -228,9 +355,6 @@
             loading = false;
         }, 1500);   //模拟延迟
     });
-    setTimeout(function () {
-        vm.location();
-    }, 200);
 
     var var1, var2;
     $("#city_choose").cityPicker({
@@ -238,11 +362,11 @@
         showDistrict: false,
         onChange: function (picker, values, displayValues) {
             // console.log(values, displayValues);
-            // alert(displayValues[0]+"     "+displayValues[1])
+            // alert(displayValues[0] + "     " + displayValues[1])
             var1 = displayValues[0];
             var2 = displayValues[1];
         },
-        onClose: function (p,v,d) {
+        onClose: function (p, v, d) {
             // alert(var1+"     "+var2);
             vm.cities = var2;
             $("#city-name").text(var2);
@@ -250,8 +374,5 @@
     });
 </script>
 
-<script>
-
-</script>
 </body>
 </html>
