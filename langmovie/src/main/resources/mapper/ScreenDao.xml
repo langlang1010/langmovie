@@ -56,6 +56,18 @@
         order by pk_screenid
         limit #{page1},#{num}
     </select>
+
+    <select id="listScreenByMovieAndCinema" resultType="cn.langlang.langmovie.entity.Screen">
+        select screen.pk_screenid,screen.fk_room,screen.fk_movie,
+                screen.price,screen.begin_time,screen.end_time,
+                screen.gmt_create,screen.gmt_modified
+        from screen,room
+        where screen.fk_room=room.pk_roomid
+        and fk_movie=#{movieid}
+        and room.fk_cinema=#{cinemaid}
+        order by pk_screenid
+    </select>
+
     <delete id="deleteScreen" parameterType="cn.langlang.langmovie.entity.Screen">
         delete from screen
         where pk_screenid=#{pkScreenid}

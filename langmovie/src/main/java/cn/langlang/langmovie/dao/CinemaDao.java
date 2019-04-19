@@ -55,4 +55,13 @@ public interface CinemaDao {
      * @return
      */
     List<Cinema> listCinemaByCity(@Param("mcity") String mcity);
+
+    /**
+     * 查询city城市里，播放movieid电影的影院
+     * @param movieid
+     * @param city
+     * @return
+     */
+    List<Cinema> listCinemaByMovie(@Param("movieid")Long movieid,
+                                   @Param("city") String city);
 }

@@ -1,6 +1,7 @@
 package cn.langlang.langmovie.service;
 
 import cn.langlang.langmovie.entity.Screen;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -40,4 +41,12 @@ public interface ScreenService {
      * @return
      */
     List<Screen> listScreen(int page1,int num);
+
+    /**
+     *
+     * @param movieid
+     * @param cinemaid
+     * @return
+     */
+    List<Screen> listScreenByMovieAndCinema(long movieid,long cinemaid);
 }

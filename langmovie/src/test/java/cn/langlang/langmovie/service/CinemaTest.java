@@ -75,7 +75,16 @@ public class CinemaTest {
         for(Cinema cinema:list) {
             System.out.println(cinema.getPkCinemaid());
         }
+    }
 
+    @Test
+    public void listCityByMovie() {
+        String city = "长沙";
+        Long movieid = 1L;
+        List<Cinema> list = cinemaService.listCinemaByMoiveName(movieid,city);
+        for(Cinema cinema:list) {
+            System.out.println(cinema.getPkCinemaid());
+        }
     }
 
 }

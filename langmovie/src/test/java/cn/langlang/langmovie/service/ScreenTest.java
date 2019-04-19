@@ -61,4 +61,13 @@ public class ScreenTest {
             System.out.println(screen.getPkScreenid());
         }
     }
+
+    @Test
+    public void listScreen() {
+        List<Screen> screens = screenService.listScreenByMovieAndCinema(1L,1L);
+        System.out.println("总共有 "+screens.size()+" 场");
+        for(Screen screen:screens) {
+            System.out.println(screen.getBeginTime());
+        }
+    }
 }

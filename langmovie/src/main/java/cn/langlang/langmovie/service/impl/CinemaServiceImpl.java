@@ -53,4 +53,9 @@ public class CinemaServiceImpl implements CinemaService {
     public List<Cinema> listCinemaByCity(String city) {
         return cinemaDao.listCinemaByCity(city);
     }
+
+    @Override
+    public List<Cinema> listCinemaByMoiveName(Long movieid, String city) {
+        return cinemaDao.listCinemaByMovie(movieid,city);
+    }
 }

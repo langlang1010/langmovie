@@ -39,4 +39,9 @@ public class ScreenServiceImpl implements ScreenService {
     public List<Screen> listScreen(int page1, int num) {
         return screenDao.listScreen(page1-1,num);
     }
+
+    @Override
+    public List<Screen> listScreenByMovieAndCinema(long movieid, long cinemaid) {
+        return screenDao.listScreenByMovieAndCinema(movieid,cinemaid);
+    }
 }

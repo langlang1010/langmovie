@@ -41,4 +41,13 @@ public interface ScreenDao {
      * @return
      */
     List<Screen> listScreen(@Param("page1") int page1, @Param("num") int num);
+
+    /**
+     * 根据电影和电影院查询场次
+     * @param movieid
+     * @param cinemaid
+     * @return
+     */
+    List<Screen> listScreenByMovieAndCinema(@Param("movieid") long movieid,
+                                            @Param("cinemaid") long cinemaid);
 }

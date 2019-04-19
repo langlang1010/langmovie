@@ -57,4 +57,12 @@ public interface CinemaService {
      * @return
      */
     List<Cinema> listCinemaByCity(String city);
+
+    /**
+     *
+     * @param movieName
+     * @param city
+     * @return
+     */
+    List<Cinema> listCinemaByMoiveName(Long movieid,String city);
 }

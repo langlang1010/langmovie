@@ -74,7 +74,16 @@
         where city = #{mcity}
     </select>
 
-
+    <select id="listCinemaByMovie"
+            resultType="cn.langlang.langmovie.entity.Cinema">
+        select distinct  pk_cinemaid,cinema_name,city,province,country,location,
+               money
+        from cinema,room,screen
+        where room.fk_cinema = cinema.pk_cinemaid
+        and screen.fk_room = room.pk_roomid
+        and screen.fk_movie = #{movieid}
+        and cinema.city = #{city}
+    </select>
     <delete id="deleteCinema" parameterType="cn.langlang.langmovie.entity.Cinema">
         delete from cinema
         where pk_cinemaid=#{pkCinemaid}
