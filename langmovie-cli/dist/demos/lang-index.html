@@ -16,6 +16,12 @@
     <link rel="stylesheet" href="../css/jquery-weui.css">
     <link rel="stylesheet" href="css/demos.css">
     <script>
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+            if(r!=null)return  unescape(r[2]); return null;
+        }
         var global_temp = 1;
         $(document).ready(function () {
             $("#me").click(function () {
@@ -60,6 +66,19 @@
             alert("fggg");
         }
     </script>
+    <script>
+        if(!window.localStorage){
+            alert("浏览器支持localstorage");
+        }else{
+            var storage=window.localStorage;
+            var userid = GetQueryString("userid");
+            var token = GetQueryString("token");
+            storage.setItem("userid",userid);
+            storage.setItem("token",token);
+            var au=storage.getItem("userid");
+            var bt=storage.getItem("token");
+        }
+    </script>
     <script type="text/javascript">
         var vm;
         var vm2;
@@ -91,7 +110,8 @@
                         });
                     },
                     detail: function () {
-                        var url = "http://yan.nat300.top/wechat/user/25/langlang";
+                        var url = "http://yan.nat300.top/wechat/user/"+au+"/"+bt+"";
+
                         //发送get请求
                         this.$http.get(url).then(function (res) {
                             vm2.user = res.body.data;
