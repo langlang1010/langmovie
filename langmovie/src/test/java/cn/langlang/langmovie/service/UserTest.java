@@ -112,4 +112,8 @@ public class UserTest {
             System.out.println(userDetailVO.getUserid());
         }
     }
+    @Test
+    public void testUpdate() {
+
+    }
 }

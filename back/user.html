@@ -1,164 +1,245 @@
 <!DOCTYPE html>
 <html>
-
-
-<!-- Mirrored from www.zi-han.net/theme/hplus/table_jqgrid.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:02 GMT -->
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-    <title>H+ 后台主题UI框架 - jqGird</title>
-    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
-    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
-
+    <title>H+ 后台主题UI框架 - Bootstrap Table</title>
     <link rel="shortcut icon" href="favicon.ico">
     <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-
-    <!-- jqgrid-->
-    <link href="css/plugins/jqgrid/ui.jqgridffe4.css?0820" rel="stylesheet">
-
+    <link href="css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
 
     <style>
-        /* Additional style to fix warning dialog position */
-
-        #alertmod_table_list_2 {
-            top: 900px !important;
-        }
     </style>
-
 </head>
 
 <body class="gray-bg">
-<div class="wrapper wrapper-content  animated fadeInRight">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="ibox ">
-                <div class="ibox-content">
-                    <div class="jqGrid_wrapper">
-                        <table id="table_list_2"></table>
-                        <div id="pager_list_2"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+<div style="padding-left: 10px;padding-right: 10px;">
+    <div style="padding-top: 10px;" class="btn-group hidden-xs" id="exampleToolbar" role="group">
+        <button type="button" class="btn btn-outline btn-default">
+            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+        </button>
+
+        <button type="button" class="btn btn-outline btn-default">
+            <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+        </button>
     </div>
+    <table id="mytab" class="table table-bordered" >
+
+    </table>
 </div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    用户详细信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>编号</th>
+                        <td id="userid"></td>
+                    </tr>
+                    <tr>
+                        <th>昵称</th>
+                        <td>
+                            <input  id="nickname">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>余额</th>
+                        <td >
+                            <input  id="money">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>性别</th>
+                        <td >
+                            <input  id="gender">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>省份</th>
+                        <td >
+                            <input  id="province">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>城市</th>
+                        <td >
+                            <input  id="city">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>头像</th>
+                        <td>
+                            <img id="avatarUrl" src="" style="height: 30px">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>手机</th>
+                        <td >
+                            <input  id="phone">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button id="btn_update" type="button" class="btn btn-primary">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <script src="js/jquery.min.js?v=2.1.4"></script>
 <script src="js/bootstrap.min.js?v=3.3.6"></script>
-<script src="js/plugins/peity/jquery.peity.min.js"></script>
-<script src="js/plugins/jqgrid/i18n/grid.locale-cnffe4.js?0820"></script>
-<script src="js/plugins/jqgrid/jquery.jqGrid.minffe4.js?0820"></script>
 <script src="js/content.min.js?v=1.0.0"></script>
+<script src="js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+<script src="js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="js/demo/bootstrap-table-demo.min.js"></script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+
 <script>
-    $(document).ready(function () {
-        $.jgrid.defaults.styleUI = "Bootstrap";
-        var mydata = [{
-            id: "1",
-            invdate: "2010-05-24",
-            name: "test",
-            note: "note",
-            tax: "10.00",
-            total: "2111.00",
-            other: "2111.00"
-        }
-        ];
-        $("#table_list_2").jqGrid({
+    var url = "http://yan.nat300.top/root/user_info/1?num=100";
+    var mydata;
+    $.get(url,function(data,status){
+        mydata = data.data;
+        $('#mytab').bootstrapTable({
             data: mydata,
-            datatype: "local",
-            height: 380,
-            autowidth: true,
-            shrinkToFit: true,
-            rowNum: 10,
-            rowList: [10, 20, 30],
-            colNames: ["编号", "昵称", "余额", "性别", "省份", "城市", "头像","手机号","创建日期"],
-            colModel: [{
-                name: "id",
-                index: "id",
-                editable: true,
-                width: 60,
-                sorttype: "int",
-                search: true
-            }, {
-                name: "invdate",
-                index: "invdate",
-                editable: true,
-                width: 90,
-                sorttype: "date",
-                formatter: "date"
-            }, {
-                name: "name", index: "name", editable: true, width: 100
-            }, {
-                name: "amount",
-                index: "amount",
-                editable: true,
-                width: 80,
-                align: "right",
-                sorttype: "float",
-                formatter: "number"
-            }, {
-                name: "tax",
-                index: "tax",
-                editable: true,
-                width: 80,
-                align: "right",
-                sorttype: "float"
-            }, {
-                name: "total",
-                index: "total",
-                editable: true,
-                width: 80,
-                align: "right",
-                sorttype: "float"
-            }, {
-                name: "total",
-                index: "total",
-                editable: true,
-                width: 80,
-                align: "right",
-                sorttype: "float"
-            },{
-                name: "note", index: "note", editable: true, width: 100, sortable: false
-            },{
-                name: "total",
-                index: "total",
-                editable: true,
-                width: 80,
-                align: "right",
-                sorttype: "float"
-            }
-            ],
-            pager: "#pager_list_2",
-            viewrecords: true,
-            caption: "微信用户信息",
-            add: true,
-            edit: true,
-            addtext: "Add",
-            edittext: "Edit",
-            hidegrid: false
+            queryParams: "queryParams",
+            toolbar: "#toolbar",
+            sidePagination: "true",
+            striped: true, // 是否显示行间隔色
+            //search : "true",
+            uniqueId: "userid",
+            pageSize: "8",
+            pagination: true, // 是否分页
+            sortable: true, // 是否启用排序
+            columns: [
+                {
+                    field: 'userid',
+                    title: '编号',
+                },
+                {
+                    field: 'nickname',
+                    title: '昵称'
+                },
+                {
+                    field: 'money',
+                    title: '余额'
+                },
+                {
+                    field: 'gender',
+                    title: '性别'
+                },
+                {
+                    field: 'province',
+                    title: '省份'
+                },
+                {
+                    field: 'city',
+                    title: '城市'
+                },
+                {
+                    field: 'avatarUrl',
+                    title: '头像',
+                    formatter: actionHeadimage
+                },
+                {
+                    field: 'phone',
+                    title: '手机'
+                },
+                {
+                    field: 'userid',
+                    title: '操作',
+                    width: 120,
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: actionFormatter,
+                },
+
+            ]
         });
-        $("#table_list_2").setSelection(4, true);
-        $("#table_list_2").jqGrid("navGrid", "#pager_list_2", {
-            edit: true,
-            add: true,
-            del: true,
-            search: true
-        }, {height: 200, reloadAfterSubmit: true});
-        $(window).bind("resize", function () {
-            var width = $(".jqGrid_wrapper").width();
-            $("#table_list_1").setGridWidth(width);
-            $("#table_list_2").setGridWidth(width)
-        })
+
+    });
+    function actionHeadimage (value, row, index) {
+        var url = "<img src=\'"+ value +"\' style='width: 30px'>";
+        return url;
+    }
+    //操作栏的格式化
+    function actionFormatter(value, row, index) {
+        var id = value;
+        var result = "";
+        result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+        result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteByIds('" + id + "')\" title='删除'><span class='glyphicon glyphicon-trash'></span></a>";
+        return result;
+    }
+    
+    function EditViewById(value) {
+        $('#myModal').modal();
+        var item;
+        // 遍历整个数组
+        for (var i = 0; i < mydata.length; i++) {
+            if(mydata[i].userid == value) {
+                item = mydata[i];
+                break;
+            }
+        }
+        $("#userid").text(item.userid);
+        $("#avatarUrl").attr("src",item.avatarUrl);
+        $("#nickname").attr("value",item.nickname);
+        $("#city").attr("value",item.city);
+        $("#province").attr("value",item.province);
+        $("#gender").attr("value",item.gender);
+        $("#money").attr("value",item.money);
+        $("#phone").attr("value",item.phone);
+    }
+
+    $(document).ready(function(){
+        var userid =   $("#userid").text();
+        var nickname =   $("#nickname").val();
+        var city =   $("#city").val();
+        var province =   $("#province").val();
+        var gender =   $("#gender").val();
+        var money =   $("#money").val();
+        var phone =   $("#phone").val();
+
+        $("#btn_update").click(function(){
+            var url = "http://yan.nat300.top/back/update";
+            $.post(url,
+                {
+                    userid: userid,
+                    nickname: nickname,
+                    city: city,
+                    province: province,
+                    gender: gender,
+                    money: money,
+                    phone: phone
+                },
+                function(data,status){
+                alert(data.data);
+            });
+        });
     });
 </script>
-<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+
 </body>
-
-
-<!-- Mirrored from www.zi-han.net/theme/hplus/table_jqgrid.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:02 GMT -->
 </html>

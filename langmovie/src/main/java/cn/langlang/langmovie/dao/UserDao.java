@@ -71,4 +71,11 @@ public interface UserDao {
      */
     List<UserDetailVO> listUserDetail(@Param("page1") int page1,
                                       @Param("num") int num);
+
+    /**
+     *
+     * @param userDetailVO
+     * @return
+     */
+    int updateUserDetail(UserDetailVO userDetailVO);
 }

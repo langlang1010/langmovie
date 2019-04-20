@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.controller;
 
+import cn.langlang.langmovie.bean.UserDetailVO;
 import cn.langlang.langmovie.entity.User;
 import cn.langlang.langmovie.service.RedisService;
 import cn.langlang.langmovie.service.UserService;
@@ -88,5 +89,13 @@ public class UserController {
         return helper.toJsonMap();
     }
 
-
+    @ApiOperation(value = "更新用户信息")
+    @PostMapping("/update")
+    private Map<String,Object> updateUser(UserDetailVO userDetailVO) {
+        userService.updateUserDetail(userDetailVO);
+        helper.setData("更改成功！");
+        helper.setMsg("SUCCESS");
+        helper.setCode(200);
+        return helper.toJsonMap();
+    }
 }

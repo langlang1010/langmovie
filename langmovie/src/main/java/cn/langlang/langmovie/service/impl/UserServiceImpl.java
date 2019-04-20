@@ -86,4 +86,10 @@ public class UserServiceImpl implements UserService {
         return userDao.listUserDetail(page1-1,num);
     }
 
+    @Override
+    public int updateUserDetail(UserDetailVO userDetailVO) {
+        userDetailVO.setGmtModified(new Date());
+        return userDao.updateUserDetail(userDetailVO);
+    }
+
 }
