@@ -89,13 +89,5 @@ public class UserController {
         return helper.toJsonMap();
     }
 
-    @ApiOperation(value = "更新用户信息")
-    @PostMapping("/update")
-    private Map<String,Object> updateUser(UserDetailVO userDetailVO) {
-        userService.updateUserDetail(userDetailVO);
-        helper.setData("更改成功！");
-        helper.setMsg("SUCCESS");
-        helper.setCode(200);
-        return helper.toJsonMap();
-    }
+
 }

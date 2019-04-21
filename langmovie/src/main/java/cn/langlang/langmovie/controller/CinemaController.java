@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,5 +42,24 @@ public class CinemaController {
         helper.setData(cinemas);
         return helper.toJsonMap();
     }
+    @ApiOperation(value = "显示该城市上映此电影的所有影院")
+    @GetMapping("/{city}/{movieid}")
+    private Map<String,Object> listCinemaByMovie( @PathVariable(name = "city") String city,
+                                                  @PathVariable(name = "movieid") String movieid) {
+        long id = Long.parseLong(movieid);
+        List<Cinema> cinemas = cinemaService.listCinemaByMoiveName(id, city);
+        helper.setData(cinemas);
+        return helper.toJsonMap();
+    }
 
+    @ApiOperation("更新影院信息")
+    @PostMapping("/update")
+    private Map<String,Object> update(Cinema cinema) {
+        cinema.setGmtModified(new Date());
+        if(cinemaService.updateCinema(cinema) > 0) {
+            helper.setData("更改成功");
+            helper.setMsg("SUCCESS");
+        }
+        return helper.toJsonMap();
+    }
 }
