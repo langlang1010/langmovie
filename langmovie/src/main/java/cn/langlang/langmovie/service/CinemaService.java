@@ -60,7 +60,7 @@ public interface CinemaService {
 
     /**
      *
-     * @param movieName
+     * @param movieid
      * @param city
      * @return
      */

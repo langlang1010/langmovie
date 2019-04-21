@@ -61,7 +61,7 @@
         where pk_movieid=#{pkMovieid}
     </delete>
     <select id="listMovie" resultType="cn.langlang.langmovie.entity.Movie">
-         select pk_movieid,movie_name,movie_release,grade,post,
+         select pk_movieid,movie_name,movie_release,grade,post,other_info,
               introduction,movie_type,gmt_create,gmt_modified,prefix
         from movie
         order by pk_movieid

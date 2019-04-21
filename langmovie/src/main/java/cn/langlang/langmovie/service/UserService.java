@@ -74,4 +74,11 @@ public interface UserService {
      * @return
      */
     List<UserDetailVO> listUserDetail(int page1,int num);
+
+    /**
+     *
+      * @param userDetailVO
+     * @return
+     */
+    int updateUserDetail(UserDetailVO userDetailVO);
 }

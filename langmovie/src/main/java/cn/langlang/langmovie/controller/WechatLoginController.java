@@ -66,6 +66,7 @@ public class WechatLoginController {
      * @return 进行网站跳转
      */
     @GetMapping("/login")
+    @ResponseBody
     public String login(@RequestParam("code") String code,
                         @RequestParam("state") String returnUrl) {
         // 2.根据code换取AccessToken
@@ -118,8 +119,9 @@ public class WechatLoginController {
          */
         UserInfo userInfo1 = WechatUserUtil.createUserInfoFromWechatUser(wxMpUser);
         long userid = userService.insertNewUser(userInfo1);
-        redisService.insertUserToken(userid,wxMpOAuth2AccessToken.getAccessToken());
-        return "redirect:" + successLoginUrl;
+        String token = UUID.randomUUID().toString().replace("-","");
+        redisService.insertUserToken(userid,token);
+        return null;
     }
     private RestControllerHelper helper = new RestControllerHelper();
 

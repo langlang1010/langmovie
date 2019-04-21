@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.controller;
 
+import cn.langlang.langmovie.bean.UserDetailVO;
 import cn.langlang.langmovie.entity.User;
 import cn.langlang.langmovie.service.RedisService;
 import cn.langlang.langmovie.service.UserService;

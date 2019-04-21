@@ -94,4 +94,35 @@
         order by user.pk_userid
         limit #{page1},#{num}
     </select>
+
+    <update id="updateUserDetail" parameterType="cn.langlang.langmovie.bean.UserDetailVO">
+        update user,user_info
+        set
+        <trim suffixOverrides="," >
+            <if test="phone!=null">
+                user.uk_phone=#{phone},
+            </if>
+            <if test="nickname!=null">
+                user_info.nickname=#{nickname},
+            </if>
+            <if test="gender!=null">
+                user_info.gender=#{gender},
+            </if>
+            <if test="city!=null">
+                user_info.city=#{city},
+            </if>
+            <if test="province!=null">
+                user_info.province=#{province},
+            </if>
+            <if test="gmtModified!=null">
+                user_info.gmt_modified=#{gmtModified},
+            </if>
+            <if test="money!=null">
+                user.money=#{money},
+            </if>
+        </trim>
+        where user.pk_userid = #{userid}
+        and user_info.pk_userid = #{userid}
+
+    </update>
 </mapper>

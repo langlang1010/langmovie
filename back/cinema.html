@@ -19,7 +19,7 @@
 
 <div style="padding-left: 10px;padding-right: 10px;">
     <div style="padding-top: 10px;" class="btn-group hidden-xs" id="exampleToolbar" role="group">
-        <button type="button" class="btn btn-outline btn-default">
+        <button id="btn_add" type="button" class="btn btn-outline btn-default">
             <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
         </button>
 
@@ -41,7 +41,7 @@
                         aria-hidden="true">×
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    用户详细信息
+                    编辑影院信息
                 </h4>
             </div>
             <div class="modal-body">
@@ -50,24 +50,12 @@
                     <tbody>
                     <tr>
                         <th>编号</th>
-                        <td id="userid"></td>
+                        <td id="pkCinemaid"></td>
                     </tr>
                     <tr>
-                        <th>昵称</th>
+                        <th>名称</th>
                         <td>
-                            <input id="nickname">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>余额</th>
-                        <td >
-                            <input  id="money">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>性别</th>
-                        <td >
-                            <input  id="gender">
+                            <input id="cinemaName">
                         </td>
                     </tr>
                     <tr>
@@ -82,11 +70,17 @@
                             <input  id="city">
                         </td>
                     </tr>
+                    <tr>
+                        <th>金额</th>
+                        <td >
+                            <input  id="money">
+                        </td>
+                    </tr>
 
                     <tr>
-                        <th>手机</th>
+                        <th>地址</th>
                         <td >
-                            <input  id="phone">
+                            <input  id="location">
                         </td>
                     </tr>
                     </tbody>
@@ -105,6 +99,62 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    编辑影院信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div id="show_success2" class="alert alert-success">修改成功！</div>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>名称</th>
+                        <td>
+                            <input   id="add_cinemaName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>省份</th>
+                        <td >
+                            <input  id="add_province">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>城市</th>
+                        <td >
+                            <input  id="add_city">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>地址</th>
+                        <td >
+                            <input  id="add_location">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button id="btn_add_sub" type="button" class="btn btn-primary">
+                    添加
+                </button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script src="js/jquery.min.js?v=2.1.4"></script>
 <script src="js/bootstrap.min.js?v=3.3.6"></script>
 <script src="js/content.min.js?v=1.0.0"></script>
@@ -115,8 +165,10 @@
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
 <script>
-    var url = "http://yan.nat300.top/root/user_info/1?num=100";
+    var url = "http://yan.nat300.top/root/cinema/all?num=100";
     var mydata;
+    $("#show_success2").hide();
+
     $.get(url,function(data,status){
         mydata = data.data;
         $('#mytab').bootstrapTable({
@@ -132,47 +184,37 @@
             sortable: true, // 是否启用排序
             columns: [
                 {
-                    field: 'userid',
+                    field: 'pkCinemaid',
                     title: '编号',
                 },
                 {
-                    field: 'nickname',
-                    title: '昵称'
-                },
-                {
-                    field: 'money',
-                    title: '余额'
-                },
-                {
-                    field: 'gender',
-                    title: '性别'
-                },
-                {
-                    field: 'province',
-                    title: '省份'
+                    field: 'cinemaName',
+                    title: '名称'
                 },
                 {
                     field: 'city',
                     title: '城市'
                 },
                 {
-                    field: 'avatarUrl',
-                    title: '头像',
-                    formatter: actionHeadimage
+                    field: 'province',
+                    title: '省份'
                 },
                 {
-                    field: 'phone',
-                    title: '手机'
+                    field: 'location',
+                    title: '地址'
                 },
                 {
-                    field: 'userid',
+                    field: 'money',
+                    title: '余额'
+                },
+                {
+                    field: 'pkCinemaid',
                     title: '操作',
                     width: 120,
                     align: 'center',
                     valign: 'middle',
                     formatter: actionFormatter,
-                },
-
+                }
             ]
         });
 
@@ -195,28 +237,26 @@
         var item;
         // 遍历整个数组
         for (var i = 0; i < mydata.length; i++) {
-            if(mydata[i].userid == value) {
+            if(mydata[i].pkCinemaid == value) {
                 item = mydata[i];
                 break;
             }
         }
         $("#show_success").hide();
-        $("#userid").text(item.userid);
-        $("#avatarUrl").attr("src",item.avatarUrl);
-        $("#nickname").attr("value",item.nickname);
+        $("#pkCinemaid").text(item.pkCinemaid);
+        $("#cinemaName").attr("value",item.cinemaName);
+        $("#location").attr("value",item.location);
         $("#city").attr("value",item.city);
         $("#province").attr("value",item.province);
-        $("#gender").attr("value",item.gender);
         $("#money").attr("value",item.money);
-        $("#phone").attr("value",item.phone);
     }
     function DeleteByIds(value) {
         var r = confirm("删除后不可返回，您确认删除吗？");
         if (r == true) {
-            var url = "http://yan.nat300.top/root/user/delete";
+            var url = "http://yan.nat300.top/root/cinema/delete";
             $.post(url,
                 {
-                    userid: value,
+                    cinemaid: value,
                 },
                 function (data, status) {
                     window.location.reload();
@@ -224,35 +264,56 @@
             );
         }
     }
-
     $(document).ready(function(){
         $("#btn_update").click(function(){
-            var userid =   $("#userid").text();
-            var nickname =   $("#nickname").val();
+            var pkCinemaid =   $("#pkCinemaid").text();
+            var cinemaName =   $("#cinemaName").val();
             var city =   $("#city").val();
             var province =   $("#province").val();
-            var gender =   $("#gender").val();
+            var location =   $("#location").val();
             var money =   $("#money").val();
-            var phone =   $("#phone").val().replace(/\s+/g,"");;
-            var url = "http://yan.nat300.top/root/user/update";
+            var url = "http://yan.nat300.top/cinema/update";
             $.post(url,
                 {
-                    userid: userid,
-                    nickname: nickname,
+                    pkCinemaid: pkCinemaid,
+                    cinemaName: cinemaName,
                     city: city,
                     province: province,
-                    gender: gender,
+                    location: location,
                     money: money,
-                    phone: phone
                 },
                 function(data,status){
                     $("#show_success").show();
                     setTimeout(function () {
                         window.location.reload();
-                    },2000);
+                    },1000);
                 }
             );
         });
+        $("#btn_add").click(function () {
+            $("#myModal2").modal("show");
+        })
+        $("#btn_add_sub").click(function () {
+            var url = "http://yan.nat300.top/root/cinema/add";
+            var cinemaName =   $("#add_cinemaName").val();
+            var city =   $("#add_city").val();
+            var province =   $("#add_province").val();
+            var location =   $("#add_location").val();
+            $.post(url,
+                {
+                    cinemaName: cinemaName,
+                    city: city,
+                    province: province,
+                    location: location,
+                },
+                function (data, status) {
+                    window.location.reload();
+                }
+            );
+        }
+
+        );
+
 
     });
 </script>
