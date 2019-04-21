@@ -209,11 +209,11 @@
                     <h4 style="padding-left: 8px">演职人员</h4>
                     <template v-for="actor in actors">
 
-                    <div class="bb">
-                        <img :src="actor.actorUrl" alt=""/>
-                        <p class="user_role_name">{{actor.actorName}}
-                            <br>饰演： {{actor.roleName}} </p>
-                    </div>
+                        <div class="bb">
+                            <img :src="actor.actorUrl" alt=""/>
+                            <p class="user_role_name">{{actor.actorName}}
+                                <br>饰演： {{actor.roleName}} </p>
+                        </div>
                     </template>
 
 
@@ -222,11 +222,11 @@
             <div   id="juzhao">
                 <h4 style="padding-left: 8px">电影剧照</h4>
                 <template v-for="picture in pictures">
-                <div id="cc">
+                    <div id="cc">
 
-                    <img :src="picture.postUrl" alt=""/>
+                        <img :src="picture.postUrl" alt=""/>
 
-                </div>
+                    </div>
                 </template>
             </div>
         </div>

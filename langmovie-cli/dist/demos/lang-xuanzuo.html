@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购票</title>
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="css/demos.css">
+    <script src="../lib/jquery-2.1.4.js"></script>
+
+    <script>
+        var flag = 0;
+
+        function changeColor(obj) {
+            // alert("id=="+obj.id);
+            // alert($("#"+obj.id).css("background-color"));
+            if($("#"+obj.id).css("background-color")== "rgb(255, 255, 255)") {
+                $("#"+obj.id).css("background-color","red");
+            }else if($("#"+obj.id).css("background-color") == "rgb(0, 0, 0)") {
+                $("#"+obj.id).css("background-color","rgb(255,255,255)");
+                // alert("dfgg")
+            }
+
+            // event.stopPropagation();
+            // if (flag == 0) {
+            //     obj.style.backgroundColor = '#3CB371';
+            //     flag = 1;
+            //     var m = document.getElementsByClassName("first").length;
+            //     var i;
+            //
+            // } else if (flag == 1) {
+            //     obj.style.background = 'white';
+            //     flag = 0;
+            // }
+        }
+    </script>
+    <style>
+        .show {
+            background-color: #f0f0f0;
+            color: #666;
+            border-radius: 5px;
+            height: 20px;
+            width: 100%;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .weizi {
+            /*padding-left: 25%;*/
+
+            background-color: #A9A9A9;
+        }
+
+        .first span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            font-size: 13px;
+            background-color: white;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+
+        }
+
+    </style>
+</head>
+<body>
+<div class="weui-panel weui-panel_access">
+    <div style="height: 50px;background: RED;text-align: center;">
+        <h3 style="padding-bottom: 10px;padding-top: 10px;color: white;float: left">左岸大地影院</h3>
+    </div>
+    <div style="height: 40px;float:left;background-color: #FFFFF8;">
+        <h4 id="cityone" style="padding-top:10px">调音师</h4>
+    </div>
+    <div class="show">
+        <p>屏幕</p>
+    </div>
+    <div class="weizi">
+        <div style="height: 100px;width: 100%;background-color: #A9A9A9"></div>
+        <div id="content" style="text-align: center">
+            <!--<div class="first">-->
+            <!--<span onclick="changeColor(this)"></span>-->
+            <!--<span onclick="changeColor(this)"></span>-->
+            <!--<span onclick="changeColor(this)"></span>-->
+            <!--<span onclick="changeColor(this)"></span>-->
+            <!--<span onclick="changeColor(this)"></span>-->
+            <!--<span onclick="changeColor(this)"></span>-->
+            <!--<span onclick="changeColor(this)"></span>-->
+            <!--<span onclick="changeColor(this)"></span>-->
+            <!--<span onclick="changeColor(this)"></span>-->
+            <!--<span onclick="changeColor(this)"></span>-->
+            <!--</div>-->
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    for (var i = 1; i <= 8; i++) {
+        var row = "row" + i;
+        $("#content").append("<div class=\"first\" id=\""+row+"\"> ");
+        for (var t = 1; t <= 10; t++) {
+            var col = "col" + t;
+            $("#" + row).append("<span onclick=\"changeColor(this)\" id=\""+row+""+col+"\" ></span>");
+        }
+    }
+</script>
+</body>
+</html>

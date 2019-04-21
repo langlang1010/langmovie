@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery WeUI</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+    <script src="../lib/jquery-2.1.4.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="css/demos.css">
+    <script type="text/javascript">
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+
+        var movieid = GetQueryString("movieid");
+        if (movieid == null || movieid == "") {
+            movieid = 1;
+        }
+        var vm;
+        window.onload = function () {
+            vm = new Vue({
+                el: '#movieshow',
+                data: {
+                    movie: "",
+                    local: "",
+
+                },
+                mounted: function () {
+                    this.get();
+                    this.getcinema();
+                },
+                methods: {
+                    get: function () {
+                        var url = "http://yan.nat300.top/movie/detail/" + movieid;
+                        //发送get请求
+                        this.$http.get(url).then(function (res) {
+                            // console.log(res.body);
+                            //      alert(res.body.msg);
+                            vm.movie = res.body.data;
+                            vm.movie.movieRelease = vm.movie.movieRelease.substring(0, 10);
+
+                            // alert(vm.movies.movieName);
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                    },
+                    getcinema: function () {
+                        var url = "http://yan.nat300.top/cinema/%E9%95%BF%E6%B2%99/1";
+                        //发送get请求
+                        this.$http.get(url).then(function (res) {
+                            vm2.local = res.body.data;
+                            console.log(vm2.local);
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                    },
+
+
+                }
+
+            })
+            vm2 = new Vue({
+                el: '#cin',
+                data: {
+                    local: "",
+                }
+            });
+        }
+
+    </script>
+
+</head>
+
+<body ontouchstart>
+<div >
+    <div id="movieshow" >
+        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+            <div style="height: 50px;background: RED">
+                <p style="text-align: center;padding-bottom: 10px;padding-top: 10px;color: white">浪浪电影</p>
+            </div>
+            <div class="weui-panel weui-panel_access" style=" background-color: lightgray;margin-top: 0px">
+                <div class="weui-panel__bd">
+                    <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                        <div style="height: 200px;margin-left: 8%" class="weui-media-box__hd">
+                            <img style="height:100%; width: auto" class="weui-media-box__thumb"
+                                 :src="movie.post">
+                        </div>
+                        <div class="weui-media-box__bd" style="margin-top: 0px;margin-left: 22%">
+                            <h4 class="weui-media-box__title">{{movie.movieName}} </h4>
+                            <h6 v-if="movie.grade != null"
+                                                                                           style="color:darkred">
+                            评分：{{movie.grade}}分</h6>
+                            <h6 v-else style="color:darkred">评分：暂无</h6>
+                            <span style="margin-top: 0px ;padding-top: 0px;font-size: small">
+                                   {{movie.movieType}}</br>
+                                {{ movie.otherInfo}}</br>
+                                {{movie.movieRelease}}
+                               </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div style="padding-top: 0px" class="weui-panel__bd">
+        <div style="height: 50px;background: RED;text-align: center;">
+            <p style="color: white;text-align: center">影院</p>
+        </div>
+        <div id="cin" class="weui-panel__bd">
+            <template v-for="cin in local">
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                    <div style="padding-left: 10px" class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{{cin.cinemaName}}</h4>
+                        <p style="padding-top: 20px" class="weui-media-box__desc">{{cin.location}}</p>
+                    </div>
+                </a>
+            </template>
+            <template v-for="cin in local">
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                    <div style="padding-left: 10px" class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{{cin.cinemaName}}</h4>
+                        <p style="padding-top: 20px" class="weui-media-box__desc">{{cin.location}}</p>
+                    </div>
+                </a>
+            </template>
+        </div>
+
+    </div>
+
+
+</div>
+
+<script src="../lib/fastclick.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="../js/jquery-weui.js"></script>
+
+</body>
+</html>
+
