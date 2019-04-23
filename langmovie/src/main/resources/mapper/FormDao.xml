@@ -49,6 +49,15 @@
         from form
         where pk_formid=#{pkFormid}
     </select>
+
+    <select id="listSeatOrdered" parameterType="java.lang.Long"
+            resultType="cn.langlang.langmovie.bean.RoomSeat">
+        select seat_x as x,seat_y as y
+        from form
+        where form.fk_screen = #{screenid}
+    </select>
+
+
     <select id="listForm" resultType="cn.langlang.langmovie.entity.Form">
         select pk_formid,fk_screen,fk_user,seat_x,seat_y,code,
                gmt_create,gmt_modified
@@ -60,4 +69,5 @@
         delete from form
         where pk_formid=#{pkFormid}
     </delete>
+
 </mapper>

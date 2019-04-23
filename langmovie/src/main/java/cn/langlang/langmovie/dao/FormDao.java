@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.dao;
 
+import cn.langlang.langmovie.bean.RoomSeat;
 import cn.langlang.langmovie.entity.Form;
 import org.apache.ibatis.annotations.Param;
 
@@ -40,4 +41,11 @@ public interface FormDao {
      * @return
      */
     List<Form> listForm(@Param("page1") int page1, @Param("num") int num);
+
+    /**
+     * 根据场次号查询已经占用的座位
+     * @param screenid
+     * @return
+     */
+    List<RoomSeat> listSeatOrdered(@Param("screenid") long screenid);
 }

@@ -24,8 +24,10 @@ entity_package: cn.langlang.langmovie.entity
 page_count: 5
 
 wechat:
-  appid: wx4e89c9871d300df4
-  appsecret: 4d323a00bbf46937707b43baaa71c4bd
+#  appid: wx4e89c9871d300df4
+  appid: wx46570aa2ed292f5d
+#  appsecret: 4d323a00bbf46937707b43baaa71c4bd
+  appsecret: 4b5919c480cd22b1e78bff70ebd1df73
   login_url: http://yan.nat300.top/wechat/login                ##登录地址
   success_login_url:  http://yan.nat300.top/movie/index              ##前端数据
 

@@ -1,5 +1,7 @@
 package cn.langlang.langmovie.service;
 
+import cn.langlang.langmovie.bean.RoomSeat;
+import cn.langlang.langmovie.dao.FormDao;
 import cn.langlang.langmovie.entity.Form;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +60,19 @@ public class FormTest {
         List<Form> list = formService.listForm(1,5);
         for(Form form:list) {
             System.out.println(form.getPkFormid());
+        }
+    }
+
+    @Autowired
+    private FormDao formDao;
+    @Test
+    public void listOrdered() {
+//        System.out.println(formService.listRoomSeatsOrdered(2L).size());
+        List<RoomSeat> list = formDao.listSeatOrdered(2L);
+        System.out.println(list.size());
+//        RoomSeat roomSeat = list.get(0);
+        for(RoomSeat roomSeat:list) {
+            System.out.println("("+roomSeat.getX()+","+roomSeat.getY()+")");
         }
     }
 }

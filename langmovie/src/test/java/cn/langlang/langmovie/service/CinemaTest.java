@@ -2,6 +2,7 @@ package cn.langlang.langmovie.service;
 
 import cn.langlang.langmovie.bean.City;
 import cn.langlang.langmovie.bean.ProvinceCity;
+import cn.langlang.langmovie.dao.CinemaDao;
 import cn.langlang.langmovie.entity.Cinema;
 import cn.langlang.langmovie.util.ProvinceCityUtil;
 import org.junit.Test;
@@ -86,5 +87,11 @@ public class CinemaTest {
             System.out.println(cinema.getPkCinemaid());
         }
     }
-
+    @Autowired
+    private CinemaDao cinemaDao;
+    @Test
+    public void getCinemaByRoomid() {
+        Cinema cinemaByRoom = cinemaDao.getCinemaByRoom(1L);
+        System.out.println( cinemaByRoom.getCinemaName());
+    }
 }

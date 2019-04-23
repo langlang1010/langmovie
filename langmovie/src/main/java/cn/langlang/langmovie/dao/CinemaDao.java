@@ -64,4 +64,11 @@ public interface CinemaDao {
      */
     List<Cinema> listCinemaByMovie(@Param("movieid")Long movieid,
                                    @Param("city") String city);
+
+    /**
+     * 根据roomid查询电影院
+     * @param roomid
+     * @return
+     */
+    Cinema getCinemaByRoom(@Param("roomid") long roomid);
 }

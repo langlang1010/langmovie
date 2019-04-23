@@ -84,6 +84,14 @@
         and screen.fk_movie = #{movieid}
         and cinema.city = #{city}
     </select>
+    <select id="getCinemaByRoom" resultType="cn.langlang.langmovie.entity.Cinema">
+        select cinema.pk_cinemaid,cinema.cinema_name,cinema.city,
+                cinema.province,cinema.country,cinema.location,
+                cinema.money,cinema.gmt_create,cinema.gmt_modified
+        from cinema,room
+        where room.fk_cinema=cinema.pk_cinemaid
+        and room.pk_roomid=#{roomid}
+    </select>
     <delete id="deleteCinema" parameterType="cn.langlang.langmovie.entity.Cinema">
         delete from cinema
         where pk_cinemaid=#{pkCinemaid}

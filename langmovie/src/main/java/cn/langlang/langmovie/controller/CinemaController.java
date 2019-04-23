@@ -1,8 +1,11 @@
 package cn.langlang.langmovie.controller;
 
+import cn.langlang.langmovie.bean.CinemaAndScreen;
 import cn.langlang.langmovie.bean.City;
 import cn.langlang.langmovie.entity.Cinema;
+import cn.langlang.langmovie.entity.Screen;
 import cn.langlang.langmovie.service.CinemaService;
+import cn.langlang.langmovie.service.ScreenService;
 import cn.langlang.langmovie.util.ProvinceCityUtil;
 import cn.langlang.langmovie.util.RestControllerHelper;
 import io.swagger.annotations.Api;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,13 +46,24 @@ public class CinemaController {
         helper.setData(cinemas);
         return helper.toJsonMap();
     }
-    @ApiOperation(value = "显示该城市上映此电影的所有影院")
+    @Autowired
+    private ScreenService screenService;
+    @ApiOperation(value = "显示该城市上映此电影的所有影院和场次")
     @GetMapping("/{city}/{movieid}")
     private Map<String,Object> listCinemaByMovie( @PathVariable(name = "city") String city,
                                                   @PathVariable(name = "movieid") String movieid) {
         long id = Long.parseLong(movieid);
+        List<CinemaAndScreen> list = new LinkedList<>();
         List<Cinema> cinemas = cinemaService.listCinemaByMoiveName(id, city);
-        helper.setData(cinemas);
+        for (int i = 0; i < cinemas.size(); i++) {
+            CinemaAndScreen cinemaAndScreen = new CinemaAndScreen();
+            cinemaAndScreen.setCinema(cinemas.get(i));
+            List<Screen> screens = screenService.listScreenByMovieAndCinema(id,cinemas.get(i).getPkCinemaid());
+            cinemaAndScreen.setScreens(screens);
+            list.add(cinemaAndScreen);
+        }
+        helper.setData(list);
+//        List<Screen> screens = screenService.listScreenByMovieAndCinema()
         return helper.toJsonMap();
     }
 

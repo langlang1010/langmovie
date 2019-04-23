@@ -59,7 +59,8 @@
 
     <select id="listScreenByMovieAndCinema" resultType="cn.langlang.langmovie.entity.Screen">
         select screen.pk_screenid,screen.fk_room,screen.fk_movie,
-                screen.price,screen.begin_time,screen.end_time,
+                screen.price,screen.begin_time as beginTime
+                ,screen.end_time,
                 screen.gmt_create,screen.gmt_modified
         from screen,room
         where screen.fk_room=room.pk_roomid
@@ -72,4 +73,6 @@
         delete from screen
         where pk_screenid=#{pkScreenid}
     </delete>
+
+
 </mapper>

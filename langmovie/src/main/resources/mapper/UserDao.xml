@@ -5,7 +5,7 @@
 
 <mapper namespace="cn.langlang.langmovie.dao.UserDao">
     <select id="getUserById" resultType="cn.langlang.langmovie.entity.User">
-        select username,password,uk_phone,gmt_create,gmt_modified,role,money
+        select pk_userid,username,password,uk_phone,gmt_create,gmt_modified,role,money
         from user
         WHERE pk_userid = #{userId}
     </select>

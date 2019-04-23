@@ -17,7 +17,7 @@ public interface UserDao {
      * @param user_id
      * @return TestUser
      */
-    User getUserById(Integer user_id);
+    User getUserById(Long user_id);
 
     /**
      *

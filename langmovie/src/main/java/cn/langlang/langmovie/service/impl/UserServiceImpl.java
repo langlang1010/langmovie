@@ -27,9 +27,10 @@ public class UserServiceImpl implements UserService {
     @Value("${init_money}")
     private float initMoney;
     @Override
-    public User getUserById(Integer userId) {
+    public User getUserById(Long userId) {
         return userDao.getUserById(userId);
     }
+
 
     @Override
     public Long insertUser(User user) {

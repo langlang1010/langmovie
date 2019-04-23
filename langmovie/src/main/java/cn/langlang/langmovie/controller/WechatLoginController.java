@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.controller;
 
+import cn.langlang.langmovie.bean.UserLoginToken;
 import cn.langlang.langmovie.bean.UserVO;
 import cn.langlang.langmovie.entity.UserInfo;
 import cn.langlang.langmovie.service.RedisService;
@@ -7,6 +8,8 @@ import cn.langlang.langmovie.service.UserInfoService;
 import cn.langlang.langmovie.service.UserService;
 import cn.langlang.langmovie.util.RestControllerHelper;
 import cn.langlang.langmovie.util.WechatUserUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
@@ -14,6 +17,8 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,10 +26,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import java.util.UUID;
 
+@Api
 @Controller
 @CrossOrigin
 @RequestMapping("/wechat")
 public class WechatLoginController {
+    private static final Log LOGGER = LogFactory.getLog(WechatLoginController.class);
     @Autowired
     private UserInfoService userInfoService;
     @Autowired
@@ -43,7 +50,8 @@ public class WechatLoginController {
     @Value("${wechat.success_login_url}")
     private String successLoginUrl;
     private WxMpService wxMpService;
-
+    
+    @ApiOperation("微信授权登录入口")
     @GetMapping("/welcome")
     private String welcome() {
         // 1.根据appid和appsecret和回调地址配置微信授权
@@ -55,20 +63,20 @@ public class WechatLoginController {
         // 完成配置后进行跳转
         String oauth2buildAuthorizationUrl = wxMpService.oauth2buildAuthorizationUrl(
                 loginUrl, WxConsts.OAuth2Scope.SNSAPI_USERINFO,  null);
-
-        return "redirect:" + oauth2buildAuthorizationUrl;
+        LOGGER.info(oauth2buildAuthorizationUrl);
+        return "redirect:" + oauth2buildAuthorizationUrl+"";
     }
 
     /**
      * 通过code拿到数据openid
      * @param code
-     * @param returnUrl
+     * @param state
      * @return 进行网站跳转
      */
     @GetMapping("/login")
-    @ResponseBody
     public String login(@RequestParam("code") String code,
-                        @RequestParam("state") String returnUrl) {
+                        @RequestParam("state") String state) {
+        LOGGER.info("code=="+code+" and state=="+state);
         // 2.根据code换取AccessToken
         WxMpOAuth2AccessToken wxMpOAuth2AccessToken = null;
         try {
@@ -87,6 +95,7 @@ public class WechatLoginController {
          */
         UserInfo userInfo = new UserInfo();
         userInfo.setOpenid(openId);
+        LOGGER.info(openId);
 
         /**
          * 如果是已经注册过，跳过获得用户信息
@@ -95,11 +104,18 @@ public class WechatLoginController {
          */
         UserInfo userInfoByOpenid = userInfoService.getUserInfoByOpenid(userInfo);
         if(userInfoByOpenid != null) {
+            LOGGER.info("Just logining");
             long pkUserid = userInfoByOpenid.getPkUserid();
             String token = UUID.randomUUID().toString().replace("-", "");
             redisService.insertUserToken(pkUserid,token);
-            return "redirect:" + successLoginUrl;
+            UserLoginToken userLoginToken = new UserLoginToken();
+            userLoginToken.setToken(token);
+            userLoginToken.setUserid(pkUserid);
+            helper.setData(userLoginToken);
+            return "redirect:" + successLoginUrl + "?userid="+pkUserid+"&token="+token;
+
         }
+        LOGGER.info("Registing");
 
         /**
          * 再次提交请求
@@ -121,7 +137,12 @@ public class WechatLoginController {
         long userid = userService.insertNewUser(userInfo1);
         String token = UUID.randomUUID().toString().replace("-","");
         redisService.insertUserToken(userid,token);
-        return null;
+        UserLoginToken userLoginToken = new UserLoginToken();
+        userLoginToken.setToken(token);
+        userLoginToken.setUserid(userid);
+        helper.setData(userLoginToken);
+        return "redirect:" + successLoginUrl + "?userid="+userid+"&token="+token;
+//        return helper.toJsonMap();
     }
     private RestControllerHelper helper = new RestControllerHelper();
 

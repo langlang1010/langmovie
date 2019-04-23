@@ -1,6 +1,7 @@
 package cn.langlang.langmovie.service;
 
 import cn.langlang.langmovie.bean.MovieShortInfo;
+import cn.langlang.langmovie.bean.RoomSeat;
 import cn.langlang.langmovie.entity.Movie;
 
 import java.util.List;
@@ -62,4 +63,5 @@ public interface MovieService {
      * @return
      */
     List<MovieShortInfo> listMovieByName(String name);
+
 }

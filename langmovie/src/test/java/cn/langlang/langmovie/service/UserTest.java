@@ -38,7 +38,7 @@ public class UserTest {
 
     @Test
     public void search() {
-        User user = userService.getUserById(1);
+        User user = userService.getUserById(25L);
         System.out.println("username == "+ user.getUsername());
         System.out.println("create_time=="+ user.getGmtCreate());
     }
@@ -47,7 +47,7 @@ public class UserTest {
     public void edit() {
 
         User user = new User();
-        user.setPkUserid((long) 1);
+        user.setPkUserid((long) 25);
         user.setMoney(95.5F);
         user.setGmtModified(new Date());
         System.out.println("update == "+userService.updateUser(user));
