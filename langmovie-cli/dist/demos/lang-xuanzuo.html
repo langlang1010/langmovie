@@ -9,30 +9,92 @@
     <script src="../lib/jquery-2.1.4.js"></script>
 
     <script>
+
+        var seat_url="http://yan.nat300.top/room/ordered/2";
+        $.get(seat_url,
+            {
+
+            },
+            function(data,status){
+                //alert("数据: \n" + data + "\n状态: " + status);
+                var myseat_ordered=data.data;
+                for(var i=0;i<myseat_ordered.length;i++){
+                  var id=myseat_ordered[i].x+"_"+myseat_ordered[i].y;
+                  $("#"+id).css("background-color","black");
+
+
+                }
+
+            });
+
+
         var flag = 0;
+        var count=0;
+        var myseat={x:"",y:""};
+        var result_json=new Array(myseat);;
 
         function changeColor(obj) {
             // alert("id=="+obj.id);
-            // alert($("#"+obj.id).css("background-color"));
+            var temp = obj.id.split("_");
             if($("#"+obj.id).css("background-color")== "rgb(255, 255, 255)") {
                 $("#"+obj.id).css("background-color","red");
-            }else if($("#"+obj.id).css("background-color") == "rgb(0, 0, 0)") {
+                var pid = "p" + obj.id;
+                $("#seat").append("<p class='seatstyle' id="+pid+">"+temp[0]+"排"+temp[1]+"列</p>")
+                // 定义对象
+                var temp2={x:"",y:""};
+                temp2.x = temp[0];
+                temp2.y = temp[1]
+                result_json[count]=temp2;
+                count++;
+            }else if($("#"+obj.id).css("background-color") == "rgb(255, 0, 0)") {
                 $("#"+obj.id).css("background-color","rgb(255,255,255)");
-                // alert("dfgg")
+                var pid = "p" + obj.id;
+                $("#"+pid).remove();
+                for(var i=0; i<count; i++) {
+                    if(result_json[i].x == temp[0] && result_json[i].y == temp[1] ) {
+                        result_json[i].x = -1;
+                        result_json[i].y = -1;
+                    }
+                }
+            }
+            for(var i=0; i<count; i++) {
+                // console.log("("+result_json[i].x+","+result_json[i].y+")")
             }
 
-            // event.stopPropagation();
-            // if (flag == 0) {
-            //     obj.style.backgroundColor = '#3CB371';
-            //     flag = 1;
-            //     var m = document.getElementsByClassName("first").length;
-            //     var i;
-            //
-            // } else if (flag == 1) {
-            //     obj.style.background = 'white';
-            //     flag = 0;
-            // }
         }
+        $(document).ready(function(){
+            var sub_url =  "http://yan.nat300.top/form/add";
+            $("#btn_submit").click(function(){
+                //
+                var seatjson="[";
+                var c = 0;
+                for(var i=0; i<count; i++) {
+                    if(result_json[i].x != -1 && result_json[i].y != -1 ) {
+                        if(c==0) {
+                            seatjson += ("{x:" + result_json[i].x + ",y:" + result_json[i].y + "}");
+                            c++;
+                        }else {
+                            seatjson += (",{x:" + result_json[i].x + ",y:" + result_json[i].y + "}");
+                        }
+                    }
+                }
+                seatjson += "]";
+                console.log(seatjson);
+
+                $.post(sub_url,
+                    {
+                        screenid:2,
+                        seatJson:seatjson,
+                        token:"langlang",
+                        userid:25
+                    },
+                    function(data,status){
+                        alert("数据: \n" + data.data + "\n状态: " + status);
+                    });
+
+            });
+        });
+
     </script>
     <style>
         .show {
@@ -63,6 +125,15 @@
             border-radius: 5px;
 
         }
+        .seatstyle{
+            margin-bottom:10px;
+            font-size: medium;
+            float: left;
+            display:inline-block;
+            border:1px ;
+            border-radius:50px;
+            background-color:green
+        }
 
     </style>
 </head>
@@ -80,21 +151,13 @@
     <div class="weizi">
         <div style="height: 100px;width: 100%;background-color: #A9A9A9"></div>
         <div id="content" style="text-align: center">
-            <!--<div class="first">-->
-            <!--<span onclick="changeColor(this)"></span>-->
-            <!--<span onclick="changeColor(this)"></span>-->
-            <!--<span onclick="changeColor(this)"></span>-->
-            <!--<span onclick="changeColor(this)"></span>-->
-            <!--<span onclick="changeColor(this)"></span>-->
-            <!--<span onclick="changeColor(this)"></span>-->
-            <!--<span onclick="changeColor(this)"></span>-->
-            <!--<span onclick="changeColor(this)"></span>-->
-            <!--<span onclick="changeColor(this)"></span>-->
-            <!--<span onclick="changeColor(this)"></span>-->
-            <!--</div>-->
+
         </div>
 
     </div>
+    <div   id="seat">
+    </div>
+        <button id="btn_submit" style="height:50px"class="weui-btn weui-btn_primary">确认购买</button>
 </div>
 
 <script>
@@ -104,8 +167,9 @@
         $("#content").append("<div class=\"first\" id=\""+row+"\"> ");
         for (var t = 1; t <= 10; t++) {
             var col = "col" + t;
-            $("#" + row).append("<span onclick=\"changeColor(this)\" id=\""+row+""+col+"\" ></span>");
+            $("#" + row).append("<span onclick=\"changeColor(this)\" id=\""+i+"_"+t+"\" ></span>");
         }
+
     }
 </script>
 </body>

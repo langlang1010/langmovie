@@ -89,8 +89,10 @@
                 el: '#movieshow',
                 data: {
                     movies: "",
-                    cities: "长沙",
-                    user: ""
+                    cities: "长沙市",
+                    user: "",
+                    province:"湖南",
+                    city_choosen:"长沙市"
                 },
                 mounted: function () {
                     this.get();
@@ -202,7 +204,7 @@
             <div class="weui-flex">
                 <div id="city_choose" class="weui-flex__item">
                     <div class="placeholder">
-                        <span id="city-name">长沙
+                        <span id="city-name">长沙市
                           <img src="./image/location.png">
                         </span>
                     </div>
@@ -224,7 +226,7 @@
             <div id="movieshow" class="weui-panel weui-panel_access">
                 <div class="weui-panel__bd">
                     <template v-for="movie in movies">
-                        <a :href="'./lang-detailm.html?movieid='+movie.pkMovieid" class="weui-media-box weui-media-box_appmsg">
+                        <a :href="'./lang-detailm.html?movieid='+movie.pkMovieid+'&city='+city_choosen+'&province='+ province" class="weui-media-box weui-media-box_appmsg">
                             <div class="weui-media-box__hd" style="height: 100%">
                                 <img :src="movie.post" class="weui-media-box__thumb" alt="">
                             </div>
@@ -417,7 +419,7 @@
         }, 1500);   //模拟延迟
     });
 
-    var var1, var2;
+    var var1="湖南", var2="长沙市";
     $("#city_choose").cityPicker({
         title: "选择目的地",
         showDistrict: false,
@@ -426,6 +428,8 @@
             // alert(displayValues[0] + "     " + displayValues[1])
             var1 = displayValues[0];
             var2 = displayValues[1];
+            vm.province = var1;
+            vm.city_choosen = var2;
         },
         onClose: function (p, v, d) {
             // alert(var1+"     "+var2);

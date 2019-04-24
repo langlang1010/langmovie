@@ -27,6 +27,16 @@
         if (movieid == null || movieid == "") {
             movieid = 1;
         }
+
+        var temp_url=decodeURI(window.location);
+        function MyGetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = temp_url.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+        var temp_city= MyGetQueryString("city");
+
         var vm;
         window.onload = function () {
             vm = new Vue({
@@ -34,7 +44,7 @@
                 data: {
                     movie: "",
                     local: "",
-
+                    city:""
                 },
                 mounted: function () {
                     this.get();
@@ -56,10 +66,17 @@
                         });
                     },
                     getcinema: function () {
-                        var url = "http://yan.nat300.top/cinema/%E9%95%BF%E6%B2%99/1";
+                        var url = "http://yan.nat300.top/cinema/"+temp_city+"/"+movieid;
                         //发送get请求
                         this.$http.get(url).then(function (res) {
                             vm2.local = res.body.data;
+                            for(var t=0; t<vm2.local.length; t++) {
+                                for (var i = 0; i < vm2.local[t].screens.length; i++) {
+                                    var temp = new Date(vm2.local[t].screens[i].beginTime);
+                                    // console.log(temp)
+                                    vm2.local[t].screens[i].beginTime = temp.getHours()+":"+temp.getMinutes();
+                                }
+                            }
                             console.log(vm2.local);
                         }, function () {
                             console.log('请求失败处理');
@@ -76,6 +93,7 @@
                     local: "",
                 }
             });
+
         }
 
     </script>
@@ -85,9 +103,9 @@
 <body ontouchstart>
 <div >
     <div id="movieshow" >
-        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+        <div id="tab11" class="weui-tab__bd-item weui-tab__bd-item--active">
             <div style="height: 50px;background: RED">
-                <p style="text-align: center;padding-bottom: 10px;padding-top: 10px;color: white">浪浪电影</p>
+                <p style="text-align: center;padding-bottom: 10px;padding-top: 10px;color: white">{{movie.movieName}}</p>
             </div>
             <div class="weui-panel weui-panel_access" style=" background-color: lightgray;margin-top: 0px">
                 <div class="weui-panel__bd">
@@ -115,27 +133,50 @@
 
     </div>
     <div style="padding-top: 0px" class="weui-panel__bd">
-        <div style="height: 50px;background: RED;text-align: center;">
-            <p style="color: white;text-align: center">影院</p>
-        </div>
-        <div id="cin" class="weui-panel__bd">
-            <template v-for="cin in local">
-                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-                    <div style="padding-left: 10px" class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">{{cin.cinemaName}}</h4>
-                        <p style="padding-top: 20px" class="weui-media-box__desc">{{cin.location}}</p>
-                    </div>
+        <div class="weui-tab">
+            <div class="weui-navbar">
+                <a class="weui-navbar__item weui-bar__item--on" style="color: #B22222" href="#tab1">
+                    今天4月22号
                 </a>
-            </template>
-            <template v-for="cin in local">
-                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-                    <div style="padding-left: 10px" class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">{{cin.cinemaName}}</h4>
-                        <p style="padding-top: 20px" class="weui-media-box__desc">{{cin.location}}</p>
-                    </div>
+                <a class="weui-navbar__item" style="color: #B22222"href="#tab2">
+                    明天4月23号
                 </a>
-            </template>
+                <a class="weui-navbar__item"style="color: #B22222" href="#tab3">
+                    后天4月24号
+                </a>
+            </div>
+            <div class="weui-tab__bd">
+                <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+                    <div id="cin" class="weui-panel__bd">
+                        <template v-for="cin in local">
+                            <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                                <div style="padding-left: 10px" class="weui-media-box__bd">
+                                    <h4 class="weui-media-box__title">{{cin.cinema.cinemaName}}
+                                        <span  style="color: red;padding-left:10px;font-size: small">{{cin.screens[0].price}}元起 </span>
+                                    </h4>
+                                    <span  style="font-size: small">近期场次:</span>
+                                    <template v-for="screen in cin.screens">
+                                            <p style="padding-top: 10px;font-size: small; margin-left:5px;display:inline-block;border:1px ;border-radius:50px;background-color:#DDDDDD"  >{{screen.beginTime}}</p>
+
+                                    </template>
+                                    <p style="padding-top: 10px;color: #CD5C5C;font-size:small" >{{cin.cinema.location}}</p>
+
+                                </div>
+                            </a>
+
+                        </template>
+
+                    </div>
+                </div>
+                <div id="tab2" class="weui-tab__bd-item">
+                    <h1>页面二</h1>
+                </div>
+                <div id="tab3" class="weui-tab__bd-item">
+                    <h1>页面三</h1>
+                </div>
+            </div>
         </div>
+
 
     </div>
 
