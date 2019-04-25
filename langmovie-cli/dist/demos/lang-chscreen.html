@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>场次</title>
+    <title>jQuery WeUI</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+    <script src="../lib/jquery-2.1.4.js"></script>
+
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
     <link rel="stylesheet" href="../lib/weui.min.css">
     <link rel="stylesheet" href="../css/jquery-weui.css">
     <link rel="stylesheet" href="css/demos.css">
-    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
     <script>
         function GetQueryString(name)
         {
@@ -17,7 +24,6 @@
         }
         var movieid=GetQueryString("movieid")
         var cinemaid=GetQueryString("cinemaid")
-
         var vm;
         window.onload = function () {
             vm = new Vue({
@@ -38,9 +44,7 @@
                             // console.log(res.body);
                             //      alert(res.body.msg);
                             vm.screens = res.body.data;
-
                             //
-                           
 
                             for(var t=0; t<vm.screens.screens.length; t++) {
                                 var temp = new Date(vm.screens.screens[t].beginTime);
@@ -54,43 +58,60 @@
                     },
                 }
             });
-
         }
     </script>
 </head>
-<body>
-<div id="screen"  class="weui-panel weui-panel_access">
-    <div style="height: 50px;background: RED;text-align: center;">
-        <h3 style="padding-bottom: 10px;padding-top: 10px;text-align:center;color: white;">{{screens.cinema.cinemaName}}</h3>
-    </div>
-    <div style="height: 40px;width:100%;float:left;text-align:center;background-color:#F5F5DC">
-        <h4 id="cityone" style="padding-top:10px">《{{screens.movie.movieName}}》
-            <span  style="font-size: small;color: #ff6600">
+
+<body ontouchstart>
+
+<div  class="weui-tab">
+    <div id="screen"  class="weui-panel weui-panel_access">
+        <div style="height: 50px;background: RED;text-align: center;">
+            <h3 style="padding-bottom: 10px;padding-top: 10px;text-align:center;color: white;">{{screens.cinema.cinemaName}}</h3>
+        </div>
+        <div style="height: 40px;width:100%;float:left;text-align:center;background-color:#F5F5DC">
+            <h4 id="cityone" style="padding-top:10px">《{{screens.movie.movieName}}》
+                <span  style="font-size: small;color: #ff6600">
                 {{screens.movie.movieType}}
             </span>
-        </h4>
-    </div>
-    <div style="padding-top: 40px">
-        <template v-for="screen in screens.screens">
-            <a :href="'./lang-xuanzuo.html?screenid='+screen.pkScreenid+'&cinemaid='+vm.screens.cinema.pkCinemaid" class="weui-media-box weui-media-box_appmsg">
-                <div style="padding-left: 10px" class="weui-media-box__bd">
-                    <h3 class="weui-media-box__title">{{screen.beginTime}}
-                        <span  style="color:	#A52A2A;padding-left:10px;font-size: small">{{screen.price}}元</span>
-                    </h3>
-                    <p style="color: red;font-size: small">{{screen.endTime}}结束
-                        <span style="color:#ff6600">{{screen.roomName}}号厅</span>
-                    </p>
-                    <div style="float:right;padding-right: 10px;">
-                        <!--<a :href="./lang-xuanzuo.html">-->
-                        <button style="color:white;background: red;padding-bottom: 5px;padding-top: 5px;padding-right: 8px;padding-left: 8px">
-                            立即购买
-                        </button>
-                        <!--</a>-->
+            </h4>
+        </div>
+        <div style="padding-top: 40px">
+            <template v-for="screen in screens.screens">
+                <a :href="'./lang-xuanzuo.html?screenid='+screen.pkScreenid+'&cinemaid='+vm.screens.cinema.pkCinemaid" class="weui-media-box weui-media-box_appmsg">
+                    <div style="padding-left: 10px" class="weui-media-box__bd">
+                        <h3 class="weui-media-box__title">{{screen.beginTime}}
+                            <span  style="color:	#A52A2A;padding-left:10px;font-size: small">{{screen.price}}元</span>
+                        </h3>
+                        <p style="color: red;font-size: small">{{screen.endTime}}结束
+                            <span style="color:#ff6600">{{screen.roomName}}号厅</span>
+                        </p>
+                        <div style="float:right;padding-right: 10px;">
+                            <!--<a :href="./lang-xuanzuo.html">-->
+                            <button style="color:white;background: red;padding-bottom: 5px;padding-top: 5px;padding-right: 8px;padding-left: 8px">
+                                立即购买
+                            </button>
+                            <!--</a>-->
+                        </div>
                     </div>
-                </div>
-            </a>
-        </template>
+                </a>
+            </template>
+        </div>
     </div>
+
+
+
+
 </div>
+<script src="../lib/fastclick.js"></script>
+<script src="../js/jquery-weui.js"></script>
+<script src="../js/city-picker.js"></script>
+
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+
 </body>
 </html>

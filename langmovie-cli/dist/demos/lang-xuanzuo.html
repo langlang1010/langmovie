@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>购票</title>
+    <title>jQuery WeUI</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+    <script src="../lib/jquery-2.1.4.js"></script>
+
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
     <link rel="stylesheet" href="../lib/weui.min.css">
     <link rel="stylesheet" href="../css/jquery-weui.css">
     <link rel="stylesheet" href="css/demos.css">
-    <script src="../lib/jquery-2.1.4.js"></script>
-    <script src="../js/jquery-weui.js"></script>
     <script>
         var screenid;
         function GetQueryString(name)
@@ -18,34 +25,28 @@
         }
         var screenid=GetQueryString("screenid")
         var cinemaid=GetQueryString("cinemaid")
-
         var cinema_url = "http://yan.nat300.top/cinema/search/"+cinemaid;
-
         $(document).ready(function(){
-
             $.get(cinema_url,function(data,status){
                 // alert("数据: " + data.data.cinemaName + "\n状态: " + status);
                 $("#cinshow").text(data.data.cinemaName);
             });
         });
         var seat_url="http://yan.nat300.top/room/ordered/"+screenid+"";
-
         $.get(seat_url,
             {},
             function(data,status){
                 //alert("数据: \n" + data + "\n状态: " + status);
                 var myseat_ordered=data.data;
                 for(var i=0;i<myseat_ordered.length;i++){
-                  var id=myseat_ordered[i].x+"_"+myseat_ordered[i].y;
-                  $("#"+id).css("background-color","black");
+                    var id=myseat_ordered[i].x+"_"+myseat_ordered[i].y;
+                    $("#"+id).css("background-color","black");
                 }
-
             });
         var flag = 0;
         var count=0;
         var myseat={x:"",y:""};
         var result_json=new Array(myseat);;
-
         function changeColor(obj) {
             // alert("id=="+obj.id);
             var temp = obj.id.split("_");
@@ -73,7 +74,6 @@
             for(var i=0; i<count; i++) {
                 // console.log("("+result_json[i].x+","+result_json[i].y+")")
             }
-
         }
         $(document).ready(function(){
             var sub_url =  "http://yan.nat300.top/form/add";
@@ -93,7 +93,6 @@
                 }
                 seatjson += "]";
                 console.log(seatjson);
-
                 var storage=window.localStorage;
                 var temp_userid = storage.getItem("userid");
                 var temp_token = storage.getItem("token");
@@ -101,7 +100,6 @@
                 // alert(temp_token)
                 if(temp_token == null || temp_token == "") {
                     $.toast("没有登陆", "forbidden");
-                    alert("dddd")
                     return;
                 }
                 if(temp_userid == null||temp_userid == "") {
@@ -116,15 +114,13 @@
                         userid:temp_userid
                     },
                     function(data,status){
-                         alert("数据: \n" + data.data + "\n状态: " + status);
+                        // alert("数据: \n" + data.data + "\n状态: " + status);
                         $.toast("操作成功", function() {
                             console.log('close');
                         });
                     });
-
             });
         });
-
     </script>
     <style>
         .show {
@@ -136,13 +132,10 @@
             margin-top: 50px;
             text-align: center;
         }
-
         .weizi {
             /*padding-left: 25%;*/
-
             background-color: #A9A9A9;
         }
-
         .first span {
             display: inline-block;
             width: 20px;
@@ -153,7 +146,6 @@
             color: #fff;
             cursor: pointer;
             border-radius: 5px;
-
         }
         .seatstyle{
             margin-bottom:10px;
@@ -164,34 +156,44 @@
             border-radius:50px;
             background-color:green
         }
-
     </style>
 </head>
-<body>
-<div class="weui-panel weui-panel_access">
-    <div style="height: 50px;background: RED;text-align: center;">
-        <h3 id="cinshow"style="padding-bottom: 10px;padding-top: 10px;color: white;text-align: center"></h3>
-    </div>
-    <div style="height: 40px;float:left;background-color: #FFFFF8;">
-        <h4 id="cityone" style="padding-top:10px"></h4>
-    </div>
-    <div class="show">
-        <p>屏幕</p>
-    </div>
-    <div class="weizi">
-        <div style="height: 100px;width: 100%;background-color: #A9A9A9"></div>
-        <div id="content" style="text-align: center">
+
+<body ontouchstart>
+
+<div  class="weui-tab">
+    <div class="weui-panel weui-panel_access">
+        <div style="height: 50px;background: RED;text-align: center;">
+            <h3 id="cinshow"style="padding-bottom: 10px;padding-top: 10px;color: white;text-align: center"></h3>
+        </div>
+        <div style="height: 40px;float:left;background-color: #FFFFF8;">
+            <h4 id="cityone" style="padding-top:10px"></h4>
+        </div>
+        <div class="show">
+            <p>屏幕</p>
+        </div>
+        <div class="weizi">
+            <div style="height: 100px;width: 100%;background-color: #A9A9A9"></div>
+            <div id="content" style="text-align: center">
+
+            </div>
 
         </div>
-
-    </div>
-    <div   id="seat">
-    </div>
+        <div   id="seat">
+        </div>
         <button id="btn_submit" style="height:50px"class="weui-btn weui-btn_primary">确认购买</button>
+    </div>
 </div>
+<script src="../lib/fastclick.js"></script>
+<script src="../js/jquery-weui.js"></script>
+<script src="../js/city-picker.js"></script>
 
 <script>
-
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script>
     for (var i = 1; i <= 8; i++) {
         var row = "row" + i;
         $("#content").append("<div class=\"first\" id=\""+row+"\"> ");
@@ -199,8 +201,8 @@
             var col = "col" + t;
             $("#" + row).append("<span onclick=\"changeColor(this)\" id=\""+i+"_"+t+"\" ></span>");
         }
-
     }
 </script>
+
 </body>
 </html>
