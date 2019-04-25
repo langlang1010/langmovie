@@ -26,15 +26,33 @@
         var screenid=GetQueryString("screenid")
         var cinemaid=GetQueryString("cinemaid")
         var cinema_url = "http://yan.nat300.top/cinema/search/"+cinemaid;
+        var price_url="http://yan.nat300.top/screen/info/"+screenid;
+        // $(document).ready(function(){
+        //     $.get(cinema_url,function(data,status){
+        //         // alert("数据: " + data.data.cinemaName + "\n状态: " + status);
+        //         $("#cinshow").text(data.data.cinemaName);
+        //     });
+        // });
+        var ticket_price;
         $(document).ready(function(){
-            $.get(cinema_url,function(data,status){
-                // alert("数据: " + data.data.cinemaName + "\n状态: " + status);
-                $("#cinshow").text(data.data.cinemaName);
+            $.get(price_url,function(data,status){
+              //   alert("数据: " + data.data.price + "\n状态: " + status);
+                  ticket_price=data.data.price;
+                 var cinemaname=data.data.cinemaName;
+                 var moviename=data.data.movieName;
+
+                $("#cinshow").text(cinemaname);
+                $("#cityone").text(moviename);
+                $("#sprice").text(ticket_price);
+
             });
         });
+
         var seat_url="http://yan.nat300.top/room/ordered/"+screenid+"";
         $.get(seat_url,
-            {},
+            {
+
+            },
             function(data,status){
                 //alert("数据: \n" + data + "\n状态: " + status);
                 var myseat_ordered=data.data;
@@ -44,16 +62,21 @@
                 }
             });
         var flag = 0;
+
+        var count_ticket=0.0;
+
         var count=0;
         var myseat={x:"",y:""};
         var result_json=new Array(myseat);;
         function changeColor(obj) {
-            // alert("id=="+obj.id);
             var temp = obj.id.split("_");
             if($("#"+obj.id).css("background-color")== "rgb(255, 255, 255)") {
                 $("#"+obj.id).css("background-color","red");
                 var pid = "p" + obj.id;
                 $("#seat").append("<p class='seatstyle' id="+pid+">"+temp[0]+"排"+temp[1]+"列</p>")
+                count_ticket+=(ticket_price*100);
+                // var total = parseInt(count_ticket);
+                $("#total").text((count_ticket/100));
                 // 定义对象
                 var temp2={x:"",y:""};
                 temp2.x = temp[0];
@@ -70,6 +93,10 @@
                         result_json[i].y = -1;
                     }
                 }
+                count_ticket -= ticket_price;
+                var total = parseInt(count_ticket*100);
+                $("#total").text(parseFloat(total/100));
+
             }
             for(var i=0; i<count; i++) {
                 // console.log("("+result_json[i].x+","+result_json[i].y+")")
@@ -127,9 +154,8 @@
             background-color: #f0f0f0;
             color: #666;
             border-radius: 5px;
-            height: 20px;
+            /*height: 20px;*/
             width: 100%;
-            margin-top: 50px;
             text-align: center;
         }
         .weizi {
@@ -156,6 +182,7 @@
             border-radius:50px;
             background-color:green
         }
+
     </style>
 </head>
 
@@ -164,13 +191,15 @@
 <div  class="weui-tab">
     <div class="weui-panel weui-panel_access">
         <div style="height: 50px;background: RED;text-align: center;">
-            <h3 id="cinshow"style="padding-bottom: 10px;padding-top: 10px;color: white;text-align: center"></h3>
+            <h3 id="cinshow"style="padding-bottom: 10px;padding-top: 10px;color: white;">
+            </h3>
         </div>
-        <div style="height: 40px;float:left;background-color: #FFFFF8;">
-            <h4 id="cityone" style="padding-top:10px"></h4>
+        <div  style="text-align: center;background-color:#F5F5DC;">
+            <h4 id="cityone" style=""></h4>
+            <span id="sprice"> </span>元/张
         </div>
         <div class="show">
-            <p>屏幕</p>
+            <h2>屏幕</h2>
         </div>
         <div class="weizi">
             <div style="height: 100px;width: 100%;background-color: #A9A9A9"></div>
@@ -179,9 +208,10 @@
             </div>
 
         </div>
-        <div   id="seat">
+        <div id="seat">
+            总计<span id="total"></>
         </div>
-        <button id="btn_submit" style="height:50px"class="weui-btn weui-btn_primary">确认购买</button>
+        <button id="btn_submit" style=""class="weui-btn weui-btn_primary">确认购买</button>
     </div>
 </div>
 <script src="../lib/fastclick.js"></script>
