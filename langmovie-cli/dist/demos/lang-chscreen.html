@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>场次</title>
+    <link rel="stylesheet" href="../lib/weui.min.css">
+    <link rel="stylesheet" href="../css/jquery-weui.css">
+    <link rel="stylesheet" href="css/demos.css">
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <script>
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+        var movieid=GetQueryString("movieid")
+        var cinemaid=GetQueryString("cinemaid")
+
+        var vm;
+        window.onload = function () {
+            vm = new Vue({
+                el: '#screen',
+                data: {
+                    movieid:"",
+                    cinemaid:"",
+                    screens:""
+                },
+                mounted: function () {
+                    this.get();
+                },
+                methods: {
+                    get: function () {
+                        var url = "http://yan.nat300.top/screen/search/" + cinemaid + "/" + movieid + "";
+                        //发送get请求
+                        this.$http.get(url).then(function (res) {
+                            // console.log(res.body);
+                            //      alert(res.body.msg);
+                            vm.screens = res.body.data;
+
+                            //
+                           
+
+                            for(var t=0; t<vm.screens.screens.length; t++) {
+                                var temp = new Date(vm.screens.screens[t].beginTime);
+                                var temp2 = new Date(vm.screens.screens[t].endTime);
+                                vm.screens.screens[t].beginTime = temp.getHours()+":"+temp.getMinutes();
+                                vm.screens.screens[t].endTime = temp2.getHours()+":"+temp.getMinutes();
+                            }
+                        }, function () {
+                            console.log('请求失败处理');
+                        });
+                    },
+                }
+            });
+
+        }
+    </script>
+</head>
+<body>
+<div id="screen"  class="weui-panel weui-panel_access">
+    <div style="height: 50px;background: RED;text-align: center;">
+        <h3 style="padding-bottom: 10px;padding-top: 10px;text-align:center;color: white;">{{screens.cinema.cinemaName}}</h3>
+    </div>
+    <div style="height: 40px;width:100%;float:left;text-align:center;background-color:#F5F5DC">
+        <h4 id="cityone" style="padding-top:10px">《{{screens.movie.movieName}}》
+            <span  style="font-size: small;color: #ff6600">
+                {{screens.movie.movieType}}
+            </span>
+        </h4>
+    </div>
+    <div style="padding-top: 40px">
+        <template v-for="screen in screens.screens">
+            <a :href="'./lang-xuanzuo.html?screenid='+screen.pkScreenid+'&cinemaid='+vm.screens.cinema.pkCinemaid" class="weui-media-box weui-media-box_appmsg">
+                <div style="padding-left: 10px" class="weui-media-box__bd">
+                    <h3 class="weui-media-box__title">{{screen.beginTime}}
+                        <span  style="color:	#A52A2A;padding-left:10px;font-size: small">{{screen.price}}元</span>
+                    </h3>
+                    <p style="color: red;font-size: small">{{screen.endTime}}结束
+                        <span style="color:#ff6600">{{screen.roomName}}号厅</span>
+                    </p>
+                    <div style="float:right;padding-right: 10px;">
+                        <!--<a :href="./lang-xuanzuo.html">-->
+                        <button style="color:white;background: red;padding-bottom: 5px;padding-top: 5px;padding-right: 8px;padding-left: 8px">
+                            立即购买
+                        </button>
+                        <!--</a>-->
+                    </div>
+                </div>
+            </a>
+        </template>
+    </div>
+</div>
+</body>
+</html>

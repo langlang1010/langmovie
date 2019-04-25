@@ -7,27 +7,40 @@
     <link rel="stylesheet" href="../css/jquery-weui.css">
     <link rel="stylesheet" href="css/demos.css">
     <script src="../lib/jquery-2.1.4.js"></script>
-
+    <script src="../js/jquery-weui.js"></script>
     <script>
+        var screenid;
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+        var screenid=GetQueryString("screenid")
+        var cinemaid=GetQueryString("cinemaid")
 
-        var seat_url="http://yan.nat300.top/room/ordered/2";
+        var cinema_url = "http://yan.nat300.top/cinema/search/"+cinemaid;
+
+        $(document).ready(function(){
+
+            $.get(cinema_url,function(data,status){
+                // alert("数据: " + data.data.cinemaName + "\n状态: " + status);
+                $("#cinshow").text(data.data.cinemaName);
+            });
+        });
+        var seat_url="http://yan.nat300.top/room/ordered/"+screenid+"";
+
         $.get(seat_url,
-            {
-
-            },
+            {},
             function(data,status){
                 //alert("数据: \n" + data + "\n状态: " + status);
                 var myseat_ordered=data.data;
                 for(var i=0;i<myseat_ordered.length;i++){
                   var id=myseat_ordered[i].x+"_"+myseat_ordered[i].y;
                   $("#"+id).css("background-color","black");
-
-
                 }
 
             });
-
-
         var flag = 0;
         var count=0;
         var myseat={x:"",y:""};
@@ -81,15 +94,32 @@
                 seatjson += "]";
                 console.log(seatjson);
 
+                var storage=window.localStorage;
+                var temp_userid = storage.getItem("userid");
+                var temp_token = storage.getItem("token");
+                // alert(temp_userid)
+                // alert(temp_token)
+                if(temp_token == null || temp_token == "") {
+                    $.toast("没有登陆", "forbidden");
+                    alert("dddd")
+                    return;
+                }
+                if(temp_userid == null||temp_userid == "") {
+                    $.toast("用户没有登陆！", "forbidden");
+                    return;
+                }
                 $.post(sub_url,
                     {
-                        screenid:2,
+                        screenid:screenid,
                         seatJson:seatjson,
-                        token:"langlang",
-                        userid:25
+                        token:temp_token,
+                        userid:temp_userid
                     },
                     function(data,status){
-                        alert("数据: \n" + data.data + "\n状态: " + status);
+                         alert("数据: \n" + data.data + "\n状态: " + status);
+                        $.toast("操作成功", function() {
+                            console.log('close');
+                        });
                     });
 
             });
@@ -140,10 +170,10 @@
 <body>
 <div class="weui-panel weui-panel_access">
     <div style="height: 50px;background: RED;text-align: center;">
-        <h3 style="padding-bottom: 10px;padding-top: 10px;color: white;float: left">左岸大地影院</h3>
+        <h3 id="cinshow"style="padding-bottom: 10px;padding-top: 10px;color: white;text-align: center"></h3>
     </div>
     <div style="height: 40px;float:left;background-color: #FFFFF8;">
-        <h4 id="cityone" style="padding-top:10px">调音师</h4>
+        <h4 id="cityone" style="padding-top:10px"></h4>
     </div>
     <div class="show">
         <p>屏幕</p>

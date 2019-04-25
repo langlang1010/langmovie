@@ -149,7 +149,7 @@
                 <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
                     <div id="cin" class="weui-panel__bd">
                         <template v-for="cin in local">
-                            <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                            <a :href="'./lang-chscreen.html?movieid='+vm.movie.pkMovieid+'&cinemaid='+cin.cinema.pkCinemaid"   class="weui-media-box weui-media-box_appmsg">
                                 <div style="padding-left: 10px" class="weui-media-box__bd">
                                     <h4 class="weui-media-box__title">{{cin.cinema.cinemaName}}
                                         <span  style="color: red;padding-left:10px;font-size: small">{{cin.screens[0].price}}元起 </span>
@@ -182,6 +182,7 @@
 
 
 </div>
+
 
 <script src="../lib/fastclick.js"></script>
 <script>
