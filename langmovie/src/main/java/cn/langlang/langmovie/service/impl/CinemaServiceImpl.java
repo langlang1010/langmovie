@@ -25,7 +25,7 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
-    public Cinema getCinmaById(Cinema cinema) {
+    public Cinema getCinemaById(Cinema cinema) {
         return cinemaDao.getCinemaById(cinema);
     }
 
@@ -57,5 +57,12 @@ public class CinemaServiceImpl implements CinemaService {
     @Override
     public List<Cinema> listCinemaByMoiveName(Long movieid, String city) {
         return cinemaDao.listCinemaByMovie(movieid,city);
+    }
+
+    @Override
+    public Cinema getCinemaById(long cinemaid) {
+        Cinema cinema = new Cinema();
+        cinema.setPkCinemaid(cinemaid);
+        return cinemaDao.getCinemaById(cinema);
     }
 }

@@ -27,7 +27,7 @@ public class ManagerTest {
 
     @Test
     public void search() {
-        List<Manager> list = managerService.listManagerByUserid(1L,1,5);
+        List<Manager> list = managerService.listManagerByUserid(1L);
         for(Manager manager:list) {
             System.out.println(manager.getFkCinema());
         }
@@ -35,7 +35,7 @@ public class ManagerTest {
 
     @Test
     public void list() {
-        List<Manager> list = managerService.listManagerByCinemaid(1L,1,3);
+        List<Manager> list = managerService.listManagerByCinemaid(1L);
         for(Manager manager:list) {
             System.out.println(manager.getFkUser());
         }
@@ -47,6 +47,5 @@ public class ManagerTest {
         manager.setFkUser(1L);
         manager.setFkCinema(1L);
         managerService.deleteManagerByCinemaAndUser(manager);
-
     }
 }

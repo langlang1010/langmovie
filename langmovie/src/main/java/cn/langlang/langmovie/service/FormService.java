@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface FormService {
     short NOT_ENOUGH_MONEY = -1;
+    short SEAT_ORDERED = -2;
     /**
      *
      * @param form
@@ -57,4 +58,34 @@ public interface FormService {
      * @return
      */
     int insertForms(long userid,long screenid,List<RoomSeat> seats);
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    boolean existFormidBySeat(long screenid,short x,short y);
+
+    /**
+     *
+     * @param userid
+     * @return
+     */
+    List<Form> listFormByUserid(Long userid,int page1,int num);
+
+    /**
+     *
+     * @param userid
+     * @return
+     */
+    List<String> listCodesByUserid(Long userid);
+
+    /**
+     *
+     * @param code
+     * @return
+     */
+    List<Form> listFormByCode(String code);
+
 }

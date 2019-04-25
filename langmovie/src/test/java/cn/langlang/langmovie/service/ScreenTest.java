@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.service;
 
+import cn.langlang.langmovie.bean.ScreenVO;
 import cn.langlang.langmovie.entity.Screen;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,6 +68,15 @@ public class ScreenTest {
         List<Screen> screens = screenService.listScreenByMovieAndCinema(1L,1L);
         System.out.println("总共有 "+screens.size()+" 场");
         for(Screen screen:screens) {
+            System.out.println(screen.getBeginTime());
+        }
+    }
+
+    @Test
+    public void listScreenVO() {
+        List<ScreenVO> screens = screenService.listScreenVOByMovieAndCinema(1L,1L);
+        System.out.println("总共有 "+screens.size()+" 场");
+        for(ScreenVO screen:screens) {
             System.out.println(screen.getBeginTime());
         }
     }

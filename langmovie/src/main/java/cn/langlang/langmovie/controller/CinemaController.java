@@ -77,4 +77,21 @@ public class CinemaController {
         }
         return helper.toJsonMap();
     }
+
+
+    @ApiOperation("根据id查询电影院名称")
+    @GetMapping("/search/{cinemaid}")
+    private Map<String,Object> getCinemaName(@PathVariable("cinemaid") Long cinemaid) {
+        if(cinemaid == null) {
+            helper.setData("影院编号不能为空");
+            helper.setMsg("FAILURE");
+            return helper.toJsonMap();
+        }
+        Cinema c = new Cinema();
+        c.setPkCinemaid(cinemaid);
+        Cinema cinema = cinemaService.getCinemaById(c);
+        helper.setData(cinema);
+        helper.setMsg("SUCCESS");
+        return helper.toJsonMap();
+    }
 }

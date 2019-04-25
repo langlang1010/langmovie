@@ -21,7 +21,7 @@ public interface CinemaService {
      * @param cinema
      * @return
      */
-    Cinema getCinmaById(Cinema cinema);
+    Cinema getCinemaById(Cinema cinema);
 
     /**
      *
@@ -65,4 +65,11 @@ public interface CinemaService {
      * @return
      */
     List<Cinema> listCinemaByMoiveName(Long movieid,String city);
+
+    /**
+     *
+     * @param cinemaid
+     * @return
+     */
+    Cinema getCinemaById(long cinemaid);
 }

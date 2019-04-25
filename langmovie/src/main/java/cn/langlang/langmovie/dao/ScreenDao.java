@@ -1,5 +1,7 @@
 package cn.langlang.langmovie.dao;
 
+import cn.langlang.langmovie.bean.FormVO;
+import cn.langlang.langmovie.bean.ScreenVO;
 import cn.langlang.langmovie.entity.Screen;
 import org.apache.ibatis.annotations.Param;
 
@@ -50,4 +52,20 @@ public interface ScreenDao {
      */
     List<Screen> listScreenByMovieAndCinema(@Param("movieid") long movieid,
                                             @Param("cinemaid") long cinemaid);
+
+    /**
+     *
+     * @param movieid
+     * @param cinemaid
+     * @return
+     */
+    List<ScreenVO> listScreenVOByMovieAndCity(@Param("movieid")long movieid,
+                                              @Param("cinemaid")long cinemaid);
+
+    /**
+     *
+     * @param screenid
+     * @return
+     */
+    FormVO getFormVOByScreenid(@Param("screenid") long screenid);
 }

@@ -74,5 +74,19 @@
         where pk_screenid=#{pkScreenid}
     </delete>
 
-
+    <select id="listScreenVOByMovieAndCity" resultType="cn.langlang.langmovie.bean.ScreenVO">
+        select screen.pk_screenid as pkScreenid,
+                screen.price as price,
+                screen.begin_Time as beginTime,
+                screen.end_time as endTime,
+                room.room_name as roomName,
+                screen.fk_movie as fkMovie,
+                room.pk_roomid as fkRoom,
+                screen.gmt_create,screen.gmt_modified
+        from screen,room
+        where screen.fk_room=room.pk_roomid
+        and fk_movie=#{movieid}
+        and room.fk_cinema=#{cinemaid}
+        order by pk_screenid
+    </select>
 </mapper>

@@ -70,4 +70,29 @@
         where pk_formid=#{pkFormid}
     </delete>
 
+    <select id="getFormidBySeat" resultType="cn.langlang.langmovie.entity.Form" >
+        select pk_formid
+        from form
+        where seat_x=#{x}
+        and seat_y = #{y}
+        and fk_screen=#{screenid}
+    </select>
+    <select id="listFormByUserid" resultType="cn.langlang.langmovie.entity.Form">
+        select pk_formid,fk_screen,fk_user,seat_x,seat_y,code,
+               gmt_create,gmt_modified
+        from form
+        where fk_user = #{userid}
+    </select>
+    <select id="listCodeByUserid" resultType="cn.langlang.langmovie.entity.Form">
+        select distinct code
+        from form
+        where fk_user = #{userid}
+    </select>
+
+    <select id="listFormByCode" resultType="cn.langlang.langmovie.entity.Form">
+        select pk_formid,fk_screen,fk_user,seat_x,seat_y,code,
+               gmt_create,gmt_modified
+        from form
+        where code = #{code}
+    </select>
 </mapper>

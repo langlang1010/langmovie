@@ -76,6 +76,14 @@ public class FormServiceImpl implements FormService {
             LOGGER.info("not enough money return "+NOT_ENOUGH_MONEY);
             return NOT_ENOUGH_MONEY;
         }
+        // 判断位置是否已经购买
+        for(int i=0; i<seats.size(); i++) {
+            RoomSeat roomSeat = seats.get(i);
+            if(this.existFormidBySeat(screenid,roomSeat.getX(),roomSeat.getY())) {
+                return SEAT_ORDERED;
+            }
+        }
+
 
         Cinema cinema = cinemaDao.getCinemaByRoom(screen.getFkRoom());
 
@@ -99,6 +107,26 @@ public class FormServiceImpl implements FormService {
             count++;
         }
         return count;
+    }
+
+    @Override
+    public boolean existFormidBySeat(long screenid,short x, short y) {
+        return formDao.getFormidBySeat(screenid,x,y)!=null;
+    }
+
+    @Override
+    public List<Form> listFormByUserid(Long userid, int page1, int num) {
+        return formDao.listFormByUserid(userid,page1-1,num);
+    }
+
+    @Override
+    public List<String> listCodesByUserid(Long userid) {
+        return formDao.listCodeByUserid(userid);
+    }
+
+    @Override
+    public List<Form> listFormByCode(String code) {
+        return formDao.listFormByCode(code);
     }
 
 

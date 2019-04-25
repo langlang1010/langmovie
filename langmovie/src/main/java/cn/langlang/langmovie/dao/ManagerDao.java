@@ -18,18 +18,14 @@ public interface ManagerDao {
      * @param userid
      * @return
      */
-    List<Manager> listManagerByUserid(@Param("userid") long userid,
-                                      @Param("page1") int page1,@Param("num") int num);
+    List<Manager> listManagerByUserid(@Param("userid") long userid);
 
     /**
      *
      * @param cinemaid
-     * @param page1
-     * @param num
      * @return
      */
-    List<Manager> listManagerByCinemaid(@Param("cinemaid") long cinemaid,
-                                        @Param("page1") int page1,@Param("num") int num);
+    List<Manager> listManagerByCinemaid(@Param("cinemaid") long cinemaid);
 
     /**
      *

@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.service.impl;
 
+import cn.langlang.langmovie.bean.ScreenVO;
 import cn.langlang.langmovie.dao.ScreenDao;
 import cn.langlang.langmovie.entity.Screen;
 import cn.langlang.langmovie.service.ScreenService;
@@ -43,5 +44,10 @@ public class ScreenServiceImpl implements ScreenService {
     @Override
     public List<Screen> listScreenByMovieAndCinema(long movieid, long cinemaid) {
         return screenDao.listScreenByMovieAndCinema(movieid,cinemaid);
+    }
+
+    @Override
+    public List<ScreenVO> listScreenVOByMovieAndCinema(long movieid, long cinemaid) {
+        return screenDao.listScreenVOByMovieAndCity(movieid,cinemaid);
     }
 }
