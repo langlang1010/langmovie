@@ -2,13 +2,11 @@ package cn.langlang.langmovie.controller;
 
 import cn.langlang.langmovie.bean.RoomSeat;
 import cn.langlang.langmovie.service.FormService;
-import cn.langlang.langmovie.service.RoomService;
 import cn.langlang.langmovie.util.RestControllerHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
 

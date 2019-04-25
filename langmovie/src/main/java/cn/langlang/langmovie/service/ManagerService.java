@@ -4,6 +4,9 @@ import cn.langlang.langmovie.entity.Manager;
 
 import java.util.List;
 
+/**
+ * @author Smileyan
+ */
 public interface ManagerService {
     /**
      *
@@ -15,20 +18,16 @@ public interface ManagerService {
     /**
      *
      * @param userid
-     * @param page1
-     * @param num
      * @return
      */
-    List<Manager> listManagerByUserid(long userid,int page1,int num);
+    List<Manager> listManagerByUserid(long userid);
 
     /**
      *
      * @param cinemaid
-     * @param page1
-     * @param num
      * @return
      */
-    List<Manager> listManagerByCinemaid(long cinemaid,int page1,int num);
+    List<Manager> listManagerByCinemaid(long cinemaid);
 
     /**
      *

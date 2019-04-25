@@ -75,4 +75,22 @@ public class FormTest {
             System.out.println("("+roomSeat.getX()+","+roomSeat.getY()+")");
         }
     }
+
+    @Test
+    public void getFormidBySeat() {
+        System.out.println(formService.existFormidBySeat(1L,(short)1,(short)2));
+    }
+
+    @Test
+    public void testCode() {
+        List<String> codes = formDao.listCodeByUserid(25L);
+        System.out.println(codes.size());
+    }
+
+    @Test
+    public void testCode2() {
+        String code = "2eb9aa5c9dfc451dbf2d9a6246ac46b3397f899f84754692a894ecf7a7b0ba35";
+        List<Form> forms = formDao.listFormByCode(code);
+        System.out.println(forms.size());
+    }
 }

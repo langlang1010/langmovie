@@ -37,7 +37,6 @@
         from manager
         where fk_user=#{userid}
         order by fk_cinema
-        limit #{page1},#{num}
     </select>
     <select id="listManagerByCinemaid"
             resultType="cn.langlang.langmovie.entity.Manager">
@@ -45,7 +44,6 @@
         from manager
         where fk_cinema=#{cinemaid}
         order by fk_user
-        limit #{page1},#{num}
     </select>
 
     <delete id="deleteManagerByCinemaAndUser" parameterType="cn.langlang.langmovie.entity.Manager">

@@ -33,7 +33,7 @@ public class CinemaTest {
     public void search() {
         Cinema cinema = new Cinema();
         cinema.setPkCinemaid(1L);
-        Cinema cinema1 = cinemaService.getCinmaById(cinema);
+        Cinema cinema1 = cinemaService.getCinemaById(cinema);
         System.out.println(cinema1.getCinemaName());
     }
 

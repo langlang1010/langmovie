@@ -21,13 +21,13 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public List<Manager> listManagerByUserid(long userid, int page1, int num) {
-        return managerDao.listManagerByUserid(userid,page1-1,num);
+    public List<Manager> listManagerByUserid(long userid) {
+        return managerDao.listManagerByUserid(userid);
     }
 
     @Override
-    public List<Manager> listManagerByCinemaid(long cinemaid, int page1, int num) {
-        return managerDao.listManagerByCinemaid(cinemaid,page1-1,num);
+    public List<Manager> listManagerByCinemaid(long cinemaid) {
+        return managerDao.listManagerByCinemaid(cinemaid);
     }
 
     @Override
