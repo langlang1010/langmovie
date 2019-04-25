@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.service;
 
+import cn.langlang.langmovie.bean.ScreenInfoVO;
 import cn.langlang.langmovie.bean.ScreenVO;
 import cn.langlang.langmovie.entity.Screen;
 import org.apache.ibatis.annotations.Param;
@@ -59,5 +60,10 @@ public interface ScreenService {
      */
     List<ScreenVO> listScreenVOByMovieAndCinema(long movieid, long cinemaid);
 
-
+    /**
+     *
+     * @param screenid
+     * @return
+     */
+    ScreenInfoVO getScreenInfo(long screenid);
 }

@@ -1,6 +1,8 @@
 package cn.langlang.langmovie.service;
 
+import cn.langlang.langmovie.bean.ScreenInfoVO;
 import cn.langlang.langmovie.bean.ScreenVO;
+import cn.langlang.langmovie.dao.ScreenDao;
 import cn.langlang.langmovie.entity.Screen;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -79,5 +81,13 @@ public class ScreenTest {
         for(ScreenVO screen:screens) {
             System.out.println(screen.getBeginTime());
         }
+    }
+
+    @Autowired
+    private ScreenDao screenDao;
+    @Test
+    public void screenInfo() {
+        ScreenInfoVO screenInfoVO = screenDao.getScreenInfoByScreenid(2L);
+        System.out.println(screenInfoVO.getCinemaName()+":"+screenInfoVO.getRoomName());
     }
 }

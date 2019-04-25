@@ -81,5 +81,12 @@ public interface FormDao {
      * @param code
      * @return
      */
-    List<Form> listFormByCode(@Param("code") String code);
+    FormVO getFormVOByCode(@Param("code") String code);
+
+    /**
+     *
+     * @param code
+     * @return
+     */
+    List<RoomSeat> listRoomSeatByCode(@Param("code") String code);
 }

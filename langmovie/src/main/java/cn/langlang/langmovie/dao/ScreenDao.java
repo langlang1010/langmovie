@@ -1,6 +1,7 @@
 package cn.langlang.langmovie.dao;
 
 import cn.langlang.langmovie.bean.FormVO;
+import cn.langlang.langmovie.bean.ScreenInfoVO;
 import cn.langlang.langmovie.bean.ScreenVO;
 import cn.langlang.langmovie.entity.Screen;
 import org.apache.ibatis.annotations.Param;
@@ -68,4 +69,11 @@ public interface ScreenDao {
      * @return
      */
     FormVO getFormVOByScreenid(@Param("screenid") long screenid);
+
+    /**
+     *
+     * @param screenid
+     * @return
+     */
+    ScreenInfoVO getScreenInfoByScreenid(@Param("screenid") long screenid);
 }

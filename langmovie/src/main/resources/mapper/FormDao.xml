@@ -83,16 +83,36 @@
         from form
         where fk_user = #{userid}
     </select>
-    <select id="listCodeByUserid" resultType="cn.langlang.langmovie.entity.Form">
+    <select id="listCodeByUserid" resultType="java.lang.String">
         select distinct code
         from form
         where fk_user = #{userid}
     </select>
 
-    <select id="listFormByCode" resultType="cn.langlang.langmovie.entity.Form">
-        select pk_formid,fk_screen,fk_user,seat_x,seat_y,code,
-               gmt_create,gmt_modified
+    <select id="getFormVOByCode" resultType="cn.langlang.langmovie.bean.FormVO">
+        select form.fk_screen as screenid,
+                movie.movie_name as movieName,
+                cinema.cinema_name as cinemaName,
+                room.room_name as roomName,
+                screen.begin_time as startTime,
+                screen.end_time as endTime,
+                screen.price as price,
+                form.code as code,
+                cinema.location as location,
+                form.gmt_create as payTime
+        from form,movie,cinema,room,screen
+        where form.fk_screen = screen.pk_screenid
+        and   screen.fk_movie = movie.pk_movieid
+        and   screen.fk_room = room.pk_roomid
+        and   room.fk_cinema = cinema.pk_cinemaid
+        and   form.code = #{code}
+        limit 1
+    </select>
+
+    <select id="listRoomSeatByCode" resultType="cn.langlang.langmovie.bean.RoomSeat">
+        select form.seat_x as x,
+                form.seat_y as y
         from form
-        where code = #{code}
+        where form.code = #{code}
     </select>
 </mapper>

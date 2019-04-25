@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.service;
 
+import cn.langlang.langmovie.bean.FormVO;
 import cn.langlang.langmovie.bean.RoomSeat;
 import cn.langlang.langmovie.dao.FormDao;
 import cn.langlang.langmovie.entity.Form;
@@ -89,8 +90,15 @@ public class FormTest {
 
     @Test
     public void testCode2() {
-        String code = "2eb9aa5c9dfc451dbf2d9a6246ac46b3397f899f84754692a894ecf7a7b0ba35";
-        List<Form> forms = formDao.listFormByCode(code);
-        System.out.println(forms.size());
+        String code = "fffaf75bb4cb401a987fc330e9166862626cd6b248af4cbe808517a0261feaf9";
+        FormVO formVOByCode = formDao.getFormVOByCode(code);
+        if(formVOByCode!=null) {
+            System.out.println(formVOByCode.getCinemaName());
+        }
+//        List<RoomSeat> seats = formDao.listRoomSeatByCode(code);
+//        for(RoomSeat seat:seats) {
+//            System.out.println(seat.getX()+","+seat.getY());
+//        }
+
     }
 }

@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 public class FormVO {
-    private Long formid;
     private Long screenid;
     private String movieName;
     private String cinemaName;
@@ -15,13 +14,14 @@ public class FormVO {
     private String code;
     private List<RoomSeat> seats;
     private Date payTime;
+    private String location;
 
-    public Long getFormid() {
-        return formid;
+    public String getLocation() {
+        return location;
     }
 
-    public void setFormid(Long formid) {
-        this.formid = formid;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Long getScreenid() {

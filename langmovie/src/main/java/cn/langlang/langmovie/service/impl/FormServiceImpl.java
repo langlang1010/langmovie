@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.service.impl;
 
+import cn.langlang.langmovie.bean.FormVO;
 import cn.langlang.langmovie.bean.RoomSeat;
 import cn.langlang.langmovie.dao.CinemaDao;
 import cn.langlang.langmovie.dao.FormDao;
@@ -125,8 +126,13 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public List<Form> listFormByCode(String code) {
-        return formDao.listFormByCode(code);
+    public FormVO getFormVOByCode(String code) {
+        return formDao.getFormVOByCode(code);
+    }
+
+    @Override
+    public List<RoomSeat> listSeatsByCode(String code) {
+        return formDao.listRoomSeatByCode(code);
     }
 
 

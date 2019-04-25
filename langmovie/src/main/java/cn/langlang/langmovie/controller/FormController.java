@@ -115,17 +115,16 @@ public class FormController {
             helper.setMsg("FAILURE");
             return helper.toJsonMap();
         }
+        List<FormVO> formVOS = new LinkedList<>();
         for (int i = 0; i < codes.size(); i++) {
+            // 分别根据code
             String code = codes.get(i);
-            FormVO formVO = new FormVO();
-            formVO.setCode(code);
-            List<Form> forms = formService.listFormByCode(code);
-            long screenid = forms.get(0).getFkScreen();
-
-            for (int j = 0; j < forms.size(); j++) {
-
-            }
+            FormVO formVO = formService.getFormVOByCode(code);
+            List<RoomSeat> seats = formService.listSeatsByCode(code);
+            formVO.setSeats(seats);
+            formVOS.add(formVO);
         }
+        helper.setData(formVOS);
         return helper.toJsonMap();
     }
 }

@@ -89,4 +89,19 @@
         and room.fk_cinema=#{cinemaid}
         order by pk_screenid
     </select>
+    <select id="getScreenInfoByScreenid" resultType="cn.langlang.langmovie.bean.ScreenInfoVO">
+        select screen.pk_screenid as screenid,
+                cinema.cinema_name as cinemaName,
+                movie.movie_name as movieName,
+                room.room_name as roomName,
+                screen.begin_time as startTime,
+                screen.price as price
+        from  screen,movie,room,cinema
+        where screen.fk_movie = movie.pk_movieid
+        and   screen.fk_room = room.pk_roomid
+        and   room.fk_cinema = cinema.pk_cinemaid
+        and   screen.pk_screenid = #{screenid}
+    </select>
+
+
 </mapper>

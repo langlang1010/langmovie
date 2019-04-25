@@ -1,5 +1,6 @@
 package cn.langlang.langmovie.service;
 
+import cn.langlang.langmovie.bean.FormVO;
 import cn.langlang.langmovie.bean.RoomSeat;
 import cn.langlang.langmovie.entity.Form;
 
@@ -82,10 +83,16 @@ public interface FormService {
     List<String> listCodesByUserid(Long userid);
 
     /**
-     *
+     * 根据code查询FormVO
      * @param code
      * @return
      */
-    List<Form> listFormByCode(String code);
+    FormVO getFormVOByCode(String code);
 
+    /**
+     * 根据code获得座位
+     * @param code
+     * @return
+     */
+    List<RoomSeat> listSeatsByCode(String code);
 }

@@ -18,8 +18,8 @@ public class MovieActorTest {
 
     @Test
     public void add() {
-        int movie_num=10;
-        long movie=10L;
+        int movie_num=11;
+        long movie=11L;
         MovieActor movieActor = new MovieActor();
         movieActor.setFkMovieid(movie);
 

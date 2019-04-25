@@ -1,6 +1,7 @@
 package cn.langlang.langmovie.controller;
 
 import cn.langlang.langmovie.bean.CinemaScreenVO;
+import cn.langlang.langmovie.bean.FormVO;
 import cn.langlang.langmovie.bean.ScreenVO;
 import cn.langlang.langmovie.entity.Cinema;
 import cn.langlang.langmovie.entity.Movie;
@@ -65,4 +66,16 @@ public class ScreenController {
         return helper.toJsonMap();
     }
 
+    @ApiOperation("根据Screenid获得电影名，影院名，价格")
+    @GetMapping("/info/{screenid}")
+    private Map<String,Object> getScreenInfo(@PathVariable("screenid")Long screenid) {
+        if(screenid==null) {
+            helper.setData("场次编号不能为空");
+            helper.setMsg("FAILURE");
+            return helper.toJsonMap();
+        }
+        helper.setData(screenService.getScreenInfo(screenid));
+        helper.setMsg("SUCCESS");
+        return helper.toJsonMap();
+    }
 }
