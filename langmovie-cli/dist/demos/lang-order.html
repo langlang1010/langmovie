@@ -63,7 +63,7 @@
     var storage=window.localStorage;
     var temp_userid = storage.getItem("userid");
     $(document).ready(function(){
-        var form_url = "http://yan.nat300.top/form/user/"+temp_userid;
+        var form_url = "https://withyan.cn/langmovie/form/user/"+temp_userid;
         $.get(form_url,function(data,status){
             // alert("数据: " + data.data + "\n状态: " + status);
             forms = data.data;

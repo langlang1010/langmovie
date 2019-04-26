@@ -25,8 +25,8 @@
         }
         var screenid=GetQueryString("screenid")
         var cinemaid=GetQueryString("cinemaid")
-        var cinema_url = "http://yan.nat300.top/cinema/search/"+cinemaid;
-        var price_url="http://yan.nat300.top/screen/info/"+screenid;
+        var cinema_url = "https://withyan.cn/langmovie/cinema/search/"+cinemaid;
+        var price_url="https://withyan.cn/langmovie/screen/info/"+screenid;
 
         var ticket_price;
         $(document).ready(function(){
@@ -44,7 +44,7 @@
             });
         });
 
-        var seat_url="http://yan.nat300.top/room/ordered/"+screenid+"";
+        var seat_url="https://withyan.cn/langmovie/room/ordered/"+screenid+"";
         $.get(seat_url,
             {
 
@@ -110,7 +110,7 @@
             }
         }
         $(document).ready(function(){
-            var sub_url =  "http://yan.nat300.top/form/add";
+            var sub_url =  "https://withyan.cn/langmovie/form/add";
             $("#btn_submit").click(function(){
                 //
                 var seatjson="[";

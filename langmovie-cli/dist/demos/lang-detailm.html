@@ -56,7 +56,7 @@
                 },
                 methods: {
                     get: function () {
-                        var url = "http://yan.nat300.top/movie/detail/"+movieid;
+                        var url = "https://withyan.cn/langmovie/movie/detail/"+movieid;
                         //发送get请求
                         this.$http.get(url).then(function (res) {
                             // console.log(res.body);
@@ -72,7 +72,7 @@
                         });
                     },
                     getactorimage: function(){
-                        var url ="http://yan.nat300.top/movie/role/"+movieid;
+                        var url ="https://withyan.cn/langmovie/movie/role/"+movieid;
                         this.$http.get(url).then(function (res) {
 
                             vm.actors = res.body.data;
@@ -87,7 +87,7 @@
 
                     },
                     getpictureimage: function(){
-                        var url ="http://yan.nat300.top/movie/post/"+movieid;
+                        var url ="https://withyan.cn/langmovie/movie/post/"+movieid;
                         this.$http.get(url).then(function (res) {
 
                             vm.pictures = res.body.data;

@@ -97,7 +97,7 @@
                 },
                 methods: {
                     get: function () {
-                        var url = "http://yan.nat300.top/movie/index";
+                        var url = "https://withyan.cn/langmovie/movie/index";
                         //发送get请求
                         this.$http.get(url).then(function (res) {
                             // console.log(res.body);
@@ -108,7 +108,7 @@
                         });
                     },
                     detail: function () {
-                        var url = "http://yan.nat300.top/wechat/user/"+au+"/"+bt+"";
+                        var url = "https://withyan.cn/langmovie/wechat/user/"+au+"/"+bt+"";
 
                         //发送get请求
                         this.$http.get(url).then(function (res) {
@@ -127,7 +127,7 @@
                         });
                     },
                     localposition: function () {
-                        var url = "http://yan.nat300.top/cinema/all/长沙";
+                        var url = "https://withyan.cn/langmovie/cinema/all/长沙";
                         //发送get请求
                         this.$http.get(url).then(function (res) {
                             vm3.local = res.body.data;
@@ -139,7 +139,7 @@
 
                     loadmore: function () {
                         now_page++;
-                        var url = "http://yan.nat300.top/movie/add/" + now_page;
+                        var url = "https://withyan.cn/langmovie/movie/add/" + now_page;
                         //发送get请求
                         this.$http.get(url).then(function (res) {
                             // 判断是否为空
