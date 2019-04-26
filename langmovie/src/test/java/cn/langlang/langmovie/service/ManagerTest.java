@@ -13,6 +13,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ManagerTest {
+    /*
     @Autowired
     private ManagerService managerService;
     @Test
@@ -47,5 +48,5 @@ public class ManagerTest {
         manager.setFkUser(1L);
         manager.setFkCinema(1L);
         managerService.deleteManagerByCinemaAndUser(manager);
-    }
+    }*/
 }

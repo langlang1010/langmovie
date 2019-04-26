@@ -17,6 +17,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CinemaTest {
+    /*
     @Autowired
     private CinemaService cinemaService;
     @Test
@@ -93,5 +94,5 @@ public class CinemaTest {
     public void getCinemaByRoomid() {
         Cinema cinemaByRoom = cinemaDao.getCinemaByRoom(1L);
         System.out.println( cinemaByRoom.getCinemaName());
-    }
+    }*/
 }

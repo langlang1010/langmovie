@@ -13,6 +13,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserInfoTest {
+    /*
     @Autowired
     private UserInfoService userInfoService;
     @Test
@@ -68,4 +69,5 @@ public class UserInfoTest {
         userInfo.setPkUserid((long) 1);
         System.out.println("deleted:"+userInfoService.deleteUserInfo(userInfo));
     }
+    */
 }

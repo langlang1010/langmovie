@@ -16,6 +16,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FormTest {
+    /*
     @Autowired
     private FormService formService;
     @Test
@@ -100,5 +101,5 @@ public class FormTest {
 //            System.out.println(seat.getX()+","+seat.getY());
 //        }
 
-    }
+    }*/
 }

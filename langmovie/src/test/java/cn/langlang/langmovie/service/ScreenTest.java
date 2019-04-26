@@ -16,6 +16,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ScreenTest {
+    /*
     @Autowired
     private ScreenService screenService;
     @Test
@@ -90,4 +91,5 @@ public class ScreenTest {
         ScreenInfoVO screenInfoVO = screenDao.getScreenInfoByScreenid(2L);
         System.out.println(screenInfoVO.getCinemaName()+":"+screenInfoVO.getRoomName());
     }
+    */
 }

@@ -14,6 +14,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MovieTest {
+    /*
     @Autowired
     private MovieService movieService;
     @Test
@@ -49,7 +50,7 @@ public class MovieTest {
     @Test
     public void delete() {
         Movie movie=new Movie();
-        movie.setPkMovieid((long) 1);
+        movie.setPkMovieid((long) 30);
         System.out.println("deleted:"+movieService.deleteMovie(movie));
     }
 
@@ -87,5 +88,5 @@ public class MovieTest {
         for(MovieShortInfo movie:movies) {
             System.out.println(movie.getMovieName());
         }
-    }
+    }*/
 }

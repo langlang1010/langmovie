@@ -14,11 +14,13 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MoviePostTest {
+    /*
     @Autowired
     private MoviePostService moviePostService;
     @Test
     public void add() {
-        for (int t = 1; t <= 25; t++) {
+        int t=1;
+//        for (int t = 1; t <= 25; t++) {
             for (int i = 0; i < 12; i++) {
                 MoviePost moviePost = new MoviePost();
                 moviePost.setGmtCreate(new Date());
@@ -27,7 +29,7 @@ public class MoviePostTest {
                 moviePost.setFkMovieid((long)t);
                 System.out.println(moviePostService.insertPost(moviePost));
             }
-        }
+//        }
     }
 
     @Test
@@ -75,5 +77,5 @@ public class MoviePostTest {
         for(MoviePost moviePost:list) {
             System.out.println(moviePost.getPkPostid());
         }
-    }
+    }*/
 }

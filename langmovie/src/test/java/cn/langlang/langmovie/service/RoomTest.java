@@ -13,6 +13,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RoomTest {
+    /*
     @Autowired
     private RoomService roomService;
 
@@ -57,5 +58,5 @@ public class RoomTest {
         for(Room room:list) {
             System.out.println(room.getPkRoomid());
         }
-    }
+    }*/
 }

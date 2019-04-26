@@ -191,6 +191,7 @@ INSERT INTO `movie_actor` VALUES ('23', '1', 'https://withyan.cn/images/role/1/7
 INSERT INTO `movie_actor` VALUES ('24', '1', 'https://withyan.cn/images/role/1/8.jpg', '2019-04-12 20:09:50', '2019-04-12 20:09:50', '谭耀文', '沈国强');
 INSERT INTO `movie_actor` VALUES ('25', '1', 'https://withyan.cn/images/role/1/9.jpg', '2019-04-12 20:09:50', '2019-04-12 20:09:50', '廖启智', '姚君豪');
 INSERT INTO `movie_actor` VALUES ('26', '1', 'https://withyan.cn/images/role/1/10.jpg', '2019-04-12 20:09:50', '2019-04-12 20:09:50', '夏嫣', '谭美莉');
+
 INSERT INTO `movie_actor` VALUES ('27', '2', 'https://withyan.cn/images/role/2/1.jpg', '2019-04-12 20:50:08', '2019-04-12 20:50:08', '郭涛', '郭实');
 INSERT INTO `movie_actor` VALUES ('28', '2', 'https://withyan.cn/images/role/2/2.jpg', '2019-04-12 20:50:09', '2019-04-12 20:50:09', '张子枫', '萌萌');
 INSERT INTO `movie_actor` VALUES ('29', '2', 'https://withyan.cn/images/role/2/3.jpg', '2019-04-12 20:50:09', '2019-04-12 20:50:09', '姜潮', '飞凡');

@@ -13,6 +13,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MovieActorTest {
+    /*
     @Autowired
     private MovieActorService movieActorService;
 
@@ -134,5 +135,5 @@ public class MovieActorTest {
         for(String s:list) {
             System.out.println(s);
         }
-    }
+    }*/
 }

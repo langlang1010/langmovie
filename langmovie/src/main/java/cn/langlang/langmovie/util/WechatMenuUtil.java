@@ -26,7 +26,7 @@ public class WechatMenuUtil {
         WxMenuButton button1 = new WxMenuButton();
         button1.setType(WxConsts.MenuButtonType.VIEW);
         button1.setName("浪浪影院");
-        button1.setUrl("http://yan.nat300.top/wechat/welcome");
+        button1.setUrl("https://withyan.cn/langmovie/wechat/welcome");
 
 
         // 3. 添加到menu
