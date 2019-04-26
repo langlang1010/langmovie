@@ -99,7 +99,8 @@
                 screen.price as price,
                 form.code as code,
                 cinema.location as location,
-                form.gmt_create as payTime
+                form.gmt_create as payTime,
+                cinema.city as city
         from form,movie,cinema,room,screen
         where form.fk_screen = screen.pk_screenid
         and   screen.fk_movie = movie.pk_movieid

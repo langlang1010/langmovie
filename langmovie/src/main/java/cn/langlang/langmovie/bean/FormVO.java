@@ -15,6 +15,15 @@ public class FormVO {
     private List<RoomSeat> seats;
     private Date payTime;
     private String location;
+    private String city;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public String getLocation() {
         return location;

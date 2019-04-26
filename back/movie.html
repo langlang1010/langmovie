@@ -99,7 +99,7 @@
                             <label>电影详情</label>
                             <textarea id="introduction" class="form-control" rows="10" ></textarea>
                         </div>
-                        <button style="width:48%" type="button" class="btn btn-default" >关闭</button>
+                        <button style="width:48%" type="button" class="btn btn-default"  data-dismiss="modal">关闭</button>
                         <button style="width:48%" id="btn_update" type="button" class="btn btn-primary">提交更改</button>
                     </div>
                 </div>
@@ -217,15 +217,7 @@
     function DeleteByIds(value) {
         var r = confirm("删除后不可返回，您确认删除吗？");
         if (r == true) {
-            var url = "http://yan.nat300.top/root/user/delete";
-            $.post(url,
-                {
-                    userid: value,
-                },
-                function (data, status) {
-                    window.location.reload();
-                }
-            );
+
         }
     }
 

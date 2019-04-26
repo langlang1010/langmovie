@@ -33,6 +33,7 @@ import static cn.langlang.langmovie.service.FormService.SEAT_ORDERED;
 @CrossOrigin
 @RequestMapping("/form")
 public class FormController {
+    private static final Log LOGGER = LogFactory.getLog(FormController.class);
     @Autowired
     private FormService formService;
     @Autowired
@@ -52,7 +53,6 @@ public class FormController {
     private static final String SEAT_ORDERED_NOTE = "你所选择的座位已经被占。";
 
     private static final String NULL_USER_FORM = "用户表单为空";
-    private static final Log LOGGER = LogFactory.getLog(FormService.class);
 
     @ApiOperation(value = "添加订单",notes = "其中seatJson是指json格式的数组，例如：[{x:3,y:5},{x:3,y:4}] ，需要前端进行处理成这种格式")
     @PostMapping("/add")
@@ -100,7 +100,7 @@ public class FormController {
     private Map<String,Object> listUserForm(@PathVariable("userid") Long userid) {
         if(userid == null) {
             helper.setData(NULL_USERID);
-
+            helper.setMsg("FAILURE");
             return helper.toJsonMap();
         }
 
@@ -110,7 +110,8 @@ public class FormController {
          *  2. 根据code查询对应的订单
          */
         List<String> codes = formService.listCodesByUserid(userid);
-        if(codes==null) {
+        if(codes==null || codes.size()==0) {
+            LOGGER.info("user: "+userid +"has no form");
             helper.setData(NULL_USER_FORM);
             helper.setMsg("FAILURE");
             return helper.toJsonMap();
@@ -124,7 +125,9 @@ public class FormController {
             formVO.setSeats(seats);
             formVOS.add(formVO);
         }
+        LOGGER.info("user:"+userid+" form result:"+formVOS);
         helper.setData(formVOS);
+        helper.setMsg("SUCCESS");
         return helper.toJsonMap();
     }
 }
