@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>jQuery WeUI</title>
+    <title>欢迎来到浪浪影城 - 用户订单</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -25,45 +25,7 @@
 <div id="form_div">
 
 </div>
-<!--<div class="weui-form-preview">-->
-    <!--<h2 style="text-align: center" id="movieName">电影名称</h2>-->
-    <!--<div class="weui-form-preview__bd">-->
-        <!--<div class="weui-form-preview__item">-->
-            <!--<label class="weui-form-preview__label">影院名称</label>-->
-            <!--<span class="weui-form-preview__value"></span>-->
-        <!--</div>-->
 
-        <!--<div class="weui-form-preview__item">-->
-            <!--<label class="weui-form-preview__label">放映室名称</label>-->
-            <!--<span class="weui-form-preview__value"></span>-->
-        <!--</div>-->
-        <!--<div class="weui-form-preview__item">-->
-            <!--<label class="weui-form-preview__label">开始时间</label>-->
-            <!--<span class="weui-form-preview__value"></span>-->
-        <!--</div>-->
-        <!--<div class="weui-form-preview__item">-->
-            <!--<label class="weui-form-preview__label">结束时间</label>-->
-            <!--<span class="weui-form-preview__value"></span>-->
-        <!--</div>-->
-        <!--<div class="weui-form-preview__item">-->
-            <!--<label class="weui-form-preview__label">影院地址</label>-->
-            <!--<span class="weui-form-preview__value"></span>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="weui-form-preview__hd">-->
-        <!--<div class="weui-form-preview__item">-->
-            <!--<label class="weui-form-preview__label">购买位置</label>-->
-            <!--<em class="weui-form-preview__value">¥2400.00</em>-->
-        <!--</div>-->
-        <!--<div class="weui-form-preview__item">-->
-            <!--<label class="weui-form-preview__label">付款金额</label>-->
-            <!--<em class="weui-form-preview__value">¥2400.00</em>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="weui-form-preview__ft">-->
-        <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">操作</a>-->
-    <!--</div>-->
-<!--</div>-->
 <br>
 <div id="half" class='weui-popup__container popup-bottom'>
     <div class="weui-popup__overlay"></div>
@@ -75,11 +37,18 @@
             <!--</div>-->
         </div>
         <div class="modal-content" >
-            <div  class="title" id="qrcode" style="padding-bottom: 50px; padding-left: 40%;padding-right: 50%">
+            <div  class="title" id="qrcode" style="padding-bottom: 50px; padding-left: 20%">
 
             </div>
         </div>
     </div>
+</div>
+
+<div style="padding-top: 50px" class="weui-footer">
+    <p class="weui-footer__links">
+        <a href="javascript:void(0);" class="weui-footer__link">浪浪影院</a>
+    </p>
+    <p class="weui-footer__text">Copyright © 2019-2030 withyan.cn</p>
 </div>
 <script src="../lib/fastclick.js"></script>
 <script>
@@ -113,7 +82,8 @@
                 var ptime_str = ptime.getFullYear()+"-"+(ptime.getMonth()+1)+"-"+ptime.getDate()+"日 "+ptime.getHours()+":"+ptime.getMinutes()
 
 
-                $("#form_div").append("<div class=\"weui-form-preview\">\n" +
+                $("#form_div").prepend("<div class=\"weui-form-preview\">\n" +
+                        "<hr>"+
                     "    <h2 style=\"text-align: center\" id=\"movieName\">"+oneForm.movieName+"</h2>\n" +
                     "    <div class=\"weui-form-preview__bd\">\n" +
                     "        <div class=\"weui-form-preview__item\">\n" +
