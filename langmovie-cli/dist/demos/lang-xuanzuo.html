@@ -30,6 +30,7 @@
 
         var ticket_price;
         $(document).ready(function(){
+            $("#btn_order").hide();
             $.get(price_url,function(data,status){
               //   alert("数据: " + data.data.price + "\n状态: " + status);
                   ticket_price=data.data.price;
@@ -140,6 +141,14 @@
                     $.toast("用户没有登陆！", "forbidden");
                     return;
                 }
+                if(count==0) {
+                    return;
+                }
+
+                var a = confirm("您确认购买这些座位吗？");
+                if(a==false) {
+                    return;
+                }
                 $.post(sub_url,
                     {
                         screenid:screenid,
@@ -149,9 +158,14 @@
                     },
                     function(data,status){
                         // alert("数据: \n" + data.data + "\n状态: " + status);
-                        $.toast("操作成功", function() {
-                            console.log('close');
-                        });
+                        if(data.msg=="SUCCESS") {
+                            $.toast(data.data, 2000,function () {
+                                console.log('close');
+                                $("#btn_order").show();
+                            });
+                        }else {
+                            alert(data.data);
+                        }
                     });
             });
         });
@@ -216,8 +230,9 @@
 
         </div>
         <div id="seat">
-            总计<span id="total"></>
+            总计<span id="total"></span>
         </div>
+        <a style="width: 100%" id="btn_order" class="weui-btn weui-btn_plain-primary" href="./lang-order.html">前去取票</a>
         <button id="btn_submit" style=""class="weui-btn weui-btn_primary">确认购买</button>
     </div>
 </div>
