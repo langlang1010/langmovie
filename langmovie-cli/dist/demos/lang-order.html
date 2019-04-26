@@ -8,49 +8,162 @@
 
     <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 ">
-    <script src="../lib/jquery-2.1.4.js"></script>
-    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
     <link rel="stylesheet" href="../lib/weui.min.css">
     <link rel="stylesheet" href="../css/jquery-weui.css">
     <link rel="stylesheet" href="css/demos.css">
-
+    <script src="../lib/jquery-2.1.4.js"></script>
+    <script src="../js/qrcode.js"></script>
 </head>
 
 <body ontouchstart>
-<div id="ordershow"  class="weui-tab">
-    <div  class="weui-tab__bd" style="padding-bottom:50px ">
-        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-            <div style="height: 50px;background: RED">
-                <p style="text-align: center;padding-bottom: 10px;padding-top: 10px;color: white">我的订单
-                </p>
-            </div>
-                <div  style="height: 100px;width: 100%;background-color: #E8E8E8;text-align: center">
-                    <p>波西米亚狂想曲</p>
-                    <p>影院： 左岸影院</p>
-                    <p style="font-size: small;color:#FF0066">地址：湖南科技大门步步高广场上方</p>
 
-                </div>
 
-            </div>
+<header class='demos-header'>
+    <h1 class="demos-title">订单</h1>
+</header>
 
+<div id="form_div">
+
+</div>
+<!--<div class="weui-form-preview">-->
+    <!--<h2 style="text-align: center" id="movieName">电影名称</h2>-->
+    <!--<div class="weui-form-preview__bd">-->
+        <!--<div class="weui-form-preview__item">-->
+            <!--<label class="weui-form-preview__label">影院名称</label>-->
+            <!--<span class="weui-form-preview__value"></span>-->
+        <!--</div>-->
+
+        <!--<div class="weui-form-preview__item">-->
+            <!--<label class="weui-form-preview__label">放映室名称</label>-->
+            <!--<span class="weui-form-preview__value"></span>-->
+        <!--</div>-->
+        <!--<div class="weui-form-preview__item">-->
+            <!--<label class="weui-form-preview__label">开始时间</label>-->
+            <!--<span class="weui-form-preview__value"></span>-->
+        <!--</div>-->
+        <!--<div class="weui-form-preview__item">-->
+            <!--<label class="weui-form-preview__label">结束时间</label>-->
+            <!--<span class="weui-form-preview__value"></span>-->
+        <!--</div>-->
+        <!--<div class="weui-form-preview__item">-->
+            <!--<label class="weui-form-preview__label">影院地址</label>-->
+            <!--<span class="weui-form-preview__value"></span>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="weui-form-preview__hd">-->
+        <!--<div class="weui-form-preview__item">-->
+            <!--<label class="weui-form-preview__label">购买位置</label>-->
+            <!--<em class="weui-form-preview__value">¥2400.00</em>-->
+        <!--</div>-->
+        <!--<div class="weui-form-preview__item">-->
+            <!--<label class="weui-form-preview__label">付款金额</label>-->
+            <!--<em class="weui-form-preview__value">¥2400.00</em>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="weui-form-preview__ft">-->
+        <!--<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">操作</a>-->
+    <!--</div>-->
+<!--</div>-->
+<br>
+<div id="half" class='weui-popup__container popup-bottom'>
+    <div class="weui-popup__overlay"></div>
+    <div class="weui-popup__modal">
+        <div class="toolbar">
+            <!--<div class="toolbar-inner">-->
+                <!--<a href="javascript:;" class="picker-button close-popup">关闭</a>-->
+                <!--<h1 class="title">标题</h1>-->
+            <!--</div>-->
         </div>
+        <div class="modal-content" >
+            <div  class="title" id="qrcode" style="padding-bottom: 50px; padding-left: 40%;padding-right: 50%">
 
+            </div>
+        </div>
     </div>
-
-
-
+</div>
 <script src="../lib/fastclick.js"></script>
 <script>
-    $(function () {
+    $(function() {
         FastClick.attach(document.body);
     });
 </script>
-
-
-
 <script src="../js/jquery-weui.js"></script>
 
+<script>
+    var forms;
+    var storage=window.localStorage;
+    var temp_userid = storage.getItem("userid");
+    $(document).ready(function(){
+        var form_url = "http://yan.nat300.top/form/user/"+temp_userid;
+        $.get(form_url,function(data,status){
+            // alert("数据: " + data.data + "\n状态: " + status);
+            forms = data.data;
+            for(var i=0; i<forms.length; i++) {
+                var oneForm = forms[i];
+                var seats = oneForm.seats;
+                var str_seats="";
+                for(var t=0; t<seats.length; t++) {
+                    str_seats+= ("("+seats[t].x+","+seats[t].y+") ");
+                }
+                var btime = new Date(oneForm.startTime);
+                var btime_str = btime.getFullYear()+"-"+(btime.getMonth()+1)+"-"+btime.getDate()+"日 "+btime.getHours()+":"+btime.getMinutes()
+                var etime = new Date(oneForm.endTime);
+                var etime_str = etime.getFullYear()+"-"+(etime.getMonth()+1)+"-"+etime.getDate()+"日 "+etime.getHours()+":"+etime.getMinutes()
+                var ptime = new Date(oneForm.payTime);
+                var ptime_str = ptime.getFullYear()+"-"+(ptime.getMonth()+1)+"-"+ptime.getDate()+"日 "+ptime.getHours()+":"+ptime.getMinutes()
+
+
+                $("#form_div").append("<div class=\"weui-form-preview\">\n" +
+                    "    <h2 style=\"text-align: center\" id=\"movieName\">"+oneForm.movieName+"</h2>\n" +
+                    "    <div class=\"weui-form-preview__bd\">\n" +
+                    "        <div class=\"weui-form-preview__item\">\n" +
+                    "            <label class=\"weui-form-preview__label\">放映室名称</label>\n" +
+                    "            <span class=\"weui-form-preview__value\">"+oneForm.cinemaName+"-"+oneForm.roomName+"号放映室</span>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"weui-form-preview__item\">\n" +
+                    "            <label class=\"weui-form-preview__label\">开始时间</label>\n" +
+                    "            <span class=\"weui-form-preview__value\">"+btime_str+"</span>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"weui-form-preview__item\">\n" +
+                    "            <label class=\"weui-form-preview__label\">结束时间</label>\n" +
+                    "            <span class=\"weui-form-preview__value\">"+etime_str+"</span>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"weui-form-preview__item\">\n" +
+                    "            <label class=\"weui-form-preview__label\">影院地址</label>\n" +
+                    "            <span class=\"weui-form-preview__value\">"+oneForm.city+"-"+oneForm.location+"</span>\n" +
+                    "        </div>\n" +
+                        "  <div class=\"weui-form-preview__item\">\n" +
+                    "            <label class=\"weui-form-preview__label\">支付时间</label>\n" +
+                    "            <span class=\"weui-form-preview__value\">"+ptime_str+"</span>\n" +
+                    "        </div>"+
+                    "    </div>\n" +
+                    "    <div class=\"weui-form-preview__hd\">\n" +
+                    "        <div class=\"weui-form-preview__item\">\n" +
+                    "            <label class=\"weui-form-preview__label\">购买位置</label>\n" +
+                    "            <em class=\"weui-form-preview__value\">"+str_seats+"</em>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"weui-form-preview__item\">\n" +
+                    "            <label class=\"weui-form-preview__label\">付款金额</label>\n" +
+                    "            <em class=\"weui-form-preview__value\">"+seats.length*oneForm.price+"元</em></em>\n" +
+                    "        </div>\n" +
+                    "    </div>\n" +
+                    "    <div class=\"weui-form-preview__ft\">\n" +
+                    "        <a class=\"weui-form-preview__btn weui-form-preview__btn_primary\" href=\"javascript:showQrCode("+i+")\">立即取票</a>\n" +
+                    "    </div>\n" +
+                    ""+
+                    "</div>\n" +
+                    "<br>\n");
+            }
+            // $("#movieName").text();
+        });
+    });
+
+    var qrcode = new QRCode(document.getElementById("qrcode"), {});
+    function showQrCode(data) {
+        $("#half").popup();
+        qrcode.clear();
+        qrcode.makeCode(data);
+    }
+</script>
 </body>
 </html>
-

@@ -27,12 +27,7 @@
         var cinemaid=GetQueryString("cinemaid")
         var cinema_url = "http://yan.nat300.top/cinema/search/"+cinemaid;
         var price_url="http://yan.nat300.top/screen/info/"+screenid;
-        // $(document).ready(function(){
-        //     $.get(cinema_url,function(data,status){
-        //         // alert("数据: " + data.data.cinemaName + "\n状态: " + status);
-        //         $("#cinshow").text(data.data.cinemaName);
-        //     });
-        // });
+
         var ticket_price;
         $(document).ready(function(){
             $.get(price_url,function(data,status){

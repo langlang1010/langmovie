@@ -1,183 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
-    <style>
-        .box{
-            width: 100%;
-            height: 760px;
-        }
-        .weizi{
-            float: left;
-            padding-top: 24px;
-            padding-bottom: 42px;
-            border-bottom: dashed;
-        }
-        .first span
-        {
-            display: inline-block;
-            width: 38px;
-            height: 38px;
-            font-size: 13px;
-            background-color: #B9DEA0;
-            text-align: center;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 5px;
-          margin-top: 30px;
-        }
-        .fourth span
-        {
-            display: inline-block;
-            width: 38px;
-            height: 38px;
-            color: #fff;
-            font-size: 13px;
-            background-color: #B9DEA0;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 24px;
-        }
-        .second span{
-            display: inline-block;
-            width: 38px;
-            height: 38px;
-            color: #fff;
-            font-size: 13px;
-            background-color: #B9DEA0;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 24px;
-        }
-        .third span{
-            display: inline-block;
-            width: 38px;
-            height: 38px;
-            color: #fff;
-            font-size: 13px;
-            background-color: #B9DEA0;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 24px;
-        }
-        .show{
-            font-size: large;
-            background-color: #f0f0f0;
-            color: #666;
-            border-radius: 5px;
-            height: 50px;
-            width:100%;
-            text-align: center;
-        }
-        .booking-details {
-
-            position: relative;
-            width: 200px;
-            height: 450px;
-        }
-
-        .booking-details h3 {
-            margin: 5px 5px 0 0;
-            font-size: 16px;
-        }
-
-        .booking-details p {
-            line-height: 26px;
-            font-size: 16px;
-            color: #999
-        }
-
-        .booking-details p span {
-            color: #666
-        }
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../lib/jquery-2.1.4.js"></script>
+    <script src="../js/qrcode.min.js"></script>
 </head>
+<style>
+    #qrcode {
+        width: 130px;
+        height: 130px;
+        border: 1px solid red;
+    }
+</style>
 <body>
-<div class="box">
-    <div  class="weui-panel weui-panel_access">
-        <div style="height: 50px;background: RED;text-align: center;">
-            <h3 style="padding-bottom: 10px;padding-top: 10px;color: white;float: left">左岸大地影院</h3>
-        </div>
-        <div style="height: 10px;float:left;background-color: #FFFFF8;">
-            <h4  >调音师</h4>
-        </div>
-        <div class="show">
-            <p>屏幕</p>
-        </div>
-    <div class="weizi">
-        <div  style="padding-left: 30%  ;" class="first">
-            <span>1-1</span>
-            <span>1-2</span>
-            <span>1-3</span>
-            <span>1-4</span>
-            <span>1-5</span>
-            <span>1-6</span>
-            <span>1-7</span>
-            <span>1-8</span>
-            <span>1-9</span>
-            <span>1-10</span>
-        </div>
-        <div class="second">
-            <span>2-1</span>
-            <span>2-2</span>
-            <span>2-3</span>
-            <span>2-4</span>
-            <span>2-5</span>
-            <span>2-6</span>
-            <span>2-7</span>
-            <span>2-8</span>
-        </div>
-        <div class="third">
-            <span>3-1</span>
-            <span>3-2</span>
-            <span>3-3</span>
-            <span>3-4</span>
-            <span>3-5</span>
-            <span>3-6</span>
-            <span>3-7</span>
-            <span>3-8</span>
-        </div>
-        <div class="fourth">
-            <span>4-1</span>
-            <span>4-2</span>
-            <span>4-3</span>
-            <span>4-4</span>
-            <span>4-5</span>
-            <span>4-6</span>
-            <span>4-7</span>
-            <span>4-8</span>
-            <span>4-9</span>
-            <span>4-10</span>
-        </div>
-    </div>
-
-
-</div>
-<script src="Jquery/jquery.js"></script>
-<script>
-    var price=5;
-    $(document).ready(function(){
-        $("#singleprice").text(price);
-        $("span").toggle(function(){
-            $(this).css('backgroundColor','gray');
-            $('<li>'+this.innerText+'</li>').appendTo("#zuowei");
-            var ccon=parseInt($("#counter").text());
-            $("#counter").text((ccon + 1).toString());
-            var tprice=parseInt($("#total").text());
-            $("#total").text((tprice+ price).toString());
-        },function(){
-            $(this).css('backgroundColor','#B9DEA0');
-            $("li:contains('"+$(this).text()+"')").remove();
-            var ccon=parseInt($("#counter").text());
-            $("#counter").text((ccon -1).toString());
-            var tprice=parseInt($("#total").text());
-            $("#total").text((tprice-price).toString());
-        });
+<div id="qrcode"></div>
+<script type="text/javascript">
+    var qrcode = $('#qrcode').qrcode({
+        width: 128,
+        height: 128,
+        text: "size doesn't matter"
     });
 </script>
 </body>
