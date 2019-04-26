@@ -64,27 +64,37 @@
         var flag = 0;
 
         var count_ticket=0.0;
-
+        //加法
+        var total_seat=0;
         var count=0;
         var myseat={x:"",y:""};
         var result_json=new Array(myseat);;
         function changeColor(obj) {
             var temp = obj.id.split("_");
             if($("#"+obj.id).css("background-color")== "rgb(255, 255, 255)") {
+                if(count>=5){
+                    alert("最多购买5张票");
+                    return ;
+                }
+
+
                 $("#"+obj.id).css("background-color","red");
                 var pid = "p" + obj.id;
                 $("#seat").append("<p class='seatstyle' id="+pid+">"+temp[0]+"排"+temp[1]+"列</p>")
-                count_ticket+=(ticket_price*100);
-                // var total = parseInt(count_ticket);
-                $("#total").text((count_ticket/100));
+                count_ticket=(count_ticket+ticket_price)
+                var total = parseInt(count_ticket*100);
+                $("#total").text(parseFloat(total/100));
                 // 定义对象
                 var temp2={x:"",y:""};
                 temp2.x = temp[0];
                 temp2.y = temp[1]
                 result_json[count]=temp2;
                 count++;
+                total_seat++;
             }else if($("#"+obj.id).css("background-color") == "rgb(255, 0, 0)") {
                 $("#"+obj.id).css("background-color","rgb(255,255,255)");
+                total_seat--;
+
                 var pid = "p" + obj.id;
                 $("#"+pid).remove();
                 for(var i=0; i<count; i++) {
@@ -93,6 +103,7 @@
                         result_json[i].y = -1;
                     }
                 }
+                count--;
                 count_ticket -= ticket_price;
                 var total = parseInt(count_ticket*100);
                 $("#total").text(parseFloat(total/100));
@@ -108,6 +119,7 @@
                 //
                 var seatjson="[";
                 var c = 0;
+
                 for(var i=0; i<count; i++) {
                     if(result_json[i].x != -1 && result_json[i].y != -1 ) {
                         if(c==0) {
