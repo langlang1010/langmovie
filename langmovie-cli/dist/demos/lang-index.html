@@ -33,6 +33,7 @@
                 $("#img_movie").attr("src", "./image/movie_ico1.png");
                 var temp =   $("#city-name").text()
                 $("#cityone").text(temp)
+                vm.localposition();
             });
         });
         $(document).ready(function () {
@@ -93,7 +94,7 @@
                 mounted: function () {
                     this.get();
                     this.detail();
-                    this.localposition();
+                    // this.localposition();
                 },
                 methods: {
                     get: function () {
@@ -127,11 +128,12 @@
                         });
                     },
                     localposition: function () {
-                        var url = "https://withyan.cn/langmovie/cinema/all/长沙";
+                        var url = "https://withyan.cn/langmovie/cinema/all/"+vm.cities;
                         //发送get请求
                         this.$http.get(url).then(function (res) {
                             vm3.local = res.body.data;
                             console.log(vm3.local);
+
                         }, function () {
                             console.log('请求失败处理');
                         });
